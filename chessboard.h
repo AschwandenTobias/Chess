@@ -21,6 +21,9 @@ public:
     Chessboard();
     void printBoard();
     void moveWhitePawn(int startSquare, int endSquare);
+    bool isWhitePawnMoveLegal(int startSquare, int endSquare);
+    bool checkForEnPassant(int startSquare, int endSquare);
+    bool checkIfPieceIsOnSquare(int square);
 };
 
 #endif

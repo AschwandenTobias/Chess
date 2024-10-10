@@ -1,7 +1,6 @@
 #include "chessboard.h" 
 #include <iostream>
 
-
 Chessboard::Chessboard() {
     whitePawns = 0x000000000000FF00;
     whiteRooks = 0x0000000000000081;
@@ -20,13 +19,32 @@ Chessboard::Chessboard() {
 void Chessboard::moveWhitePawn(int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); //sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); //sets the bit to the correct to square
-    if (whitePawns & from) { //checks if a white pawn if on the from square
-        from = ~from; //reverses from in order to remove the bit after
-        whitePawns &= from; //AND operation to remove the bit from the from square
-        whitePawns |= to; //OR operation to add the bit to the to square
+    if(isWhitePawnMoveLegal(startSquare, endSquare)) {
+        if (whitePawns & from) { //checks if a white pawn if on the from square
+            from = ~from; //reverses from in order to remove the bit after
+            whitePawns &= from; //AND operation to remove the bit from the from square
+            whitePawns |= to; //OR operation to add the bit to the to square
+        } else {
+            std::cout << "No white pawn found!\n";
+        }
     } else {
-        std::cout << "No white pawn found!\n";
+        std::cout << "This move is unfortunatly not legal :(\n";
     }
+}
+
+bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
+    Bitboard from = (1ULL << startSquare);
+    Bitboard tmp = (1ULL << startSquare + 8);
+    bool enPassant = checkForEnPassant(startSquare, endSquare);
+    return false;
+}
+
+bool Chessboard::checkIfPieceIsOnSquare(int square) {
+    return false;
+}
+
+bool Chessboard::checkForEnPassant(int startSquare, int endSquare) {
+    return false;
 }
 
 void Chessboard::printBoard() {
