@@ -36,8 +36,8 @@ void Chessboard::moveWhitePawn(int startSquare, int endSquare) {
 bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare);
     Bitboard tmp = (1ULL << startSquare + 8);
-    Bitboard captureLeft = (1ULL << startSquare + 7);
-    Bitboard captureRight = (1ULL << startSquare + 9);
+    Bitboard captureLeft = (1ULL << startSquare + 9);
+    Bitboard captureRight = (1ULL << startSquare + 7);
     int distance = endSquare - startSquare;
     std::cout << distance << "\n";
     if (distance == 8) {
@@ -54,6 +54,7 @@ bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
         return false;
     } else if (checkIfPieceIsOnSquare(captureLeft) || checkIfPieceIsOnSquare(captureRight)) {
         std::cout << "The move is a capture\n";
+        return true;
         //Its a capture
     } else {
         std::cout << "The move shouldnt be possible";
