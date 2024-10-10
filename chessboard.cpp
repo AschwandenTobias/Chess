@@ -44,4 +44,4 @@ void Chessboard::printBoard() {
         std::cout << "\n";
     }
     std::cout << "  a b c d e f g h\n";
-}
+} 
