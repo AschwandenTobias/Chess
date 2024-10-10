@@ -16,6 +16,7 @@ Chessboard::Chessboard() {
     blackKing = 0x0800000000000000;
 }
 
+//TODO: Implement Queening
 void Chessboard::moveWhitePawn(int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); //sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); //sets the bit to the correct to square
@@ -35,6 +36,28 @@ void Chessboard::moveWhitePawn(int startSquare, int endSquare) {
 bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare);
     Bitboard tmp = (1ULL << startSquare + 8);
+    Bitboard captureLeft = (1ULL << startSquare + 7);
+    Bitboard captureRight = (1ULL << startSquare + 9);
+    int distance = endSquare - startSquare;
+    std::cout << distance << "\n";
+    if (distance == 8) {
+        if(!checkIfPieceIsOnSquare(tmp)) {
+            std::cout << "The move is 1 square forward\n";
+            return true;
+        }
+        return false;
+    } else if (distance == 16) {
+        if(!checkIfPieceIsOnSquare(tmp) && !checkIfPieceIsOnSquare(tmp << 8)) {
+            std::cout << "The move is 2 squares forward\n";
+            return true;
+        }
+        return false;
+    } else if (checkIfPieceIsOnSquare(captureLeft) || checkIfPieceIsOnSquare(captureRight)) {
+        std::cout << "The move is a capture\n";
+        //Its a capture
+    } else {
+        std::cout << "The move shouldnt be possible";
+    }
     bool enPassant = checkForEnPassant(startSquare, endSquare);
     return false;
 }
