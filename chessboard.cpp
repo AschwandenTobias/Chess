@@ -39,7 +39,24 @@ bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
     return false;
 }
 
-bool Chessboard::checkIfPieceIsOnSquare(int square) {
+bool Chessboard::checkIfPieceIsOnSquare(Bitboard square) {
+    if(whitePawns & square) return true;
+    else if(whiteRooks & square) return true;
+    else if(whiteKnights & square) return true;
+    else if(whiteBishops & square) return true;
+    else if(whiteQueen & square) return true;
+    else if(whiteKing & square) return true;
+    else if(blackPawns & square) return true;
+    else if(blackKnights & square) return true;
+    else if(blackBishops & square) return true;
+    else if(blackRooks & square) return true;
+    else if(blackQueen & square) return true;
+    else if(blackKing & square) return true;
+    else {
+        std::cout << "Detected no piece on the square\n";
+        return false;
+    }
+    std::cout << "Some issue in checkIfPieceIsOnSquare\n";
     return false;
 }
 
