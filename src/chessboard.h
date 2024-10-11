@@ -24,6 +24,9 @@ public:
     bool isWhitePawnMoveLegal(int startSquare, int endSquare);
     bool checkForEnPassant(int startSquare, int endSquare);
     bool checkIfPieceIsOnSquare(Bitboard square);
+    bool checkIfWhitePieceIsOnSquare(Bitboard square);
+    bool checkIfBlackPieceIsOnSquare(Bitboard square);
+
 };
 
 #endif

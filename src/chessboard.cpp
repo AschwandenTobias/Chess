@@ -52,15 +52,39 @@ bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
             return true;
         }
         return false;
-    } else if (checkIfPieceIsOnSquare(captureLeft) || checkIfPieceIsOnSquare(captureRight)) {
+    } else if (checkIfBlackPieceIsOnSquare(captureLeft) || checkIfBlackPieceIsOnSquare(captureRight)) {
         std::cout << "The move is a capture\n";
         return true;
         //Its a capture
     } else {
-        std::cout << "The move shouldnt be possible";
+        std::cout << "The move shouldnt be possible\n";
     }
     bool enPassant = checkForEnPassant(startSquare, endSquare);
     return false;
+}
+
+bool Chessboard::checkIfWhitePieceIsOnSquare(Bitboard square) {
+    if(whitePawns & square) return true;
+    else if(whiteRooks & square) return true;
+    else if(whiteKnights & square) return true;
+    else if(whiteBishops & square) return true;
+    else if(whiteQueen & square) return true;
+    else if(whiteKing & square) return true;
+    else {
+        return false;
+    }
+}
+
+bool Chessboard::checkIfBlackPieceIsOnSquare(Bitboard square) {
+    if(blackPawns & square) return true;
+    else if(blackKnights & square) return true;
+    else if(blackBishops & square) return true;
+    else if(blackRooks & square) return true;
+    else if(blackQueen & square) return true;
+    else if(blackKing & square) return true;
+    else {
+        return false;
+    }
 }
 
 bool Chessboard::checkIfPieceIsOnSquare(Bitboard square) {
