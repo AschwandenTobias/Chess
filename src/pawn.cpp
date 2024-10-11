@@ -96,29 +96,24 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
         // Capture moves
         if (board.checkIfBlackPieceIsOnSquare(captureRight)) {
             return true; // Capture
+        } else if(checkForWhiteEnPassant(board, startSquare, endSquare)){
+            return true;
         }
     } else if (distance == 9) {
         if (board.checkIfBlackPieceIsOnSquare(captureLeft)) {
             return true; // Capture
-        }
-    } else if(distance == 17) {
-        if(checkForWhiteEnPassant(board, startSquare, endSquare)) { //TODO: Delete enemy pawn
+        } else if(checkForWhiteEnPassant(board, startSquare, endSquare)) { //TODO: Delete enemy pawn
             return true; // En Passant
         }
-    } else if(distance == 15) {
-        if(checkForWhiteEnPassant(board, startSquare, endSquare)) { //TODO: Delete enemy pawn
-            return true; // En Passant
-        }
-    }
-    
+    }    
     return false; // Invalid move
 }
 
 //TODO test if it works
 bool Pawn::checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSquare) {
     std::cout << "Landed in the checkForWhiteEnPassant\n" << "startSquare: " << startSquare << ", endSquare: " << endSquare <<"\n";
-    Bitboard enPassantLeft = (1ULL << (endSquare + 1));
-    Bitboard enPassantRight = (1ULL << (endSquare - 1));
+    Bitboard enPassantLeft = (1ULL << (startSquare + 1));
+    Bitboard enPassantRight = (1ULL << (startSquare - 1));
     if(board.checkIfBlackPawnIsOnSquare(enPassantLeft) || board.checkIfBlackPawnIsOnSquare(enPassantRight)) {
         std::cout << "EnPassant possible and Black Pawn is there\n";
         return true;

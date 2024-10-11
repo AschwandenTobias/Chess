@@ -20,8 +20,8 @@ int main() {
     //chessboard.deletePiece(0); // deletes Piece at arg
 
 
-    //Pawn::moveWhitePawn(chessboard, 33, 48); //enPassant right pawn
-    //Pawn::moveWhitePawn(chessboard, 33, 50); //enPassant left pawn
+    //Pawn::moveWhitePawn(chessboard, 33, 40); //enPassant right pawn
+    Pawn::moveWhitePawn(chessboard, 33, 42); //enPassant left pawn
 
 
     //chessboard.checkIfPieceIsOnSquare(0x0000000000000001);
