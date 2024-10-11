@@ -17,6 +17,22 @@ Chessboard::Chessboard() {
     blackKing = 0x0800000000000000;
 }
 
+void Chessboard::deletePiece(Bitboard square) {
+    Bitboard del = ~(1ULL << square);
+    whitePawns &= del;
+    whiteRooks &= del;
+    whiteBishops &= del;
+    whiteKnights &= del;
+    whiteQueen &= del;
+    whiteKing &= del;
+    blackPawns &= del;
+    blackRooks &= del;
+    blackBishops &= del;
+    blackKing &= del;
+    blackQueen &= del;
+    blackKing &= del;
+}
+
 bool Chessboard::checkIfBlackPawnIsOnSquare(Bitboard square) {
     if(blackPawns & square) return true;
     else {
@@ -69,14 +85,12 @@ bool Chessboard::checkIfPieceIsOnSquare(Bitboard square) {
     else if(blackQueen & square) return true;
     else if(blackKing & square) return true;
     else {
-        std::cout << "Detected no piece on the square\n";
+        //std::cout << "Detected no piece on the square\n";
         return false;
     }
-    std::cout << "Some issue in checkIfPieceIsOnSquare\n";
+    //std::cout << "Some issue in checkIfPieceIsOnSquare\n";
     return false;
 }
-
-
 
 void Chessboard::printBoard() {
     std::cout << "  a b c d e f g h\n";

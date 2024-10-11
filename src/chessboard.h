@@ -27,6 +27,7 @@ public:
     bool checkIfBlackPieceIsOnSquare(Bitboard square);
     bool checkIfBlackPawnIsOnSquare(Bitboard square);
     bool checkIfWhitePawnIsOnSquare(Bitboard square);
+    void deletePiece(Bitboard square);
 };
 
 #endif 

@@ -10,6 +10,9 @@ public:
     static void moveWhitePawn(Chessboard &board, int startSquare, int endSquare);
     static bool isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSquare);
+    static void moveBlackPawn(Chessboard &board, int startSquare, int endSquare);
+    static bool isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquare);
+    static bool checkForBlackEnPassant(Chessboard &board, int startSquare, int endSquare);
 };
 
 #endif
