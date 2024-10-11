@@ -20,6 +20,10 @@ public:
     Bitboard blackQueen;
     Bitboard blackKing;
 
+    int lastMoveStartSquare;  
+    int lastMoveEndSquare;    
+    bool lastMoveWasTwoSquarePawnMove;
+
     Chessboard();
     void printBoard();
     bool checkIfPieceIsOnSquare(Bitboard square);
@@ -28,6 +32,7 @@ public:
     bool checkIfBlackPawnIsOnSquare(Bitboard square);
     bool checkIfWhitePawnIsOnSquare(Bitboard square);
     void deletePiece(Bitboard square);
+    void updateLastMove(int startsquare, int endsquare);
 };
 
 #endif 

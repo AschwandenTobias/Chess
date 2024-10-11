@@ -12,10 +12,12 @@ int main() {
     Pawn::moveWhitePawn(chessboard, 9, 25);
     Pawn::moveWhitePawn(chessboard, 25, 32);
     */
-    Pawn::moveBlackPawn(chessboard, 48, 32);
-    Pawn::moveBlackPawn(chessboard, 50, 34);
     Pawn::moveWhitePawn(chessboard, 9, 25);
     Pawn::moveWhitePawn(chessboard, 25, 33);
+
+    Pawn::moveBlackPawn(chessboard, 48, 32);
+    Pawn::moveBlackPawn(chessboard, 50, 34);
+   chessboard.lastMoveWasTwoSquarePawnMove = true;
 
     //chessboard.deletePiece(0); // deletes Piece at arg
 

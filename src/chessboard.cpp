@@ -15,6 +15,16 @@ Chessboard::Chessboard() {
     blackBishops = 0x2400000000000000;
     blackQueen = 0x1000000000000000;
     blackKing = 0x0800000000000000;
+
+    int lastMoveStartSquare = 0;  
+    int lastMoveEndSquare = 0;    
+    bool lastMoveWasTwoSquarePawnMove = false;
+}
+
+void Chessboard::updateLastMove(int startSquare, int endSquare) {
+    lastMoveStartSquare = startSquare;
+    lastMoveEndSquare = endSquare;
+    lastMoveWasTwoSquarePawnMove = false;
 }
 
 void Chessboard::deletePiece(Bitboard square) {
