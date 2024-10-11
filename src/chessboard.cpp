@@ -1,5 +1,6 @@
 #include "chessboard.h" 
 #include <iostream>
+#include "pawn.h"
 
 Chessboard::Chessboard() {
     whitePawns = 0x000000000000FF00;
@@ -14,53 +15,6 @@ Chessboard::Chessboard() {
     blackBishops = 0x2400000000000000;
     blackQueen = 0x1000000000000000;
     blackKing = 0x0800000000000000;
-}
-
-//TODO: Implement Queening
-void Chessboard::moveWhitePawn(int startSquare, int endSquare) {
-    Bitboard from = (1ULL << startSquare); //sets the bit to the correct from square
-    Bitboard to = (1ULL << endSquare); //sets the bit to the correct to square
-    if(isWhitePawnMoveLegal(startSquare, endSquare)) {
-        if (whitePawns & from) { //checks if a white pawn if on the from square
-            from = ~from; //reverses from in order to remove the bit after
-            whitePawns &= from; //AND operation to remove the bit from the from square
-            whitePawns |= to; //OR operation to add the bit to the to square
-        } else {
-            std::cout << "No white pawn found!\n";
-        }
-    } else {
-        std::cout << "This move is unfortunatly not legal :(\n";
-    }
-}
-
-bool Chessboard::isWhitePawnMoveLegal(int startSquare, int endSquare) {
-    Bitboard from = (1ULL << startSquare);
-    Bitboard tmp = (1ULL << startSquare + 8);
-    Bitboard captureLeft = (1ULL << startSquare + 9);
-    Bitboard captureRight = (1ULL << startSquare + 7);
-    int distance = endSquare - startSquare;
-    std::cout << distance << "\n";
-    if (distance == 8) {
-        if(!checkIfPieceIsOnSquare(tmp)) {
-            std::cout << "The move is 1 square forward\n";
-            return true;
-        }
-        return false;
-    } else if (distance == 16) {
-        if(!checkIfPieceIsOnSquare(tmp) && !checkIfPieceIsOnSquare(tmp << 8)) {
-            std::cout << "The move is 2 squares forward\n";
-            return true;
-        }
-        return false;
-    } else if (checkIfBlackPieceIsOnSquare(captureLeft) || checkIfBlackPieceIsOnSquare(captureRight)) {
-        std::cout << "The move is a capture\n";
-        return true;
-        //Its a capture
-    } else {
-        std::cout << "The move shouldnt be possible\n";
-    }
-    bool enPassant = checkForEnPassant(startSquare, endSquare);
-    return false;
 }
 
 bool Chessboard::checkIfWhitePieceIsOnSquare(Bitboard square) {
@@ -108,9 +62,7 @@ bool Chessboard::checkIfPieceIsOnSquare(Bitboard square) {
     return false;
 }
 
-bool Chessboard::checkForEnPassant(int startSquare, int endSquare) {
-    return false;
-}
+
 
 void Chessboard::printBoard() {
     std::cout << "  a b c d e f g h\n";
