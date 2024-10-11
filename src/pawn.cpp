@@ -67,6 +67,13 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
             from = ~from; // reverses from in order to remove the bit after
             board.whitePawns &= from; // AND operation to remove the bit from the from square
             board.whitePawns |= to; // OR operation to add the bit to the to square
+            if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
+                board.deletePiece(endSquare);
+            } else if (endSquare - startSquare == 7) {
+                board.deletePiece(startSquare - 1);
+            } else if (endSquare - startSquare == 9) {
+                board.deletePiece(startSquare + 1);
+            }
         } else {
             std::cout << "No white pawn found!\n";
         }
