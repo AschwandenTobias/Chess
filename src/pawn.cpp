@@ -43,6 +43,15 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     return false; // Invalid move
 }
 
-bool Pawn::checkForEnPassant(Chessboard &board, int startSquare, int endSquare) {
-    return false; // Placeholder
+bool Pawn::checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSquare) {
+    if(startSquare > 7 && startSquare < 16) {
+        Bitboard enPassantLeft = (1ULL << (endSquare + 1));
+        Bitboard enPassantRight = (1ULL << (endSquare - 1));
+        if(board.checkIfBlackPawnIsOnSquare(enPassantLeft) || board.checkIfBlackPawnIsOnSquare(enPassantRight)) {
+            return true;
+        }
+    } else {
+        return false;
+    }
+    return false;
 }

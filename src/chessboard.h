@@ -25,6 +25,8 @@ public:
     bool checkIfPieceIsOnSquare(Bitboard square);
     bool checkIfWhitePieceIsOnSquare(Bitboard square);
     bool checkIfBlackPieceIsOnSquare(Bitboard square);
+    bool checkIfBlackPawnIsOnSquare(Bitboard square);
+    bool checkIfWhitePawnIsOnSquare(Bitboard square);
 };
 
 #endif 

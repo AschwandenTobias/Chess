@@ -17,6 +17,20 @@ Chessboard::Chessboard() {
     blackKing = 0x0800000000000000;
 }
 
+bool Chessboard::checkIfBlackPawnIsOnSquare(Bitboard square) {
+    if(blackPawns & square) return true;
+    else {
+        return false;
+    }
+}
+
+bool Chessboard::checkIfWhitePawnIsOnSquare(Bitboard square) {
+    if(whitePawns & square) return true;
+    else {
+        return false;
+    }
+}
+
 bool Chessboard::checkIfWhitePieceIsOnSquare(Bitboard square) {
     if(whitePawns & square) return true;
     else if(whiteRooks & square) return true;
