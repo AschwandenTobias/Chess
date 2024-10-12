@@ -44,12 +44,12 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
         }
         return false;
     } else if (distance == 16) {
+        if(startSquare > 47 && startSquare < 56 )
         if (!board.checkIfPieceIsOnSquare(tmp) && !board.checkIfPieceIsOnSquare(tmp >> 8)) {
             return true; // Double square move
         }
         return false;
     } else if (distance == 7) {
-        // Capture moves
         if (board.checkIfWhitePieceIsOnSquare(captureRight)) {
             return true; // Capture
         } else if(checkForBlackEnPassant(board, startSquare, endSquare)){
@@ -122,12 +122,14 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
         }
         return false;
     } else if (distance == 16) {
-        if (!board.checkIfPieceIsOnSquare(tmp) && !board.checkIfPieceIsOnSquare(tmp << 8)) {
-            return true; // Double square move
+        if(startSquare > 7 && startSquare < 16) {
+            if (!board.checkIfPieceIsOnSquare(tmp) && !board.checkIfPieceIsOnSquare(tmp << 8)) {
+                return true; // Double square move
+            }
         }
+        
         return false;
     } else if (distance == 7) {
-        // Capture moves
         if (board.checkIfBlackPieceIsOnSquare(captureRight)) {
             return true; // Capture
         } else if(checkForWhiteEnPassant(board, startSquare, endSquare)){
