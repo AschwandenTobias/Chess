@@ -17,8 +17,6 @@ int main() {
 
     Pawn::moveBlackPawn(chessboard, 48, 32);
     Pawn::moveBlackPawn(chessboard, 50, 34);
-   chessboard.lastMoveWasTwoSquarePawnMove = true;
-
     //chessboard.deletePiece(0); // deletes Piece at arg
 
 

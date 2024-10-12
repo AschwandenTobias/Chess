@@ -8,8 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Tobi-Wan Kenobi/Desktop/Chess/src/chessboard.cpp" "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.obj" "gcc" "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.obj.d"
-  "C:/Users/Tobi-Wan Kenobi/Desktop/Chess/src/main.cpp" "CMakeFiles/ChessEngine.dir/src/main.cpp.obj" "gcc" "CMakeFiles/ChessEngine.dir/src/main.cpp.obj.d"
+  "/mnt/c/Users/Tobi-Wan Kenobi/Desktop/Chess/src/chessboard.cpp" "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.o.d"
+  "/mnt/c/Users/Tobi-Wan Kenobi/Desktop/Chess/src/main.cpp" "CMakeFiles/ChessEngine.dir/src/main.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/main.cpp.o.d"
+  "/mnt/c/Users/Tobi-Wan Kenobi/Desktop/Chess/src/pawn.cpp" "CMakeFiles/ChessEngine.dir/src/pawn.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/pawn.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
