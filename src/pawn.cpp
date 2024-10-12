@@ -102,10 +102,10 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
             board.lastMoveWasTwoSquarePawnMove = (endSquare - startSquare == 16);
 
         } else {
-            std::cout << "No white pawn found!\n";
+            //std::cout << "No white pawn found!\n";
         }
     } else {
-        std::cout << "This move is unfortunately not legal :(\n";
+        //std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 
@@ -115,7 +115,7 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare + 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare + 7)); // Capture right
     int distance = endSquare - startSquare;
-    std::cout << distance <<"\n";
+    //std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
             return true; // Single square move
