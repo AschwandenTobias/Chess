@@ -17,7 +17,7 @@ TEST(ChessBoardTest, InitialWhiteMovements) {
     EXPECT_EQ(board.whitePawns, 0x000000000200FD00);
 }
 
-TEST(ChessBoardTest, NegativePawnMovements) {
+TEST(ChessBoardTest, OutOfBoundPawnMovements) {
     Chessboard board;
     Pawn::moveWhitePawn(board, -1, 7); //Negative move, shouldnt move anything
     Pawn::moveWhitePawn(board, 8, 64); //Movement out of chessboard bounds, shouldnt move anything
@@ -39,6 +39,22 @@ TEST(ChessboardTest, TryTwoSquareMoveNotOnOriginalRow) {
     Pawn::moveWhitePawn(board, 20, 36);
     EXPECT_EQ(board.whitePawns, 0x0000000000FF0000);
 }
+
+TEST(ChessboardTest, TryMovingPawnsIntoOverPieces) {
+    Chessboard board;
+    board.whitePawns = 0x0000000000FF0000;
+    board.whiteBishops = 0x0000000003000000;
+    board.blackQueen = 0x0000000004000000;
+    board.blackRooks = 0x0000000018000000;
+    Pawn::moveWhitePawn(board, 16, 24);
+    Pawn::moveWhitePawn(board, 17, 33);
+    Pawn::moveWhitePawn(board, 18, 26);
+    Pawn::moveWhitePawn(board, 18, 34);
+    Pawn::moveWhitePawn(board, 19, 27);
+    Pawn::moveWhitePawn(board, 19, 35);
+    EXPECT_EQ(board.whitePawns, 0x0000000000FF0000);
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
