@@ -14,12 +14,12 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
                 board.deletePiece(to);
             } else if (startSquare - endSquare == 7) {
-                std::cout << "left Capture detected\n";
+                //::cout << "left Capture detected\n";
                 int leftCaptureSquare = startSquare + 1;
                 Bitboard leftCaptureBitboard = (1ULL << leftCaptureSquare);
                 board.deletePiece(leftCaptureBitboard);
             } else if (startSquare - endSquare == 9) {
-                std::cout << "right Capture detected\n";
+                //std::cout << "right Capture detected\n";
                 int rightCaptureSquare = startSquare - 1;
                 Bitboard rightCaptureBitboard = (1ULL << rightCaptureSquare);
                 board.deletePiece(rightCaptureBitboard);
@@ -32,10 +32,10 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             board.lastMoveWasTwoSquarePawnMove = (startSquare - endSquare == 16);
 
         } else {
-            //std::cout << "No black pawn found!\n";
+            std::cout << "No black pawn found!\n";
         }
     } else {
-        //std::cout << "This move is unfortunately not legal :(\n";
+        std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 
@@ -45,7 +45,7 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare - 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare - 7)); // Capture right
     int distance = startSquare - endSquare;
-    std::cout << distance <<"\n";
+    //std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
             //std::cout << "No piece on square detected\n";
@@ -120,10 +120,10 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
             board.lastMoveWasTwoSquarePawnMove = (endSquare - startSquare == 16);
 
         } else {
-            //std::cout << "No white pawn found!\n";
+            std::cout << "No white pawn found!\n";
         }
     } else {
-        //std::cout << "This move is unfortunately not legal :(\n";
+        std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 

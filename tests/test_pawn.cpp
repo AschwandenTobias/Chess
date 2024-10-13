@@ -170,6 +170,22 @@ TEST(ChessboardTest, TryWBlackEnPassant) {
     EXPECT_EQ(board.whitePawns, 0x000000000000FD00); 
 }
 
+TEST(ChessboardTest, EnPassantNotDoubleMoveBefore) {
+    Chessboard board;
+    Pawn::moveWhitePawn(board, 8, 24);
+    Pawn::moveWhitePawn(board, 24, 32);
+    Pawn::moveWhitePawn(board, 15, 31);
+    Pawn::moveBlackPawn(board, 49, 33);
+    Pawn::moveBlackPawn(board, 54, 38);
+    Pawn::moveBlackPawn(board, 38, 30);
+
+    Pawn::moveWhitePawn(board, 32, 41); //Should be illegal
+    Pawn::moveBlackPawn(board, 30, 21); //Should be illegal
+
+    EXPECT_EQ(board.blackPawns, 0x00BD000240000000); 
+    EXPECT_EQ(board.whitePawns, 0x0000000180007E00); 
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
