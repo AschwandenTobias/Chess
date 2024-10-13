@@ -28,6 +28,23 @@ void Chessboard::updateLastMove(int startSquare, int endSquare) {
 }
 
 void Chessboard::deletePiece(Bitboard square) {
+    Bitboard del = ~square;
+    whitePawns &= del;
+    whiteRooks &= del;
+    whiteBishops &= del;
+    whiteKnights &= del;
+    whiteQueen &= del;
+    whiteKing &= del;
+    blackPawns &= del;
+    blackRooks &= del;
+    blackBishops &= del;
+    blackKnights &= del;
+    blackQueen &= del;
+    blackKing &= del;
+}
+
+void Chessboard::deletePiece(int squareToDelete) { //not sure this works
+    Bitboard square = (1ULL << squareToDelete);
     Bitboard del = ~(1ULL << square);
     whitePawns &= del;
     whiteRooks &= del;
@@ -38,7 +55,7 @@ void Chessboard::deletePiece(Bitboard square) {
     blackPawns &= del;
     blackRooks &= del;
     blackBishops &= del;
-    blackKing &= del;
+    blackKnights &= del;
     blackQueen &= del;
     blackKing &= del;
 }
@@ -70,6 +87,19 @@ bool Chessboard::checkIfWhitePieceIsOnSquare(Bitboard square) {
 }
 
 bool Chessboard::checkIfBlackPieceIsOnSquare(Bitboard square) {
+    if(blackPawns & square) return true;
+    else if(blackKnights & square) return true;
+    else if(blackBishops & square) return true;
+    else if(blackRooks & square) return true;
+    else if(blackQueen & square) return true;
+    else if(blackKing & square) return true;
+    else {
+        return false;
+    }
+}
+
+bool Chessboard::checkIfBlackPieceIsOnSquare(int squareToDelete) {
+    Bitboard square = (1ULL << squareToDelete);
     if(blackPawns & square) return true;
     else if(blackKnights & square) return true;
     else if(blackBishops & square) return true;

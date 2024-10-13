@@ -84,20 +84,25 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); // sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); // sets the bit to the correct to square
     if (isWhitePawnMoveLegal(board, startSquare, endSquare)) {
+        std::cout << "Legal move returned true\n";
         if (board.whitePawns & from) { // checks if a white pawn is on the from square
-            from = ~from; // reverses from in order to remove the bit after
-            board.whitePawns &= from; // AND operation to remove the bit from the from square
-            board.whitePawns |= to; // OR operation to add the bit to the to square
-
+            std::cout << "White pawn on startSquare detected\n";
+            
             board.updateLastMove(startSquare, endSquare);
 
-            if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
-                board.deletePiece(endSquare);
-            } else if (endSquare - startSquare == 7) {
+            if(board.checkIfBlackPieceIsOnSquare(endSquare)) { //13.10 gave the method an int and not a bitboard
+                std::cout << "blackPiece on endSquare detected\n";
+                board.deletePiece(to);
+            } else if (endSquare - startSquare == 7) { //probably not gonna work. EnPassant issue here
                 board.deletePiece(startSquare - 1);
             } else if (endSquare - startSquare == 9) {
                 board.deletePiece(startSquare + 1);
             }
+
+            from = ~from; // reverses from in order to remove the bit after
+            board.whitePawns &= from; // AND operation to remove the bit from the from square
+            board.whitePawns |= to; // OR operation to add the bit to the to square
+
 
             board.lastMoveWasTwoSquarePawnMove = (endSquare - startSquare == 16);
 

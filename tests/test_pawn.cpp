@@ -57,11 +57,11 @@ TEST(ChessboardTest, TryMovingPawnsIntoOverPieces) {
 
 TEST(ChessboardTest, TryCaptures) { //TODO:fix capture of pieces
     Chessboard board;
-    board.whitePawns = 0x0000000000FF0000; //Move pawns to third row
-    board.blackPawns = 0x00000000FF000000; //blackPawns on fourth row
+    board.whitePawns = 0x0000000000010000; //Move pawns to third row
+    board.blackPawns = 0x0000000002000000; //blackPawns on fourth row
     Pawn::moveWhitePawn(board, 16, 25);
-    EXPECT_EQ(board.whitePawns, 0x0000000002FE0000);
-    //EXPECT_EQ(board.blackPawns, 0x00000000FD000000);
+    EXPECT_EQ(board.whitePawns, 0x0000000002000000); //works
+    EXPECT_EQ(board.blackPawns, 0x0000000000000000); //should be working
 }
 
 

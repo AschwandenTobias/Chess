@@ -33,6 +33,8 @@ public:
     bool checkIfWhitePawnIsOnSquare(Bitboard square);
     void deletePiece(Bitboard square);
     void updateLastMove(int startsquare, int endsquare);
+    bool checkIfBlackPieceIsOnSquare(int square);
+    void deletePiece(int squareToDelete);
 };
 
 #endif 
