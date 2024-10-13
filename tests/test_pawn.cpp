@@ -108,6 +108,25 @@ TEST(ChessboardTest, TryCaptureOwnPieces) {
     EXPECT_EQ(board.whiteQueen, 0x0000000008000000); 
 }
 
+TEST(ChessBoardTest, InitialBlackPawnMovements) {
+    Chessboard board;
+    Pawn::moveBlackPawn(board, 55, 47);
+    EXPECT_EQ(board.blackPawns, 0x007F800000000000);
+    //board.blackPawns = 0x00FF000000000000;
+    //Pawn::moveBlackPawn(board, 48, 32);
+    //EXPECT_EQ(board.blackPawns, 0x00FE800100000000);
+}
+
+/*TEST(ChessboardTest, TryEnPassant) { 
+    Chessboard board;
+    Pawn::moveWhitePawn(board, 8, 24);
+    Pawn::moveWhitePawn(board, 24, 32);
+    Pawn::moveBlackPawn(board, 49, 33);
+    Pawn::moveWhitePawn(board, 32, 41);
+    EXPECT_EQ(board.whitePawns, 0x0000020000000000); //doesnt work
+
+}*/
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
@@ -115,6 +134,6 @@ int main(int argc, char **argv) {
 
 /*
 TODO: 
--Try to capture own pieces
+-Write tests for black piece movement
 -Try en passant
 */

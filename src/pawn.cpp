@@ -6,28 +6,31 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); // sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); // sets the bit to the correct to square
     if (isBlackPawnMoveLegal(board, startSquare, endSquare)) {
-        if (board.blackPawns & from) { // checks if a white pawn is on the from square
-            from = ~from; // reverses from in order to remove the bit after
-            board.blackPawns &= from; // AND operation to remove the bit from the from square
-            board.blackPawns |= to; // OR operation to add the bit to the to square
+        std::cout << "Move was legal, startSquare: " << startSquare << ", endSquare: " << endSquare <<"\n";
+        if (board.blackPawns & from) { // checks if a black pawn is on the from square
+            std::cout << "BlackPawn is on startSquare\n";
 
             board.updateLastMove(startSquare, endSquare);
 
-            if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
+            if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
                 board.deletePiece(to);
             } else if (startSquare - endSquare == 7) {
                 board.deletePiece(startSquare - 1);
             } else if (startSquare - endSquare == 9) {
                 board.deletePiece(startSquare + 1);
             }
-
+            std::cout << "blackPawns before move: " << board.blackPawns << "\n";
+            from = ~from; // reverses from in order to remove the bit after
+            board.blackPawns &= from; // AND operation to remove the bit from the from square
+            board.blackPawns |= to; // OR operation to add the bit to the to square
+            std::cout << "blackPawns after move: " << board.blackPawns << "\n";
             board.lastMoveWasTwoSquarePawnMove = (startSquare - endSquare == 16);
 
         } else {
-            std::cout << "No black pawn found!\n";
+            //std::cout << "No black pawn found!\n";
         }
     } else {
-        std::cout << "This move is unfortunately not legal :(\n";
+        //std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 
@@ -37,9 +40,10 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare - 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare - 7)); // Capture right
     int distance = startSquare - endSquare;
-    //std::cout << distance <<"\n";
+    std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
+            std::cout << "No piece on square detected\n";
             return true; // Single square move
         }
         return false;
@@ -84,14 +88,14 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); // sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); // sets the bit to the correct to square
     if (isWhitePawnMoveLegal(board, startSquare, endSquare)) {
-        std::cout << "Legal move returned true\n";
+        //std::cout << "Legal move returned true\n";
         if (board.whitePawns & from) { // checks if a white pawn is on the from square
-            std::cout << "White pawn on startSquare detected\n";
+            //std::cout << "White pawn on startSquare detected\n";
             
             board.updateLastMove(startSquare, endSquare);
 
             if(board.checkIfBlackPieceIsOnSquare(endSquare)) { //13.10 gave the method an int and not a bitboard
-                std::cout << "blackPiece on endSquare detected\n";
+                //std::cout << "blackPiece on endSquare detected\n";
                 board.deletePiece(to);
             } else if (endSquare - startSquare == 7) { //probably not gonna work. EnPassant issue here
                 board.deletePiece(startSquare - 1);
@@ -120,7 +124,7 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare + 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare + 7)); // Capture right
     int distance = endSquare - startSquare;
-    std::cout << distance <<"\n";
+    //std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
             return true; // Single square move
@@ -132,7 +136,6 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
                 return true; // Double square move
             }
         }
-        
         return false;
     } else if (distance == 7) {
         if (board.checkIfBlackPieceIsOnSquare(captureRight)) {
