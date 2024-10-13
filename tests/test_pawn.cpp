@@ -88,6 +88,26 @@ TEST(ChessboardTest, TryAllCapturesWhitePawns) {
     EXPECT_EQ(board.blackQueen, 0x0000000000000000); 
 }
 
+TEST(ChessboardTest, TryCaptureOwnPieces) {
+    Chessboard board;
+    board.whitePawns = 0x0000000000FF0000; 
+    board.whiteBishops = 0x0000000042000000;
+    board.whiteKnights = 0x0000000084000000;
+    board.whiteQueen = 0x0000000008000000,
+    board.whiteRooks = 0x0000000010000000;
+    Pawn::moveWhitePawn(board, 16, 25);
+    Pawn::moveWhitePawn(board, 18, 27);
+    Pawn::moveWhitePawn(board, 19, 26);
+    Pawn::moveWhitePawn(board, 21, 28);
+    Pawn::moveWhitePawn(board, 22, 31);
+    Pawn::moveWhitePawn(board, 23, 30);
+    EXPECT_EQ(board.whitePawns, 0x0000000000FF0000); 
+    EXPECT_EQ(board.whiteBishops, 0x0000000042000000); 
+    EXPECT_EQ(board.whiteKnights, 0x0000000084000000); 
+    EXPECT_EQ(board.whiteRooks, 0x0000000010000000); 
+    EXPECT_EQ(board.whiteQueen, 0x0000000008000000); 
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
