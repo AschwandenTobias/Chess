@@ -14,7 +14,7 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             board.updateLastMove(startSquare, endSquare);
 
             if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
-                board.deletePiece(endSquare);
+                board.deletePiece(to);
             } else if (startSquare - endSquare == 7) {
                 board.deletePiece(startSquare - 1);
             } else if (startSquare - endSquare == 9) {
