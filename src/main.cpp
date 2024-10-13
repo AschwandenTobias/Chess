@@ -11,6 +11,7 @@ int main() {
     board.printBoard();
     
     Pawn::moveBlackPawn(board, 55, 47);
+    Pawn::moveBlackPawn(board, 48, 32);
 
     board.printBoard();
     return 0; 

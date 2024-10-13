@@ -112,9 +112,11 @@ TEST(ChessBoardTest, InitialBlackPawnMovements) {
     Chessboard board;
     Pawn::moveBlackPawn(board, 55, 47);
     EXPECT_EQ(board.blackPawns, 0x007F800000000000);
-    //board.blackPawns = 0x00FF000000000000;
-    //Pawn::moveBlackPawn(board, 48, 32);
-    //EXPECT_EQ(board.blackPawns, 0x00FE800100000000);
+    board.blackPawns = 0x00FF000000000000;
+    Pawn::moveBlackPawn(board, 48, 32);
+    EXPECT_EQ(board.blackPawns, 0x00FE000100000000);
+    Pawn::moveBlackPawn(board, 32, 16); //Try double move not on starting square
+    EXPECT_EQ(board.blackPawns, 0x00FE000100000000);
 }
 
 /*TEST(ChessboardTest, TryEnPassant) { 
