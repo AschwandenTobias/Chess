@@ -6,9 +6,9 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); // sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); // sets the bit to the correct to square
     if (isBlackPawnMoveLegal(board, startSquare, endSquare)) {
-        std::cout << "Move was legal, startSquare: " << startSquare << ", endSquare: " << endSquare <<"\n";
+        //std::cout << "Move was legal, startSquare: " << startSquare << ", endSquare: " << endSquare <<"\n";
         if (board.blackPawns & from) { // checks if a black pawn is on the from square
-            std::cout << "BlackPawn is on startSquare\n";
+            //std::cout << "BlackPawn is on startSquare\n";
 
             board.updateLastMove(startSquare, endSquare);
 
@@ -19,11 +19,11 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             } else if (startSquare - endSquare == 9) {
                 board.deletePiece(startSquare + 1);
             }
-            std::cout << "blackPawns before move: " << board.blackPawns << "\n";
+            //std::cout << "blackPawns before move: " << board.blackPawns << "\n";
             from = ~from; // reverses from in order to remove the bit after
             board.blackPawns &= from; // AND operation to remove the bit from the from square
             board.blackPawns |= to; // OR operation to add the bit to the to square
-            std::cout << "blackPawns after move: " << board.blackPawns << "\n";
+            //std::cout << "blackPawns after move: " << board.blackPawns << "\n";
             board.lastMoveWasTwoSquarePawnMove = (startSquare - endSquare == 16);
 
         } else {
@@ -40,10 +40,10 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare - 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare - 7)); // Capture right
     int distance = startSquare - endSquare;
-    std::cout << distance <<"\n";
+    //std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
-            std::cout << "No piece on square detected\n";
+            //std::cout << "No piece on square detected\n";
             return true; // Single square move
         }
         return false;

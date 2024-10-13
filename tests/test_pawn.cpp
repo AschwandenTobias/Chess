@@ -108,7 +108,7 @@ TEST(ChessboardTest, TryCaptureOwnPieces) {
     EXPECT_EQ(board.whiteQueen, 0x0000000008000000); 
 }
 
-TEST(ChessBoardTest, InitialBlackPawnMovements) {
+TEST(ChessBoardTest, BlackPawnMovements) {
     Chessboard board;
     Pawn::moveBlackPawn(board, 55, 47);
     EXPECT_EQ(board.blackPawns, 0x007F800000000000);
@@ -117,6 +117,37 @@ TEST(ChessBoardTest, InitialBlackPawnMovements) {
     EXPECT_EQ(board.blackPawns, 0x00FE000100000000);
     Pawn::moveBlackPawn(board, 32, 16); //Try double move not on starting square
     EXPECT_EQ(board.blackPawns, 0x00FE000100000000);
+    Pawn::moveBlackPawn(board, 32, 40); //Test if blackPawns can move backwards
+    EXPECT_EQ(board.blackPawns, 0x00FE000100000000);
+    board.blackBishops = 0x0000808000000000; //BlackBishops in the way, pawn shouldnt move/jump over.
+    Pawn::moveBlackPawn(board, 55, 47);
+    Pawn::moveBlackPawn(board, 55, 39);
+    EXPECT_EQ(board.blackPawns, 0x00FE000100000000); 
+    EXPECT_EQ(board.blackBishops, 0x0000808000000000);
+}
+
+TEST(ChessboardTest, TryAllCapturesBlackPawns) { 
+    Chessboard board;
+    board.blackPawns = 0x000000FF00000000; 
+    board.whitePawns = 0x0000000021000000;
+    board.whiteBishops = 0x0000000042000000;
+    board.whiteKnights = 0x0000000084000000;
+    board.whiteQueen = 0x0000000008000000,
+    board.whiteRooks = 0x0000000010000000;
+    Pawn::moveBlackPawn(board, 32, 25);
+    Pawn::moveBlackPawn(board, 33, 24);
+    Pawn::moveBlackPawn(board, 34, 27);
+    Pawn::moveBlackPawn(board, 35, 26);
+    Pawn::moveBlackPawn(board, 36, 29);
+    Pawn::moveBlackPawn(board, 37, 28);
+    Pawn::moveBlackPawn(board, 38, 31);
+    Pawn::moveBlackPawn(board, 39, 30);
+    EXPECT_EQ(board.blackPawns, 0x00000000FF000000); 
+    EXPECT_EQ(board.whitePawns, 0x0000000000000000); 
+    EXPECT_EQ(board.whiteBishops, 0x0000000000000000); 
+    EXPECT_EQ(board.whiteKnights, 0x0000000000000000); 
+    EXPECT_EQ(board.whiteRooks, 0x0000000000000000); 
+    EXPECT_EQ(board.whiteQueen, 0x0000000000000000); 
 }
 
 /*TEST(ChessboardTest, TryEnPassant) { 
