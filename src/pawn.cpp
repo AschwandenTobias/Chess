@@ -15,9 +15,13 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
                 board.deletePiece(to);
             } else if (startSquare - endSquare == 7) {
-                board.deletePiece(startSquare - 1);
+            int leftCaptureSquare = startSquare - 1;
+                Bitboard leftCaptureBitboard = (1ULL << leftCaptureSquare);
+                board.deletePiece(leftCaptureBitboard);
             } else if (startSquare - endSquare == 9) {
-                board.deletePiece(startSquare + 1);
+                int rightCaptureSquare = startSquare + 1;
+                Bitboard rightCaptureBitboard = (1ULL << rightCaptureSquare);
+                board.deletePiece(rightCaptureBitboard);
             }
             //std::cout << "blackPawns before move: " << board.blackPawns << "\n";
             from = ~from; // reverses from in order to remove the bit after
@@ -97,10 +101,14 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
             if(board.checkIfBlackPieceIsOnSquare(endSquare)) { //13.10 gave the method an int and not a bitboard
                 //std::cout << "blackPiece on endSquare detected\n";
                 board.deletePiece(to);
-            } else if (endSquare - startSquare == 7) { //probably not gonna work. EnPassant issue here
-                board.deletePiece(startSquare - 1);
+            } else if (endSquare - startSquare == 7) {
+                int leftCaptureSquare = startSquare - 1;
+                Bitboard leftCaptureBitboard = (1ULL << leftCaptureSquare);
+                board.deletePiece(leftCaptureBitboard);
             } else if (endSquare - startSquare == 9) {
-                board.deletePiece(startSquare + 1);
+                int rightCaptureSquare = startSquare + 1;
+                Bitboard rightCaptureBitboard = (1ULL << rightCaptureSquare);
+                board.deletePiece(rightCaptureBitboard);
             }
 
             from = ~from; // reverses from in order to remove the bit after
@@ -160,7 +168,7 @@ bool Pawn::checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSqu
         Bitboard enPassantLeft = (1ULL << (startSquare + 1));
         Bitboard enPassantRight = (1ULL << (startSquare - 1));
         if(board.checkIfBlackPawnIsOnSquare(enPassantLeft) || board.checkIfBlackPawnIsOnSquare(enPassantRight)) {
-            //std::cout << "EnPassant possible and Black Pawn is there\n";
+            std::cout << "EnPassant possible and Black Pawn is there\n";
             return true;
         } else {
             return false;
