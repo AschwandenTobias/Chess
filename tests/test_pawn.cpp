@@ -160,6 +160,16 @@ TEST(ChessboardTest, TryWhiteEnPassant) {
     EXPECT_EQ(board.blackPawns, 0x00FD000000000000); 
 }
 
+TEST(ChessboardTest, TryWBlackEnPassant) { 
+    Chessboard board;
+    Pawn::moveBlackPawn(board, 48, 32);
+    Pawn::moveBlackPawn(board, 32, 24);
+    Pawn::moveWhitePawn(board, 9, 25);
+    Pawn::moveBlackPawn(board, 24, 17);
+    EXPECT_EQ(board.blackPawns, 0x00FE000000020000); 
+    EXPECT_EQ(board.whitePawns, 0x000000000000FD00); 
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

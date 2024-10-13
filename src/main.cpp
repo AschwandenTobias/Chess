@@ -6,16 +6,14 @@ int main() {
     std::cout << "Excited to code a chess game!\n";
     Chessboard board;
 
-
-
     board.printBoard();
-    
-    
 
-    Pawn::moveWhitePawn(board, 8, 24);
-    Pawn::moveWhitePawn(board, 24, 32);
-    Pawn::moveBlackPawn(board, 49, 33);
-    Pawn::moveWhitePawn(board, 32, 41);
+    Pawn::moveBlackPawn(board, 48, 32);
+    Pawn::moveBlackPawn(board, 32, 24);
+    Pawn::moveWhitePawn(board, 9, 25);
+    Pawn::moveBlackPawn(board, 24, 17);
+
+
     board.printBoard();
     return 0; 
 }

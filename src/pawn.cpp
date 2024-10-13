@@ -11,15 +11,16 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             //std::cout << "BlackPawn is on startSquare\n";
 
             board.updateLastMove(startSquare, endSquare);
-
             if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
                 board.deletePiece(to);
             } else if (startSquare - endSquare == 7) {
-            int leftCaptureSquare = startSquare - 1;
+                std::cout << "left Capture detected\n";
+                int leftCaptureSquare = startSquare + 1;
                 Bitboard leftCaptureBitboard = (1ULL << leftCaptureSquare);
                 board.deletePiece(leftCaptureBitboard);
             } else if (startSquare - endSquare == 9) {
-                int rightCaptureSquare = startSquare + 1;
+                std::cout << "right Capture detected\n";
+                int rightCaptureSquare = startSquare - 1;
                 Bitboard rightCaptureBitboard = (1ULL << rightCaptureSquare);
                 board.deletePiece(rightCaptureBitboard);
             }
@@ -44,7 +45,7 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard captureLeft = (1ULL << (startSquare - 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare - 7)); // Capture right
     int distance = startSquare - endSquare;
-    //std::cout << distance <<"\n";
+    std::cout << distance <<"\n";
     if (distance == 8) {
         if (!board.checkIfPieceIsOnSquare(tmp)) {
             //std::cout << "No piece on square detected\n";
@@ -168,7 +169,7 @@ bool Pawn::checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSqu
         Bitboard enPassantLeft = (1ULL << (startSquare + 1));
         Bitboard enPassantRight = (1ULL << (startSquare - 1));
         if(board.checkIfBlackPawnIsOnSquare(enPassantLeft) || board.checkIfBlackPawnIsOnSquare(enPassantRight)) {
-            std::cout << "EnPassant possible and Black Pawn is there\n";
+            //std::cout << "EnPassant possible and Black Pawn is there\n";
             return true;
         } else {
             return false;

@@ -35,6 +35,7 @@ public:
     void updateLastMove(int startsquare, int endsquare);
     bool checkIfBlackPieceIsOnSquare(int square);
     void deletePiece(int squareToDelete);
+    bool checkIfWhitePieceIsOnSquare(int squareToDelete);
 };
 
 #endif 

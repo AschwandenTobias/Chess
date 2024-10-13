@@ -86,6 +86,19 @@ bool Chessboard::checkIfWhitePieceIsOnSquare(Bitboard square) {
     }
 }
 
+bool Chessboard::checkIfWhitePieceIsOnSquare(int squareToDelete) {
+    Bitboard square = (1ULL << squareToDelete);
+    if(whitePawns & square) return true;
+    else if(whiteRooks & square) return true;
+    else if(whiteKnights & square) return true;
+    else if(whiteBishops & square) return true;
+    else if(whiteQueen & square) return true;
+    else if(whiteKing & square) return true;
+    else {
+        return false;
+    }
+}
+
 bool Chessboard::checkIfBlackPieceIsOnSquare(Bitboard square) {
     if(blackPawns & square) return true;
     else if(blackKnights & square) return true;
