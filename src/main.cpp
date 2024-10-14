@@ -7,10 +7,10 @@ int main() {
     std::cout << "Excited to code a chess game!\n";
     Chessboard board;
 
-    board.whiteKnights = 0x0000000008000000;
+    board.whiteKnights = 0x0000000400000000;
 
     board.printBoard();
-    Knight::moveWhiteKnight(board, 27, 0);
+    Knight::moveWhiteKnight(board, 34, 40);
 
     board.printBoard();
     return 0; 

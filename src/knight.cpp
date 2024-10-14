@@ -15,5 +15,8 @@ void Knight::moveWhiteKnight(Chessboard &board, int startSquare, int endSquare) 
 }
 
 bool Knight::isWhiteKnightMoveLegal(Chessboard &board, int startSquare, int endSquare) {
-    return true;
+    int distance = std::abs(endSquare - startSquare);
+    Bitboard to = (1ULL << endSquare);
+    std::cout << "movement distance: " << distance << "\n";
+    return((distance == 6 || distance == 10 || distance == 15 || distance == 17) && !board.checkIfWhitePieceIsOnSquare(to));
 }
