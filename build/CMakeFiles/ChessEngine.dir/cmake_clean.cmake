@@ -1,14 +1,14 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.obj"
-  "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.obj.d"
-  "CMakeFiles/ChessEngine.dir/src/main.cpp.obj"
-  "CMakeFiles/ChessEngine.dir/src/main.cpp.obj.d"
-  "CMakeFiles/ChessEngine.dir/src/pawn.cpp.obj"
-  "CMakeFiles/ChessEngine.dir/src/pawn.cpp.obj.d"
-  "ChessEngine.exe"
-  "ChessEngine.exe.manifest"
+  "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/chessboard.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/knight.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/knight.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/main.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/main.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/pawn.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/pawn.cpp.o.d"
+  "ChessEngine"
   "ChessEngine.pdb"
-  "libChessEngine.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

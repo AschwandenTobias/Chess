@@ -1,18 +1,27 @@
 cmake_minimum_required(VERSION 3.10)
 project(ChessEngine)
 
-# Add your source files for the main executable
-add_executable(ChessEngine src/main.cpp src/chessboard.cpp src/pawn.cpp)
+# Set the C++ standard
+set(CMAKE_CXX_STANDARD 14)
 
-# Add GoogleTest
+# Add your source files for the main executable
+add_executable(ChessEngine src/main.cpp src/chessboard.cpp src/pawn.cpp src/knight.cpp)
+
+# Add GoogleTest for unit testing
 enable_testing()
 add_subdirectory(googletest)
 
-# Include directories
-include_directories(src googletest/include)
+# Include directories for your source files and GoogleTest
+include_directories(src googletest/googletest/include)
 
-# Add your test executable
-add_executable(ChessEngineTests tests/test_pawn.cpp src/chessboard.cpp src/pawn.cpp)
+# Add your test executable with all source and test files
+add_executable(ChessEngineTests 
+    tests/test_pawn.cpp 
+    tests/test_knight.cpp 
+    src/chessboard.cpp 
+    src/pawn.cpp 
+    src/knight.cpp
+)
 
 # Link the test executable with GoogleTest libraries
 target_link_libraries(ChessEngineTests gtest gtest_main)

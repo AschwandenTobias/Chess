@@ -32,10 +32,10 @@ void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
             board.lastMoveWasTwoSquarePawnMove = (startSquare - endSquare == 16);
 
         } else {
-            std::cout << "No black pawn found!\n";
+            //std::cout << "No black pawn found!\n";
         }
     } else {
-        std::cout << "This move is unfortunately not legal :(\n";
+        //std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 
@@ -80,7 +80,7 @@ bool Pawn::checkForBlackEnPassant(Chessboard &board, int startSquare, int endSqu
         Bitboard enPassantLeft = (1ULL << (startSquare - 1));
         Bitboard enPassantRight = (1ULL << (startSquare + 1));
         if(board.checkIfWhitePawnIsOnSquare(enPassantLeft) || board.checkIfWhitePawnIsOnSquare(enPassantRight)) {
-            std::cout << "EnPassant possible and White Pawn is there\n";
+            //std::cout << "EnPassant possible and White Pawn is there\n";
             return true;
         } else {
             return false;
@@ -120,10 +120,10 @@ void Pawn::moveWhitePawn(Chessboard &board, int startSquare, int endSquare) {
             board.lastMoveWasTwoSquarePawnMove = (endSquare - startSquare == 16);
 
         } else {
-            std::cout << "No white pawn found!\n";
+            //std::cout << "No white pawn found!\n";
         }
     } else {
-        std::cout << "This move is unfortunately not legal :(\n";
+        //std::cout << "This move is unfortunately not legal :(\n";
     }
 }
 

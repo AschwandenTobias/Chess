@@ -15,6 +15,9 @@ void Knight::moveWhiteKnight(Chessboard &board, int startSquare, int endSquare) 
 }
 
 bool Knight::isWhiteKnightMoveLegal(Chessboard &board, int startSquare, int endSquare) {
+    if(endSquare < 0 || endSquare > 63) {
+        return false;
+    }
     int distance = std::abs(endSquare - startSquare);
     Bitboard to = (1ULL << endSquare);
     std::cout << "movement distance: " << distance << "\n";
@@ -35,6 +38,9 @@ void Knight::moveBlackKnight(Chessboard &board, int startSquare, int endSquare) 
 }
 
 bool Knight::isBlackKnightMoveLegal(Chessboard &board, int startSquare, int endSquare) {
+    if(endSquare < 0 || endSquare > 63) {
+        return false;
+    }
     int distance = std::abs(endSquare - startSquare);
     Bitboard to = (1ULL << endSquare);
     std::cout << "movement distance: " << distance << "\n";
