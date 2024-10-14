@@ -10,7 +10,7 @@ CXXFLAGS = -Wall -g
 TARGET = chess_game
 
 # Source files
-SRCS = main.cpp chessboard.cpp pawn.cpp
+SRCS = main.cpp chessboard.cpp pawn.cpp knight.cpp
 
 # Object files (derived from source files)
 OBJS = $(SRCS:.cpp=.o)

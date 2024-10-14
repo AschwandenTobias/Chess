@@ -1,6 +1,7 @@
 #include "chessboard.h" 
 #include <iostream>
 #include "pawn.h"
+#include "knight.h"
 
 Chessboard::Chessboard() {
     whitePawns = 0x000000000000FF00;
@@ -153,8 +154,8 @@ void Chessboard::printBoard() {
             int square = row * 8 + col;
             char piece = '.';
             if (whitePawns & (1ULL << square)) piece = 'P';
-            else if (whiteRooks & (1ULL << square)) piece = 'R';
             else if (whiteKnights & (1ULL << square)) piece = 'N';
+            else if (whiteRooks & (1ULL << square)) piece = 'R';
             else if (whiteBishops & (1ULL << square)) piece = 'B';
             else if (whiteQueen & (1ULL << square)) piece = 'Q';
             else if (whiteKing & (1ULL << square)) piece = 'K';

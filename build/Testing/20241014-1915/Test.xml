@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20241014-1915-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.31.0-rc1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Windows"
+	Hostname="DESKTOP-208557S"
+	OSRelease=" Personal"
+	OSVersion=" (Build 22631)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="15"
+	ModelID="1"
+	ModelName="AMD Ryzen 7 7800X3D 8-Core Processor           "
+	ProcessorCacheSize="64"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="33912"
+	TotalPhysicalMemory="31864"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="4199"
+	>
+	<Testing>
+		<StartDateTime>Oct 14 21:15 Mitteleurop[NON-UTF-8-BYTE-0xE4]ische Sommerzeit</StartDateTime>
+		<StartTestTime>1728933343</StartTestTime>
+		<TestList>
+			<Test>./ChessEngineTests</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>ChessEngineTests</Name>
+			<Path>.</Path>
+			<FullName>./ChessEngineTests</FullName>
+			<FullCommandLine>"C:\Users\Tobi-Wan Kenobi\Desktop\Chess\build\ChessEngineTests.exe"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>1.07369</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>"C:\Users\Tobi-Wan Kenobi\Desktop\Chess\build\ChessEngineTests.exe"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJy9VE1rwkAQvedXzFEPhiieCr2kh1JKq4ilB8lhYzZm6WZGdme1/vtOEmqJggRKO5f9em/nvclONvfnyGAVEA3uYDoH1p49lI5qmLUL8MHIGEebyTkyeLSUK9sBNB6MI6w1CljzJOwvwL1bHyrtfUrKFWvZjDawenuFNrKLs/gJDRtll+qIS/IyJ/RC6GLxPIwAowRqPx6S6L0Spy900I2VQZn6jCGpWsYi8KJMKWDRSP3JuK6Mh1qWIGPAkhwHVKztCZAYrN5Jze9Gg3G3HNwSMsRIatX242/l/2c5ru2cizDwKXd4YGJlx1GfNk2uePmNFsj7X6mRlYq8o+x+y/ttceJYmrQ92yvHQCVwpbt+psD7wHBUHpxumAV4g1u5QHr9c6t14Ttw5bSvyBYNe5rM5pCfmj9FFn0BvHh25w==</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Oct 14 21:15 Mitteleurop[NON-UTF-8-BYTE-0xE4]ische Sommerzeit</EndDateTime>
+		<EndTestTime>1728933344</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

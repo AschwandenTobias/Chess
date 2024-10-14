@@ -1,12 +1,14 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ChessEngineTests.dir/src/chessboard.cpp.o"
-  "CMakeFiles/ChessEngineTests.dir/src/chessboard.cpp.o.d"
-  "CMakeFiles/ChessEngineTests.dir/src/pawn.cpp.o"
-  "CMakeFiles/ChessEngineTests.dir/src/pawn.cpp.o.d"
-  "CMakeFiles/ChessEngineTests.dir/tests/test_pawn.cpp.o"
-  "CMakeFiles/ChessEngineTests.dir/tests/test_pawn.cpp.o.d"
-  "ChessEngineTests"
+  "CMakeFiles/ChessEngineTests.dir/src/chessboard.cpp.obj"
+  "CMakeFiles/ChessEngineTests.dir/src/chessboard.cpp.obj.d"
+  "CMakeFiles/ChessEngineTests.dir/src/pawn.cpp.obj"
+  "CMakeFiles/ChessEngineTests.dir/src/pawn.cpp.obj.d"
+  "CMakeFiles/ChessEngineTests.dir/tests/test_pawn.cpp.obj"
+  "CMakeFiles/ChessEngineTests.dir/tests/test_pawn.cpp.obj.d"
+  "ChessEngineTests.exe"
+  "ChessEngineTests.exe.manifest"
   "ChessEngineTests.pdb"
+  "libChessEngineTests.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
