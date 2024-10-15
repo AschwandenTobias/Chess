@@ -13,10 +13,16 @@ TEST(KnightTest, InitialKinghtPositionsAndMoves) {
     Knight::moveWhiteKnight(board, 1, -14);
     Knight::moveWhiteKnight(board, 1, -16);
     Knight::moveWhiteKnight(board, 1, 18);
-    EXPECT_EQ(board.whiteKnights, 0x0000000000040040);
-
-    
-
+    Knight::moveWhiteKnight(board, 6, 21);
+    EXPECT_EQ(board.whiteKnights, 0x0000000000240000);
+    Knight::moveBlackKnight(board, 62, 77);
+    Knight::moveBlackKnight(board, 62, 68);
+    Knight::moveBlackKnight(board, 62, 52);
+    Knight::moveBlackKnight(board, 62, 56);
+    Knight::moveBlackKnight(board, 62, 72);
+    Knight::moveBlackKnight(board, 62, 79);
+    Knight::moveBlackKnight(board, 62, 45);
+    Knight::moveBlackKnight(board, 57, 42);
 
 }
 

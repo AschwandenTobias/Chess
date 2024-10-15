@@ -16,6 +16,15 @@ int main() {
     Knight::moveWhiteKnight(board, 1, -14);
     Knight::moveWhiteKnight(board, 1, -16);
     Knight::moveWhiteKnight(board, 1, 18);
+    Knight::moveWhiteKnight(board, 6, 21);
+    Knight::moveBlackKnight(board, 62, 77);
+    Knight::moveBlackKnight(board, 62, 68);
+    Knight::moveBlackKnight(board, 62, 52);
+    Knight::moveBlackKnight(board, 62, 56);
+    Knight::moveBlackKnight(board, 62, 72);
+    Knight::moveBlackKnight(board, 62, 79);
+    Knight::moveBlackKnight(board, 62, 45);
+    Knight::moveBlackKnight(board, 57, 42);
     board.printBoard();
     return 0; 
 }
