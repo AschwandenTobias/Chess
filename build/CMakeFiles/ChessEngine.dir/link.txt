@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/ChessEngine.dir/src/main.cpp.o CMakeFiles/ChessEngine.dir/src/chessboard.cpp.o CMakeFiles/ChessEngine.dir/src/pawn.cpp.o CMakeFiles/ChessEngine.dir/src/knight.cpp.o -o ChessEngine 
