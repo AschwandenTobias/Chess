@@ -2,6 +2,7 @@
 #include <iostream>
 #include "pawn.h"
 #include "knight.h"
+#include "rook.h"
 
 Chessboard::Chessboard() {
     whitePawns = 0x000000000000FF00;
@@ -59,6 +60,10 @@ void Chessboard::deletePiece(int squareToDelete) { //not sure this works
     blackKnights &= del;
     blackQueen &= del;
     blackKing &= del;
+}
+
+bool Chessboard::checkIfWhiteRookIsOnSquare(Bitboard square) {
+    return (whiteRooks & square);
 }
 
 bool Chessboard::checkIfBlackPawnIsOnSquare(Bitboard square) {
