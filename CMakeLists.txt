@@ -5,7 +5,7 @@ project(ChessEngine)
 set(CMAKE_CXX_STANDARD 14)
 
 # Add your source files for the main executable
-add_executable(ChessEngine src/main.cpp src/chessboard.cpp src/pawn.cpp src/knight.cpp)
+add_executable(ChessEngine src/main.cpp src/chessboard.cpp src/pawn.cpp src/knight.cpp src/rook.cpp)
 
 # Add GoogleTest for unit testing
 enable_testing()
@@ -18,9 +18,11 @@ include_directories(src googletest/googletest/include)
 add_executable(ChessEngineTests 
     tests/test_pawn.cpp 
     tests/test_knight.cpp 
+    tests/test_rook.cpp
     src/chessboard.cpp 
     src/pawn.cpp 
     src/knight.cpp
+    src/rook.cpp
 )
 
 # Link the test executable with GoogleTest libraries
