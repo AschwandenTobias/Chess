@@ -8,9 +8,9 @@ int main() {
     std::cout << "Excited to code a chess game!\n";
     Chessboard board;
 
-    board.whiteRooks = 0x0000000008000000;
+    board.whiteRooks = 0x0000000001000000;
     board.printBoard();
-    Rook::moveWhiteRook(board, 27, 62);
+    Rook::moveWhiteRook(board, 24, 25);
 
     board.printBoard();
     return 0; 
