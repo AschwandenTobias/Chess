@@ -5,6 +5,6 @@
 TEST(RookTest, AllDirectionRookMoves) {
     Chessboard board;
     board.whiteRooks = 0x0000000008000000;
-    Rook::moveWhiteRook(board, 27, 26);
+    Rook::moveWhiteRook(board, 27, 28);
     EXPECT_EQ(board.whiteRooks, 0x0000000010000000);
 }

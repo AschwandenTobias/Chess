@@ -64,3 +64,7 @@ bool Rook::isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquar
     }
     return true;
 }
+
+bool Rook::checkHorizontalMoves(Chessboard &board, int startSquare, int endSquare) {
+
+}

@@ -10,7 +10,7 @@ int main() {
 
     board.whiteRooks = 0x0000000008000000;
     board.printBoard();
-    Rook::moveWhiteRook(board, 27, 23);
+    Rook::moveWhiteRook(board, 27, 62);
 
     board.printBoard();
     return 0; 
