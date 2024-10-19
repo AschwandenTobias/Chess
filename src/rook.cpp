@@ -36,7 +36,17 @@ bool Rook::isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquar
                 return false;
             }
         } else {
-            return checkHorizontalMoves(board, startSquare, endSquare);
+            if(checkHorizontalMoves(board, startSquare, endSquare)) {
+                if(board.checkIfWhitePieceIsOnSquare(to)) {
+                    std::cout << "White Piece on endSquare detected. Cant move :(\n";
+                    return false;
+                } else if(board.checkIfBlackPieceIsOnSquare(to)) {
+                    std::cout << "Black Piece to capture on endSquare detected. Capture it!\n";
+                    return true;
+                }
+            } else {
+                return false;
+            }
         }
     }
     return true;
@@ -44,11 +54,31 @@ bool Rook::isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquar
 
 bool Rook::checkHorizontalMoves(Chessboard &board, int startSquare, int endSquare) {
     std::cout << "Horizontal move detected\n";
-    //int distance = std::abs(endSquare - startSquare);
+    int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
     if (startRow != endRow) return false;
     std::cout << "startRow: " << startRow << "\n";
+    if(endSquare > startRow) {
+        std::cout << "Move to the right\n";
+        Bitboard tmp = 1ULL << (startSquare + 1);
+        for(int i = 0; i < distance - 1; i++) {
+            if(board.checkIfPieceIsOnSquare(tmp)) {
+                return false;
+            }
+            tmp = tmp << 1;
+        }
+    }
+    if(endSquare < startRow) {
+        std::cout << "Move to the right\n";
+        Bitboard tmp = 1ULL << (startSquare - 1);
+        for(int i = 0; i < distance - 1; i++) {
+            if(board.checkIfPieceIsOnSquare(tmp)) {
+                return false;
+            }
+            tmp = tmp >> 1;
+        }
+    }
     return true;
 }
 
@@ -78,6 +108,5 @@ bool Rook::checkVerticalMoves(Chessboard &board, int startSquare, int endSquare)
             tmp = tmp >> 8;
         }
     }
-
     return true;
 }
