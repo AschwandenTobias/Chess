@@ -59,8 +59,8 @@ bool Rook::checkHorizontalMoves(Chessboard &board, int startSquare, int endSquar
     int endRow = endSquare / 8;
     if (startRow != endRow) return false;
     std::cout << "startRow: " << startRow << "\n";
-    if(endSquare > startRow) {
-        std::cout << "Move to the right\n";
+    if(endSquare > startSquare) {
+        std::cout << "Move to the left\n";
         Bitboard tmp = 1ULL << (startSquare + 1);
         for(int i = 0; i < distance - 1; i++) {
             if(board.checkIfPieceIsOnSquare(tmp)) {
@@ -69,7 +69,7 @@ bool Rook::checkHorizontalMoves(Chessboard &board, int startSquare, int endSquar
             tmp = tmp << 1;
         }
     }
-    if(endSquare < startRow) {
+    if(endSquare < startSquare) {
         std::cout << "Move to the right\n";
         Bitboard tmp = 1ULL << (startSquare - 1);
         for(int i = 0; i < distance - 1; i++) {
