@@ -66,6 +66,10 @@ bool Chessboard::checkIfWhiteRookIsOnSquare(Bitboard square) {
     return (whiteRooks & square);
 }
 
+bool Chessboard::checkIfBlackRookIsOnSquare(Bitboard square) {
+    return (blackRooks & square);
+}
+
 bool Chessboard::checkIfBlackPawnIsOnSquare(Bitboard square) {
     if(blackPawns & square) return true;
     else {

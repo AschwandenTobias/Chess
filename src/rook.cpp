@@ -52,6 +52,57 @@ bool Rook::isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquar
     return true;
 }
 
+void Rook::moveBlackRook(Chessboard &board, int startSquare, int endSquare) {
+    Bitboard from = 1ULL << startSquare;
+    Bitboard to = 1ULL << endSquare;
+    if(isBlackRookMoveLegal(board, startSquare, endSquare)) {
+        board.updateLastMove(startSquare, endSquare);
+        if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
+            board.deletePiece(to);
+        }
+    from = ~from;
+    board.blackRooks &= from;
+    board.blackRooks |= to;
+    }
+}
+
+bool Rook::isBlackRookMoveLegal(Chessboard &board, int startSquare, int endSquare) {
+    Bitboard from = 1ULL << startSquare;
+    Bitboard to = 1ULL << endSquare;
+    if(endSquare < 0 || endSquare > 63) return false;
+    if(!(board.checkIfBlackRookIsOnSquare(from))) {
+        std::cout << "there was no rook on the startSquare\n";
+        return false;
+    } else { 
+        if((std::abs(endSquare - startSquare) % 8) == 0) {
+            if(checkVerticalMoves(board, startSquare, endSquare)) {
+                if(board.checkIfBlackPieceIsOnSquare(to)) {
+                    std::cout << "Black Piece on endSquare detected. Cant move :(\n";
+                    return false;
+                } else if(board.checkIfWhitePieceIsOnSquare(to)) {
+                    std::cout << "White Piece to capture on endSquare detected. Capture it!\n";
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            if(checkHorizontalMoves(board, startSquare, endSquare)) {
+                if(board.checkIfBlackPieceIsOnSquare(to)) {
+                    std::cout << "Black Piece on endSquare detected. Cant move :(\n";
+                    return false;
+                } else if(board.checkIfWhitePieceIsOnSquare(to)) {
+                    std::cout << "White Piece to capture on endSquare detected. Capture it!\n";
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 bool Rook::checkHorizontalMoves(Chessboard &board, int startSquare, int endSquare) {
     std::cout << "Horizontal move detected\n";
     int distance = std::abs(endSquare - startSquare);

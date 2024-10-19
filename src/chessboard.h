@@ -37,6 +37,8 @@ public:
     void deletePiece(int squareToDelete);
     bool checkIfWhitePieceIsOnSquare(int squareToDelete);
     bool checkIfWhiteRookIsOnSquare(Bitboard square);
+    bool checkIfBlackRookIsOnSquare(Bitboard square);
+
 };
 
 #endif 

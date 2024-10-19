@@ -3,7 +3,7 @@
 #include "rook.h"
 #include "pawn.h"
 
-TEST(RookTest, AllDirectionRookMoves) {
+TEST(RookTest, AllDirectionWhiteRookMoves) {
     Chessboard board;
     Rook::moveWhiteRook(board, 0, 1);
     Rook::moveWhiteRook(board, 0, 8);
@@ -32,5 +32,23 @@ TEST(RookTest, AllDirectionRookMoves) {
     Rook::moveWhiteRook(board, 63, 62);
     Rook::moveWhiteRook(board, 62, 61);
     EXPECT_EQ(board.whiteRooks, 0x2000000000000080);
+}
 
+TEST(RookTest, AllDirectionBlackRookMoves) {
+    Chessboard board;
+    Rook::moveBlackRook(board, 63, 62);
+    Rook::moveBlackRook(board, 63, 64);
+    Pawn::moveBlackPawn(board, 55, 39);
+    EXPECT_EQ(board.blackRooks, 0x8100000000000000);
+    Rook::moveBlackRook(board, 63, 47);
+    Rook::moveBlackRook(board, 47, 46);
+    Rook::moveBlackRook(board, 46, 14);
+    Rook::moveBlackRook(board, 14, 13);
+    Rook::moveBlackRook(board, 13, 12);
+    Rook::moveBlackRook(board, 12, 15);
+    Rook::moveBlackRook(board, 15, 39);
+    Rook::moveBlackRook(board, 15, 7);
+    Rook::moveBlackRook(board, 7, 6);
+    Rook::moveBlackRook(board, 6, 5);    
+    EXPECT_EQ(board.blackRooks, 0x0100000000000020);
 }
