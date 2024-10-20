@@ -23,7 +23,7 @@ bool Bishop::isWhiteBishopMoveLegal(Chessboard &board, int startSquare, int endS
     int distance = std::abs(endSquare - startSquare);
     std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
-    if(distance % 7 == 0) {
+    if(distance % 7 == 0 || distance % 9 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
             if(board.checkIfWhitePieceIsOnSquare(to)) {
                 return false;
@@ -60,7 +60,7 @@ bool Bishop::isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endS
     int distance = std::abs(endSquare - startSquare);
     //std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
-    if(distance % 7 == 0) {
+    if(distance % 7 == 0 || distance % 9 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
             if(board.checkIfBlackPieceIsOnSquare(to)) {
                 return false;
