@@ -10,8 +10,8 @@ int main() {
     Chessboard board;
 
     board.printBoard();
-    Bishop::moveBlackBishop(board, 2, 16);
-    Pawn::moveBlackPawn(board, 9, 17);
+
+
     
     board.printBoard();
     return 0; 

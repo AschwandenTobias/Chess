@@ -58,7 +58,7 @@ bool Bishop::isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endS
     Bitboard to = 1ULL << endSquare;
     if(!(board.checkIfBlackBishopIsOnSquare(from))) return false;
     int distance = std::abs(endSquare - startSquare);
-    std::cout << "Distance: " << distance << "\n";
+    //std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
     if(distance % 7 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
@@ -68,7 +68,7 @@ bool Bishop::isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endS
                 return true;
             }
         } else {
-            std::cout << "Piece in the way detected \n";
+            //std::cout << "Piece in the way detected \n";
             return false;
         }
     }
@@ -82,10 +82,10 @@ bool Bishop::checkDiagonalMoves(Chessboard &board, int startSquare, int endSquar
     } else {
         direction = (endSquare > startSquare) ? 9 : -9;
     }
-    std::cout << "Direction: " << direction << "\n";
+    //std::cout << "Direction: " << direction << "\n";
     Bitboard tmp = 1ULL << (startSquare + direction);
     for(int i = startSquare + direction; i != endSquare; i += direction) {
-        std::cout << "i: " << i << "\n";
+        //std::cout << "i: " << i << "\n";
         if(board.checkIfPieceIsOnSquare(tmp)) return false;
         tmp = (direction > 0) ? tmp << std::abs(direction) : tmp >> std::abs(direction);
     }

@@ -35,5 +35,21 @@ TEST(BishopTest, WhiteCaptureChecks) {
 TEST(BishopTest, BlackCaptureChecks) {
     Chessboard board;
     EXPECT_EQ(board.blackBishops, 0x2400000000000000);
-
+    Bishop::moveBlackBishop(board, 61, 68);
+    Bishop::moveBlackBishop(board, 61, 70);
+    Pawn::moveBlackPawn(board, 54, 46);
+    Bishop::moveBlackBishop(board, 61, 54);
+    Bishop::moveBlackBishop(board, 54, 9);
+    Bishop::moveBlackBishop(board, 9, 0);
+    Bishop::moveBlackBishop(board, 0, 9);
+    Bishop::moveBlackBishop(board, 9, 2);
+    Bishop::moveBlackBishop(board, 2, 11);
+    Bishop::moveBlackBishop(board, 11, 4);
+    Bishop::moveBlackBishop(board, 4, -3);
+    Bishop::moveBlackBishop(board, 4, -5);
+    Bishop::moveBlackBishop(board, 4, 13);
+    Bishop::moveBlackBishop(board, 13, 6);
+    Bishop::moveBlackBishop(board, 6, 15);
+    Bishop::moveBlackBishop(board, 15, 50);
+    EXPECT_EQ(board.blackBishops, 0x0400000000008000);
 }
