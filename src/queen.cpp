@@ -42,3 +42,43 @@ bool Queen::isWhiteQueenMoveLegal(Chessboard &board, int startSquare, int endSqu
     }
     return false;
 }
+
+void Queen::moveBlackQueen(Chessboard &board, int startSquare, int endSquare) {
+    Bitboard from = 1ULL << startSquare;
+    Bitboard to = 1ULL << endSquare;
+    if(isBlackQueenMoveLegal(board, startSquare, endSquare)) {
+        board.updateLastMove(startSquare, endSquare);
+        if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
+            board.deletePiece(to);
+        }
+        from = ~from;
+        board.blackQueen &= from;
+        board.blackQueen |= to;
+    }
+}
+
+bool Queen::isBlackQueenMoveLegal(Chessboard &board, int startSquare, int endSquare) {
+    if (endSquare < 0 || endSquare > 63) return false;
+    Bitboard from = 1ULL << startSquare;
+    Bitboard to = 1ULL << endSquare;
+    if (!(board.checkIfBlackQueenIsOnSquare(from))) return false;
+    if (board.checkIfBlackPieceIsOnSquare(to)) {
+        return false;
+    }
+    int distance = std::abs(endSquare - startSquare);
+    if (distance % 7 == 0 || distance % 9 == 0) {
+        if (Bishop::checkDiagonalMoves(board, startSquare, endSquare)) {
+            return true;  
+        }
+    }
+    if (distance % 8 == 0) {
+        if (Rook::checkVerticalMoves(board, startSquare, endSquare)) {
+            return true;  
+        }
+    } else {
+        if (Rook::checkHorizontalMoves(board, startSquare, endSquare)) {
+            return true;  
+        }
+    }
+    return false;
+}

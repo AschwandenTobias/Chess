@@ -20,8 +20,6 @@ int main() {
     Queen::moveWhiteQueen(board, 27, 24);
     Queen::moveWhiteQueen(board, 24, 48);
     Queen::moveWhiteQueen(board, 48, 8);
-    Pawn::moveWhitePawn(board, 8, 16);
-    Queen::moveWhiteQueen(board, 48, 8);
 
     
     board.printBoard();
