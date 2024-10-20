@@ -38,7 +38,8 @@ public:
     bool checkIfWhitePieceIsOnSquare(int squareToDelete);
     bool checkIfWhiteRookIsOnSquare(Bitboard square);
     bool checkIfBlackRookIsOnSquare(Bitboard square);
-
+    bool checkIfWhiteBishopIsOnSquare(Bitboard square);
+    bool checkIfBlackBishopIsOnSquare(Bitboard square);
 };
 
 #endif 

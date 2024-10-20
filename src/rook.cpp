@@ -9,9 +9,9 @@ void Rook::moveWhiteRook(Chessboard &board, int startSquare, int endSquare) {
         if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
             board.deletePiece(to);
         }
-    from = ~from;
-    board.whiteRooks &= from;
-    board.whiteRooks |= to;
+        from = ~from;
+        board.whiteRooks &= from;
+        board.whiteRooks |= to;
     }
 }
 

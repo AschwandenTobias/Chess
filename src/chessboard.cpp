@@ -4,6 +4,7 @@
 #include "knight.h"
 #include "rook.h"
 
+
 Chessboard::Chessboard() {
     whitePawns = 0x000000000000FF00;
     whiteRooks = 0x0000000000000081;
@@ -60,6 +61,14 @@ void Chessboard::deletePiece(int squareToDelete) { //not sure this works
     blackKnights &= del;
     blackQueen &= del;
     blackKing &= del;
+}
+
+bool Chessboard::checkIfWhiteBishopIsOnSquare(Bitboard square) {
+    return (whiteBishops & square);
+}
+
+bool Chessboard::checkIfBlackBishopIsOnSquare(Bitboard square) {
+    return (blackBishops & square);
 }
 
 bool Chessboard::checkIfWhiteRookIsOnSquare(Bitboard square) {
