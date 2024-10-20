@@ -19,10 +19,12 @@ add_executable(ChessEngineTests
     tests/test_pawn.cpp 
     tests/test_knight.cpp 
     tests/test_rook.cpp
+    tests/test_bishop.cpp
     src/chessboard.cpp 
     src/pawn.cpp 
     src/knight.cpp
     src/rook.cpp
+    src/bishop.cpp
 )
 
 # Link the test executable with GoogleTest libraries

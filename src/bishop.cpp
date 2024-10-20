@@ -18,13 +18,18 @@ void Bishop::moveWhiteBishop(Chessboard &board, int startSquare, int endSquare) 
 bool Bishop::isWhiteBishopMoveLegal(Chessboard &board, int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
     Bitboard from = 1ULL << startSquare;
+    Bitboard to = 1ULL << endSquare;
     if(!(board.checkIfWhiteBishopIsOnSquare(from))) return false;
     int distance = std::abs(endSquare - startSquare);
     std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
     if(distance % 7 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
-
+            if(board.checkIfWhitePieceIsOnSquare(to)) {
+                return false;
+            } else if(board.checkIfBlackPieceIsOnSquare(to)) {
+                return true;
+            }
         } else {
             std::cout << "Piece in the way detected \n";
             return false;
