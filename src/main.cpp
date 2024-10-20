@@ -12,14 +12,15 @@ int main() {
 
     board.printBoard();
 
-    Queen::moveWhiteQueen(board, 4, 18);
-    Pawn::moveWhitePawn(board, 11, 19);
-    Queen::moveWhiteQueen(board, 4, 18);
-    Queen::moveWhiteQueen(board, 18, 26);
-    Queen::moveWhiteQueen(board, 26, 27);
-    Queen::moveWhiteQueen(board, 27, 24);
-    Queen::moveWhiteQueen(board, 24, 48);
-    Queen::moveWhiteQueen(board, 48, 8);
+    Queen::moveBlackQueen(board, 60, 68);
+    Pawn::moveBlackPawn(board, 51, 43);
+    Queen::moveBlackQueen(board, 60, 61);
+    Queen::moveBlackQueen(board, 60, 24);
+    Queen::moveBlackQueen(board, 24, 48);
+    Queen::moveBlackQueen(board, 24, 8);
+    Queen::moveBlackQueen(board, 8, 0);
+    Queen::moveBlackQueen(board, 0, 9);
+
 
     
     board.printBoard();

@@ -58,15 +58,19 @@ void Queen::moveBlackQueen(Chessboard &board, int startSquare, int endSquare) {
 }
 
 bool Queen::isBlackQueenMoveLegal(Chessboard &board, int startSquare, int endSquare) {
+    //std::cout << "Beginning of isBlackQueenMoveLegal\n";
     if (endSquare < 0 || endSquare > 63) return false;
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
     if (!(board.checkIfBlackQueenIsOnSquare(from))) return false;
     if (board.checkIfBlackPieceIsOnSquare(to)) {
+        //std::cout << "Detected black Piece on endSquare\n";
         return false;
     }
     int distance = std::abs(endSquare - startSquare);
+    //std::cout << "Distance: " << distance << "\n";
     if (distance % 7 == 0 || distance % 9 == 0) {
+        //std::cout << "Vertical queen move detected\n";
         if (Bishop::checkDiagonalMoves(board, startSquare, endSquare)) {
             return true;  
         }
