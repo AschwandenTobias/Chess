@@ -64,5 +64,5 @@ TEST(KnightTest, CaptureChecks) {
     Knight::moveBlackKnight(board, 17, 11);
     Knight::moveBlackKnight(board, 11, 17);
     EXPECT_EQ(board.blackKnights, 0x0000000000220000);
-    //EXPECT_EQ(board.whiteRooks, 0x0000000000000080);   Tütüü nothing wrong to see here
+    EXPECT_EQ(board.whiteRooks, 0x0000000000000080);  
 }

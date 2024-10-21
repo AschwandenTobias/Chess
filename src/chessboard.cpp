@@ -68,7 +68,7 @@ bool Chessboard::checkIfWhiteKnightIsOnSquare(Bitboard square) {
 }
 
 bool Chessboard::checkIfBlackKnightIsOnSquare(Bitboard square) {
-    return (whiteKnights & square);
+    return (blackKnights & square);
 }
 
 bool Chessboard::checkIfWhiteQueenIsOnSquare(Bitboard square) {
