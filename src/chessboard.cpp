@@ -63,6 +63,14 @@ void Chessboard::deletePiece(int squareToDelete) { //not sure this works
     blackKing &= del;
 }
 
+bool Chessboard::checkIfWhiteKnightIsOnSquare(Bitboard square) {
+    return (whiteKnights & square);
+}
+
+bool Chessboard::checkIfBlackKnightIsOnSquare(Bitboard square) {
+    return (whiteKnights & square);
+}
+
 bool Chessboard::checkIfWhiteQueenIsOnSquare(Bitboard square) {
     return (whiteQueen & square);
 }

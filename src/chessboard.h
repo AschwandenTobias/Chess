@@ -42,6 +42,8 @@ public:
     bool checkIfBlackBishopIsOnSquare(Bitboard square);
     bool checkIfWhiteQueenIsOnSquare(Bitboard square);
     bool checkIfBlackQueenIsOnSquare(Bitboard square);
+    bool checkIfWhiteKnightIsOnSquare(Bitboard square);
+    bool checkIfBlackKnightIsOnSquare(Bitboard square);
 };
 
 #endif 
