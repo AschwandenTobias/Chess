@@ -1,9 +1,16 @@
 General TODOs:
 -Make pawn into pieces on the other side
--Knight movement is broken
-
+-Make the game playable
+-Enforce bishops cant move over the col boundaries
+-Implement King movement
+-Implement checks etc.
+-Kings should not be able to move near other kings
+-Implement castling
 
 ~from = 11111110
+
+Legal Kingmoves:
+1, 9, 8, 7, -1, -9, -7, -8
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
@@ -12,5 +19,4 @@ General TODOs:
 
 00000000_00000000_00000000_00000000_00000010_00000000_11111101_00000000 //g pawn 2 square movement
 
-
-00000000_00000000_00000000_00000000_00000000_00000000_00000010_00000000
+00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
