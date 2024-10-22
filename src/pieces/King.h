@@ -1,6 +1,6 @@
 #ifndef KING_H
 #define KING_H
-#include "chessboard.h"
+#include "../chessboard.h"
 
 typedef uint64_t Bitboard;
 class King {

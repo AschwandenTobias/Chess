@@ -1,8 +1,6 @@
 #include "chessboard.h" 
 #include <iostream>
-#include "pawn.h"
-#include "knight.h"
-#include "rook.h"
+
 
 
 Chessboard::Chessboard() {
