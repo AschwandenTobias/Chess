@@ -2,6 +2,7 @@
 #define GAME_H
 #include <cstdint>
 #include "chessboard.h"
+#include <string>
 
 
 typedef uint64_t Bitboard;
@@ -17,7 +18,7 @@ public:
     bool isMoveValid(int startSquare, int endSquare);
     void makeMove(int startSquare, int endSquare);
     void checkGameOver();
-    void translateMove();
+    int translateMove(std::string);
     Chessboard board;
 };
 
