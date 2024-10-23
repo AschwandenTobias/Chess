@@ -23,8 +23,12 @@ void Game::start() {
             std::cout << "Its blacks turn: Enter your move: \n";
         }
         std::cin >> move;
+        if(move.length() != 4) {
+            continue;
+        }
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
+        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
@@ -39,11 +43,11 @@ void Game::start() {
 int Game::translateMove(std::string move) {
     std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
     int square = (move[1] - '1') * 8 + (move[0] - 'a' - 1);
-    std::cout << "Translated square: " << square << "\n";
-    return 0;
+    return square;
 }
 
 bool Game::isMoveValid(int startSquare, int endSquare) {
+    if(endSquare < 0 || endSquare > 63) return false;
     return true;
 }
 
