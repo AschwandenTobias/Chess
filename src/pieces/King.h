@@ -9,6 +9,8 @@ public:
     static bool isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackKing(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackKingMoveLegal(Chessboard &board, int startSquare, int endSquare);
+    static bool isSquareInCheck(int square);
+    static bool isKingInCheck(Chessboard &board);
 };
 
 #endif

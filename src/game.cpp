@@ -47,8 +47,8 @@ void Game::start() {
 
 int Game::translateMove(std::string move) {
     std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
-    int file = move[0];
-    std::cout << "file as number: " << file << "\n";
+    //int file = move[0];
+    //std::cout << "file as number: " << file << "\n";
     int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
     return square;
 }
@@ -148,7 +148,6 @@ void Game::makeMove(int startSquare, int endSquare) {
             std::cout << "Unknown piece type!" << std::endl;
             return;
     }
-
 }
 
 void Game::checkGameOver() {

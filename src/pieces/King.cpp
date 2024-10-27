@@ -1,6 +1,14 @@
 #include <iostream>
 #include "king.h"
 
+bool King::isSquareInCheck(int square) {
+    return false;
+}
+
+bool King::isKingInCheck(Chessboard &board) {
+    return false;
+}
+
 void King::moveWhiteKing(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
