@@ -47,7 +47,9 @@ void Game::start() {
 
 int Game::translateMove(std::string move) {
     std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
-    int square = (move[1] - '1') * 8 + (move[0] - 'a' - 1);
+    int file = move[0];
+    std::cout << "file as number: " << file << "\n";
+    int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
     return square;
 }
 
