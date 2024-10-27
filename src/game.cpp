@@ -93,7 +93,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return King::isBlackKingMoveLegal(board, startSquare, endSquare);
         break;
     default:
-        
+        return false;
         break;
     }
     return true;
@@ -101,6 +101,51 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
 
 void Game::makeMove(int startSquare, int endSquare) {
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
+    if (piece == Chessboard::EMPTY) {
+        std::cout << "No piece at the starting square!\n";
+        return; 
+    }
+    switch (piece) {
+        case Chessboard::WHITE_PAWN:
+            Pawn::moveWhitePawn(board, startSquare, endSquare);
+            break;
+        case Chessboard::WHITE_KNIGHT:
+            Knight::moveWhiteKnight(board, startSquare, endSquare);
+            break;
+        case Chessboard::WHITE_BISHOP:
+            Bishop::moveWhiteBishop(board, startSquare, endSquare);
+            break;
+        case Chessboard::WHITE_ROOK:
+            Rook::moveWhiteRook(board, startSquare, endSquare);
+            break;
+        case Chessboard::WHITE_QUEEN:
+            Queen::moveWhiteQueen(board, startSquare, endSquare);
+            break;
+        case Chessboard::WHITE_KING:
+            King::moveWhiteKing(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_PAWN:
+            Pawn::moveBlackPawn(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_KNIGHT:
+            Knight::moveBlackKnight(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_BISHOP:
+            Bishop::moveBlackBishop(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_ROOK:
+            Rook::moveBlackRook(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_QUEEN:
+            Queen::moveBlackQueen(board, startSquare, endSquare);
+            break;
+        case Chessboard::BLACK_KING:
+            King::moveBlackKing(board, startSquare, endSquare);
+            break;
+        default:
+            std::cout << "Unknown piece type!" << std::endl;
+            return;
+    }
 
 }
 

@@ -5,6 +5,7 @@ General TODOs:
 -Implement checks etc.
 -Kings should not be able to move near other kings
 -Implement castling
+-GAME TRANSLATES MOVES WRONG
 
 ~from = 11111110
 
