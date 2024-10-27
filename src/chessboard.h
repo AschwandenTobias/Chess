@@ -23,6 +23,11 @@ public:
     int lastMoveStartSquare;  
     int lastMoveEndSquare;    
     bool lastMoveWasTwoSquarePawnMove;
+    enum Piece {
+        EMPTY,
+        WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
+        BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK, BLACK_QUEEN, BLACK_KING
+    };
 
     Chessboard();
     void printBoard();
@@ -46,6 +51,7 @@ public:
     bool checkIfBlackKnightIsOnSquare(Bitboard square);
     bool checkIfWhiteKingIsOnSquare(Bitboard square);
     bool checkIfBlackKingIsOnSquare(Bitboard square);
+    Piece getPieceAtSquare(int square);
 };
 
 #endif 

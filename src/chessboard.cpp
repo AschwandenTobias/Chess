@@ -20,6 +20,28 @@ Chessboard::Chessboard() {
     int lastMoveStartSquare = 0;  
     int lastMoveEndSquare = 0;    
     bool lastMoveWasTwoSquarePawnMove = false;
+    
+}
+
+
+
+Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
+    Bitboard squareMask = 1ULL << square;
+
+    if (whitePawns & squareMask) return WHITE_PAWN;
+    if (whiteRooks & squareMask) return WHITE_ROOK;
+    if (whiteKnights & squareMask) return WHITE_KNIGHT;
+    if (whiteBishops & squareMask) return WHITE_BISHOP;
+    if (whiteQueen & squareMask) return WHITE_QUEEN;
+    if (whiteKing & squareMask) return WHITE_KING;
+    if (blackPawns & squareMask) return BLACK_PAWN;
+    if (blackRooks & squareMask) return BLACK_ROOK;
+    if (blackKnights & squareMask) return BLACK_KNIGHT;
+    if (blackBishops & squareMask) return BLACK_BISHOP;
+    if (blackQueen & squareMask) return BLACK_QUEEN;
+    if (blackKing & squareMask) return BLACK_KING;
+
+    return EMPTY;
 }
 
 void Chessboard::updateLastMove(int startSquare, int endSquare) {

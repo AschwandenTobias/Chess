@@ -1,5 +1,6 @@
 #include "pawn.h"
 #include <iostream>
+#include "../game.h"
 
 
 void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
