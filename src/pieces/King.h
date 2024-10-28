@@ -12,6 +12,8 @@ public:
     static bool isSquareInWhiteCheck(Chessboard & board, int square);
     static bool isWhiteKingInCheck(Chessboard &board);
     static bool checkBlackBishopMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkBlackKnightMovesForCheck(Chessboard &board, int startSquare);
+
 };
 
 #endif

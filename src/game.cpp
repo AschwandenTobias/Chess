@@ -38,7 +38,11 @@ void Game::start() {
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
-            King::isWhiteKingInCheck(board);
+            if(whiteTurn) {
+                King::isWhiteKingInCheck(board);
+            } else {
+                //implement isBlackKingInCheck
+            }
             checkGameOver();
         } else {
             std::cout << "Invalid move. Try again.\n";

@@ -1,28 +1,48 @@
 #include <iostream>
 #include "king.h"
 #include "Bishop.h"
+#include "Knight.h"
 
 bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
     if(checkBlackBishopMovesForCheck(board, square)) {
+        return true;
+    } else if (checkBlackKnightMovesForCheck(board, square)) {
         return true;
     }
     return false;
 }
 
 bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
-    std::cout << "We check now enemy Bishop moves for checks\n";
+    //std::cout << "We check now enemy Bishop moves for checks\n";
     Bitboard blackBishops = board.blackBishops;
     int numberOfBlackBishops = __builtin_popcountll(blackBishops);
     //std::cout << "Number of Black Bishops: " << numberOfBlackBishops << "\n";
     for(int i = 0; i < numberOfBlackBishops; i++) {
         int bishopSquare = __builtin_ffsll(blackBishops) - 1;
         if(Bishop::checkDiagonalMoves(board, bishopSquare, startSquare)) {
-            std::cout << "Black Bishop can attack the black King!\n";
+            std::cout << "Black Bishop can attack the white King!\n";
             return true;
         }
         blackBishops &= blackBishops - 1;
     }
-    std::cout << "No black Bishop checks detected\n";
+    //std::cout << "No black Bishop checks detected\n";
+    return false; 
+}
+
+bool King::checkBlackKnightMovesForCheck(Chessboard &board, int startSquare) {
+    std::cout << "We check now enemy Knight moves for checks\n";
+    Bitboard blackKnights = board.blackKnights;
+    int numberOfBlackKnights = __builtin_popcountll(blackKnights);
+    std::cout << "Number of Black Knights: " << numberOfBlackKnights << "\n";
+    for(int i = 0; i < numberOfBlackKnights; i++) {
+        int bishopSquare = __builtin_ffsll(blackKnights) - 1;
+        if(Knight::isBlackKnightMoveLegal(board, bishopSquare, startSquare)) {
+            std::cout << "Black Knight can attack the white King!\n";
+            return true;
+        }
+        blackKnights &= blackKnights - 1;
+    }
+    std::cout << "No black Knight checks detected\n";
     return false; 
 }
 

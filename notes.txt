@@ -4,6 +4,7 @@ General TODOs:
 -Implement checks etc.
 -Kings should not be able to move near other kings
 -Implement castling
+-King can move on a square that is under check
 
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
