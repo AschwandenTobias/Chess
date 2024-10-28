@@ -1,12 +1,35 @@
 #include <iostream>
 #include "king.h"
+#include "Bishop.h"
 
-bool King::isSquareInCheck(int square) {
+bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
+    if(checkBlackBishopMovesForCheck(board, square)) {
+        return true;
+    }
     return false;
 }
 
-bool King::isKingInCheck(Chessboard &board) {
-    return false;
+bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
+    std::cout << "We check now enemy Bishop moves for checks\n";
+    Bitboard blackBishops = board.blackBishops;
+    int numberOfBlackBishops = __builtin_popcountll(blackBishops);
+    //std::cout << "Number of Black Bishops: " << numberOfBlackBishops << "\n";
+    for(int i = 0; i < numberOfBlackBishops; i++) {
+        int bishopSquare = __builtin_ffsll(blackBishops) - 1;
+        if(Bishop::checkDiagonalMoves(board, bishopSquare, startSquare)) {
+            std::cout << "Black Bishop can attack the black King!\n";
+            return true;
+        }
+        blackBishops &= blackBishops - 1;
+    }
+    std::cout << "No black Bishop checks detected\n";
+    return false; 
+}
+
+bool King::isWhiteKingInCheck(Chessboard &board) {
+    int kingSquare = __builtin_ffsll(board.whiteKing) - 1;
+    std::cout << "KingSquare: " << kingSquare << "\n";
+    return isSquareInWhiteCheck(board, kingSquare);
 }
 
 void King::moveWhiteKing(Chessboard &board, int startSquare, int endSquare) {
@@ -29,6 +52,7 @@ bool King::isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(endSquare < 0 || endSquare > 63) return false;
     if(!board.checkIfWhiteKingIsOnSquare(from)) return false;
     if(board.checkIfWhitePieceIsOnSquare(to)) return false;
+    if(isSquareInWhiteCheck(board, endSquare)) return false;
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;

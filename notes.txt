@@ -1,22 +1,9 @@
 General TODOs:
 -Make pawn into pieces on the other side
--Make the game playable
 -Enforce bishops cant move over the col boundaries
 -Implement checks etc.
 -Kings should not be able to move near other kings
 -Implement castling
--GAME TRANSLATES MOVES WRONG
 
-~from = 11111110
-
-Legal Kingmoves:
-1, 9, 8, 7, -1, -9, -7, -8
-
-00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
-
-
-00000000_00000000_00000000_00000000_00000000_00000000_11111111_00000000 //Initial white Pawn Position
-
-00000000_00000000_00000000_00000000_00000010_00000000_11111101_00000000 //g pawn 2 square movement
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
