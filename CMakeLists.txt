@@ -21,6 +21,7 @@ add_executable(ChessEngineTests
     tests/test_rook.cpp
     tests/test_bishop.cpp
     tests/test_queen.cpp
+    tests/test_king.cpp
     src/chessboard.cpp 
     src/pieces/pawn.cpp 
     src/pieces/knight.cpp

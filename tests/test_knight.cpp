@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
-#include "knight.h"
+#include "pieces/knight.h"
 
 TEST(KnightTest, InitialKinghtPositionsAndMoves) {
     Chessboard board;

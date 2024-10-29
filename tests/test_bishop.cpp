@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
-#include "bishop.h"
-#include "pawn.h"
+#include "pieces/bishop.h"
+#include "pieces/pawn.h"
 
 TEST(BishopTest, WhiteCaptureChecks) {
     Chessboard board;

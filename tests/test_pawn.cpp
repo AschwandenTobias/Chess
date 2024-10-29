@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
-#include "pawn.h"
+#include "pieces/pawn.h"
 
 TEST(PawnTest, InitialPawnPositions) {
     Chessboard chessboard;

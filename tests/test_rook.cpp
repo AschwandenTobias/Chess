@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
-#include "rook.h"
-#include "pawn.h"
+#include "pieces/rook.h"
+#include "pieces/pawn.h"
 
 TEST(RookTest, AllDirectionWhiteRookMoves) {
     Chessboard board;

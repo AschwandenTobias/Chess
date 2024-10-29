@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
-#include "queen.h"
-#include "pawn.h"
+#include "pieces/queen.h"
+#include "pieces/pawn.h"
 
 //If fails it might be because of a check
 TEST(QueenTest, WhiteQueenCaptures) { 
