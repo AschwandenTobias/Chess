@@ -13,6 +13,10 @@ public:
     static bool isWhiteKingInCheck(Chessboard &board);
     static bool checkBlackBishopMovesForCheck(Chessboard &board, int startSquare);
     static bool checkBlackKnightMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkBlackRookMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkBlackQueenMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkBlackPawnMovesForCheck(Chessboard &board, int startSquare);
+
 
 };
 

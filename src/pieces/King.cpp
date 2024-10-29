@@ -2,14 +2,49 @@
 #include "king.h"
 #include "Bishop.h"
 #include "Knight.h"
+#include "Rook.h"
+#include "Queen.h"
+#include "Pawn.h"
 
 bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
     if(checkBlackBishopMovesForCheck(board, square)) {
         return true;
     } else if (checkBlackKnightMovesForCheck(board, square)) {
         return true;
+    } else if (checkBlackRookMovesForCheck(board, square)) {
+        return true;
+    } else if(checkBlackQueenMovesForCheck(board, square)) {
+        return true;
+    } else if (checkBlackPawnMovesForCheck(board, square)) {
+        return true;
     }
     return false;
+}
+
+bool King::checkBlackPawnMovesForCheck(Chessboard &board, int startSquare) {
+    Bitboard blackPawns = board.blackPawns;
+    int numberOfBlackPawns = __builtin_popcountll(blackPawns);
+    for(int i = 0; i < numberOfBlackPawns; i++) {
+        int pawnSquare = __builtin_ffsll(blackPawns) - 1;
+        if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, startSquare)) {
+            return true;
+        }
+        blackPawns &= blackPawns - 1;
+    }
+    return false; 
+}
+
+bool King::checkBlackQueenMovesForCheck(Chessboard &board, int startSquare) {
+    Bitboard blackQueen = board.blackQueen;
+    int numberOfBlackQueens = __builtin_popcountll(blackQueen);
+    for(int i = 0; i < numberOfBlackQueens; i++) {
+        int queenSquare = __builtin_ffsll(blackQueen) - 1;
+        if(Queen::isBlackQueenMoveLegal(board, queenSquare, startSquare)) {
+            return true;
+        }
+        blackQueen &= blackQueen - 1;
+    }
+    return false; 
 }
 
 bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
@@ -30,19 +65,28 @@ bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
 }
 
 bool King::checkBlackKnightMovesForCheck(Chessboard &board, int startSquare) {
-    std::cout << "We check now enemy Knight moves for checks\n";
     Bitboard blackKnights = board.blackKnights;
     int numberOfBlackKnights = __builtin_popcountll(blackKnights);
-    std::cout << "Number of Black Knights: " << numberOfBlackKnights << "\n";
     for(int i = 0; i < numberOfBlackKnights; i++) {
-        int bishopSquare = __builtin_ffsll(blackKnights) - 1;
-        if(Knight::isBlackKnightMoveLegal(board, bishopSquare, startSquare)) {
-            std::cout << "Black Knight can attack the white King!\n";
+        int knightSquare = __builtin_ffsll(blackKnights) - 1;
+        if(Knight::isBlackKnightMoveLegal(board, knightSquare, startSquare)) {
             return true;
         }
         blackKnights &= blackKnights - 1;
     }
-    std::cout << "No black Knight checks detected\n";
+    return false; 
+}
+
+bool King::checkBlackRookMovesForCheck(Chessboard &board, int startSquare) {
+    Bitboard blackRooks = board.blackRooks;
+    int numberOfBlackRooks = __builtin_popcountll(blackRooks);
+    for(int i = 0; i < numberOfBlackRooks; i++) {
+        int rookSquare = __builtin_ffsll(blackRooks) - 1;
+        if(Rook::isBlackRookMoveLegal(board, rookSquare, startSquare)) {
+            return true;
+        }
+        blackRooks &= blackRooks - 1;
+    }
     return false; 
 }
 
