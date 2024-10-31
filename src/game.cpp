@@ -34,7 +34,7 @@ void Game::start() {
         }
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
-        //std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
+        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
@@ -52,7 +52,7 @@ void Game::start() {
 }
 
 int Game::translateMove(std::string move) {
-    std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
+    //std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
     //int file = move[0];
     //std::cout << "file as number: " << file << "\n";
     int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
@@ -108,11 +108,75 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
 }
 
 void Game::promoteWhitePawn(int endSquare) {
-
+    std::string promotionPiece;
+    Bitboard promotionSquare = (1ULL << endSquare);
+    while (true) {
+        std::cout << "Your pawn promotes! Enter the first letter of the piece! (B, K, Q, R)\n";
+        std::cin >> promotionPiece;
+        promotionPiece[0] = std::toupper(promotionPiece[0]);
+        if(promotionPiece.length() != 1) {
+            std::cout << "Pls only enter one character :) \n";
+            continue;
+        }
+        if(promotionPiece == "B") {
+            std::cout << "Promotion to Bishop\n";
+            board.deletePiece(endSquare);
+            board.whiteBishops |= promotionSquare;
+            break;
+        } else if (promotionPiece != "R") {
+            std::cout << "Promotion to Rook\n";
+            board.deletePiece(endSquare);
+            board.whiteRooks |= promotionSquare;
+            break;
+        } else if (promotionPiece != "K") {
+            std::cout << "Promotion to Knight\n";
+            board.deletePiece(endSquare);
+            board.whiteKnights |= promotionSquare;
+            break;
+        } else if(promotionPiece != "Q") {
+            std::cout << "Promotion to Queen\n";
+            board.deletePiece(endSquare);
+            board.whiteQueen |= promotionSquare;
+            break;
+        } else {
+            std::cout << "No correct piece detected!\n";
+            continue;
+        }
+    }
 }
 
 void Game::promoteBlackPawn(int endSquare) {
-
+    std::string promotionPiece;
+    Bitboard promotionSquare = (1ULL << endSquare);
+    while (true) {
+        std::cout << "Your pawn promotes! Enter the first letter of the piece! (B, K, Q, R)\n";
+        std::cin >> promotionPiece;
+        promotionPiece[0] = std::toupper(promotionPiece[0]);
+        if(promotionPiece.length() != 1) {
+            std::cout << "Pls only enter one character :) \n";
+            continue;
+        }
+        if(promotionPiece == "B") {
+            board.deletePiece(endSquare);
+            board.blackBishops |= promotionSquare;
+            break;
+        } else if (promotionPiece != "R") {
+            board.deletePiece(endSquare);
+            board.blackRooks |= promotionSquare;
+            break;
+        } else if (promotionPiece != "K") {
+            board.deletePiece(endSquare);
+            board.blackKnights |= promotionSquare;
+            break;
+        } else if(promotionPiece != "Q") {
+            board.deletePiece(endSquare);
+            board.blackQueen |= promotionSquare;
+            break;
+        } else {
+            std::cout << "No correct piece detected!\n";
+            continue;
+        }
+    }
 }
 
 bool Game::checkIfWhitePawnPromotes(int endSquare) {

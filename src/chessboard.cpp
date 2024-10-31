@@ -67,8 +67,7 @@ void Chessboard::deletePiece(Bitboard square) {
 }
 
 void Chessboard::deletePiece(int squareToDelete) { //not sure this works
-    Bitboard square = (1ULL << squareToDelete);
-    Bitboard del = ~(1ULL << square);
+    Bitboard del = ~(1ULL << squareToDelete);
     whitePawns &= del;
     whiteRooks &= del;
     whiteBishops &= del;
