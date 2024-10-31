@@ -16,8 +16,13 @@ public:
     static bool checkBlackRookMovesForCheck(Chessboard &board, int startSquare);
     static bool checkBlackQueenMovesForCheck(Chessboard &board, int startSquare);
     static bool checkBlackPawnMovesForCheck(Chessboard &board, int startSquare);
-
-
+    static bool isSquareInBlackCheck(Chessboard & board, int square);
+    static bool isBlackKingInCheck(Chessboard &board);
+    static bool checkWhiteBishopMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkWhiteKnightMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkWhiteRookMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkWhiteQueenMovesForCheck(Chessboard &board, int startSquare);
+    static bool checkWhitePawnMovesForCheck(Chessboard &board, int startSquare);
 };
 
 #endif

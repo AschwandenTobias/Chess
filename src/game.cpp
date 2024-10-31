@@ -41,7 +41,7 @@ void Game::start() {
             if(whiteTurn) {
                 King::isWhiteKingInCheck(board);
             } else {
-                //implement isBlackKingInCheck
+                King::isBlackKingInCheck(board);
             }
             checkGameOver();
         } else {
