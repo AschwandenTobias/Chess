@@ -8,6 +8,7 @@
 #include "pieces/king.h"
 #include "game.h"
 
+
 int main() {
     Game game;
     game.start();

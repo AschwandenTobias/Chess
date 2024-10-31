@@ -15,6 +15,7 @@ Game::Game() {
     whiteTurn = true;
     isDraw = false;
     board;
+    kingIsInCheck = false;
 }
 
 
@@ -33,7 +34,7 @@ void Game::start() {
         }
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
-        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
+        //std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
@@ -106,6 +107,28 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
     return true;
 }
 
+void Game::promoteWhitePawn(int endSquare) {
+
+}
+
+void Game::promoteBlackPawn(int endSquare) {
+
+}
+
+bool Game::checkIfWhitePawnPromotes(int endSquare) {
+    if(endSquare < 56 || endSquare > 63) {
+        return false;
+    }
+    return true;
+}
+
+bool Game::checkIfBlackPawnPromotes(int endSquare) {
+    if(endSquare < 0 || endSquare > 7) {
+        return false;
+    }
+    return true;
+}
+
 void Game::makeMove(int startSquare, int endSquare) {
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
     if (piece == Chessboard::EMPTY) {
@@ -115,6 +138,9 @@ void Game::makeMove(int startSquare, int endSquare) {
     switch (piece) {
         case Chessboard::WHITE_PAWN:
             Pawn::moveWhitePawn(board, startSquare, endSquare);
+            if(checkIfWhitePawnPromotes(endSquare)) {
+                promoteWhitePawn(endSquare);
+            }
             break;
         case Chessboard::WHITE_KNIGHT:
             Knight::moveWhiteKnight(board, startSquare, endSquare);
@@ -133,6 +159,9 @@ void Game::makeMove(int startSquare, int endSquare) {
             break;
         case Chessboard::BLACK_PAWN:
             Pawn::moveBlackPawn(board, startSquare, endSquare);
+            if(checkIfBlackPawnPromotes(endSquare)) {
+                promoteBlackPawn(endSquare);
+            }
             break;
         case Chessboard::BLACK_KNIGHT:
             Knight::moveBlackKnight(board, startSquare, endSquare);

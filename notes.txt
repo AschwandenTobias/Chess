@@ -1,11 +1,10 @@
 General TODOs:
 -Make pawn into pieces on the other side
--Enforce bishops cant move over the col boundaries
--Implement checks for black King etc.
 -Kings should not be able to move near other kings
 -Implement castling
--King can move on a square that is under check
--Write tests for checks
+Bugs:
+-Enforce bishops cant move over the col boundaries
+-King moves are heavily bugged
 
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
