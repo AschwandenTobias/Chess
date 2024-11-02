@@ -7,31 +7,59 @@
 #include "Pawn.h"
 
 void King::castleWhiteKing(Chessboard &board, int startSquare, int endSquare) {
-
+    board.whiteKing &= ~(1ULL << 3);  
+    if(endSquare == 0) {
+        board.whiteKing |= (1ULL << 1);  
+        board.whiteRooks &= ~(1ULL << 0); 
+        board.whiteRooks |= (1ULL << 2);  
+    } else if(endSquare == 7) {
+        board.whiteKing |= (1ULL << 5);  
+        board.whiteRooks &= ~(1ULL << 7); 
+        board.whiteRooks |= (1ULL << 4);  
+    }
+    board.whiteKingMoved = true;
 }
 
 bool King::isWhiteKingCastlingLegal(Chessboard &board) {
     if(board.whiteKingRookMoved || board.whiteKingMoved) return false;
+    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 2) || isSquareInBlackCheck(board, 1)) return false;
+    if(board.checkIfPieceIsOnSquare(2) || board.checkIfPieceIsOnSquare(1)) return false;
     return true;
 }
 
 bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
     if(board.whiteQueenRookMoved || board.whiteKingMoved) return false;
+    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 4) || isSquareInBlackCheck(board, 5)) return false;
+    if(board.checkIfPieceIsOnSquare(4) || board.checkIfPieceIsOnSquare(5)) return false;
     return true;
 }
 
 
 void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
-    
+    board.whiteKing &= ~(1ULL << 59);  
+    if(endSquare == 0) {
+        board.whiteKing |= (1ULL << 57);  
+        board.whiteRooks &= ~(1ULL << 56); 
+        board.whiteRooks |= (1ULL << 58);  
+    } else if(endSquare == 7) {
+        board.whiteKing |= (1ULL << 61);  
+        board.whiteRooks &= ~(1ULL << 63); 
+        board.whiteRooks |= (1ULL << 60);  
+    }
+    board.whiteKingMoved = true;
 }
 
 bool King::isBlackKingCastlingLegal(Chessboard &board) {
     if(board.blackKingRookMoved || board.blackKingMoved) return false;
+    if(isSquareInBlackCheck(board, 3) ||isSquareInBlackCheck(board, 2) || isSquareInBlackCheck(board, 1)) return false;
+    if(board.checkIfPieceIsOnSquare(2) || board.checkIfPieceIsOnSquare(1)) return false;
     return true;
 }
 
 bool King::isBlackQueenCastlingLegal(Chessboard &board) {
     if(board.blackQueenRookMoved || board.blackKingMoved) return false;
+    if(isSquareInBlackCheck(board, 3) ||isSquareInBlackCheck(board, 4) || isSquareInBlackCheck(board, 5)) return false;
+    if(board.checkIfPieceIsOnSquare(4) || board.checkIfPieceIsOnSquare(5)) return false;
     return true;
 }
 
