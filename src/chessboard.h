@@ -28,6 +28,8 @@ public:
     bool whiteKingRookMoved;
     bool blackQueenRookMoved;
     bool blackKingRookMoved;
+    bool whiteKingMoved;
+    bool blackKingMoved;
     enum Piece {
         EMPTY,
         WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,

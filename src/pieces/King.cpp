@@ -11,12 +11,12 @@ void King::castleWhiteKing(Chessboard &board, int startSquare, int endSquare) {
 }
 
 bool King::isWhiteKingCastlingLegal(Chessboard &board) {
-    if(board.whiteKingRookMoved) return false;
+    if(board.whiteKingRookMoved || board.whiteKingMoved) return false;
     return true;
 }
 
 bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
-    if(board.whiteQueenRookMoved) return false;
+    if(board.whiteQueenRookMoved || board.whiteKingMoved) return false;
     return true;
 }
 
@@ -26,12 +26,12 @@ void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
 }
 
 bool King::isBlackKingCastlingLegal(Chessboard &board) {
-    if(board.blackKingRookMoved) return false;
+    if(board.blackKingRookMoved || board.blackKingMoved) return false;
     return true;
 }
 
 bool King::isBlackQueenCastlingLegal(Chessboard &board) {
-    if(board.blackQueenRookMoved) return false;
+    if(board.blackQueenRookMoved || board.blackKingMoved) return false;
     return true;
 }
 
@@ -220,6 +220,7 @@ void King::moveWhiteKing(Chessboard &board, int startSquare, int endSquare) {
     Bitboard to = 1ULL << endSquare;
     if(isWhiteKingMoveLegal(board, startSquare, endSquare)) {
         board.updateLastMove(startSquare, endSquare);
+        board.whiteKingMoved = true;
         if(board.checkIfBlackPieceIsOnSquare(endSquare)) {
             board.deletePiece(to);
         }
@@ -251,6 +252,7 @@ void King::moveBlackKing(Chessboard &board, int startSquare, int endSquare) {
     Bitboard to = 1ULL << endSquare;
     if(isBlackKingMoveLegal(board, startSquare, endSquare)) {
         board.updateLastMove(startSquare, endSquare);
+        board.blackKingMoved = true;
         if(board.checkIfWhitePieceIsOnSquare(endSquare)) {
             board.deletePiece(to);
         }
