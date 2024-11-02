@@ -1,5 +1,4 @@
 General TODOs:
--Make pawn into pieces on the other side
 -Kings should not be able to move near other kings
 -Implement castling
 Bugs:

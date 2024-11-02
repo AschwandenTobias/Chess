@@ -20,6 +20,12 @@ Chessboard::Chessboard() {
     int lastMoveStartSquare = 0;  
     int lastMoveEndSquare = 0;    
     bool lastMoveWasTwoSquarePawnMove = false;
+
+    
+    whiteQueenRookMoved = false;
+    whiteKingRookMoved = false;
+    blackQueenRookMoved = false;
+    blackKingRookMoved = false;
     
 }
 

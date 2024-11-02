@@ -23,6 +23,12 @@ public:
     static bool checkWhiteRookMovesForCheck(Chessboard &board, int startSquare);
     static bool checkWhiteQueenMovesForCheck(Chessboard &board, int startSquare);
     static bool checkWhitePawnMovesForCheck(Chessboard &board, int startSquare);
+    static void castleWhiteKing(Chessboard &board, int startSquare, int endSquare);
+    static bool isWhiteKingCastlingLegal(Chessboard &board);
+    static bool isWhiteQueenCastlingLegal(Chessboard &board);
+    static void castleBlackKing(Chessboard &board, int startSquare, int endSquare);
+    static bool isBlackKingCastlingLegal(Chessboard &board);
+    static bool isBlackQueenCastlingLegal(Chessboard &board);
 };
 
 #endif

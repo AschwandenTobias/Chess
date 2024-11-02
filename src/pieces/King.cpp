@@ -6,6 +6,35 @@
 #include "Queen.h"
 #include "Pawn.h"
 
+void King::castleWhiteKing(Chessboard &board, int startSquare, int endSquare) {
+
+}
+
+bool King::isWhiteKingCastlingLegal(Chessboard &board) {
+    if(board.whiteKingRookMoved) return false;
+    return true;
+}
+
+bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
+    if(board.whiteQueenRookMoved) return false;
+    return true;
+}
+
+
+void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
+    
+}
+
+bool King::isBlackKingCastlingLegal(Chessboard &board) {
+    if(board.blackKingRookMoved) return false;
+    return true;
+}
+
+bool King::isBlackQueenCastlingLegal(Chessboard &board) {
+    if(board.blackQueenRookMoved) return false;
+    return true;
+}
+
 bool King::isSquareInBlackCheck(Chessboard &board, int square) {
     if(checkWhiteBishopMovesForCheck(board, square)) {
         return true;

@@ -25,8 +25,9 @@ void Game::start() {
         std::string move;
         if(whiteTurn) {
             std::cout << "Its whites turn: Enter your move in the following format: \"e2e4\" \n";
+            std::cout << "Castling White KingSide == CWKS, Castling B QueenSide == CBQS etc.\n";
         } else {
-            std::cout << "Its blacks turn: Enter your move: \n";
+            std::cout << "Its blacks turn: Enter your move:\n";
         }
         std::cin >> move;
         if(move.length() != 4) {
@@ -55,6 +56,15 @@ int Game::translateMove(std::string move) {
     //std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
     //int file = move[0];
     //std::cout << "file as number: " << file << "\n";
+    if (move == "CW") {  
+        return 3;
+    } else if (move == "KS") {  
+        return 0;
+    } else if (move == "QS") {  
+        return 7;
+    } else if (move == "CB") {  
+        return 59;
+    }
     int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
     return square;
 }
@@ -80,6 +90,11 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Queen::isWhiteQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::WHITE_KING:
+        if(startSquare == 3 && endSquare == 0) {
+            return King::isWhiteKingCastlingLegal(board);
+        } else if(startSquare == 3 && endSquare == 7) {
+            return King::isWhiteQueenCastlingLegal(board);
+        }
         return King::isWhiteKingMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_PAWN:
@@ -98,6 +113,11 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_KING:
+        if(startSquare == 59 && endSquare == 0) {
+            return King::isBlackKingCastlingLegal(board);
+        } else if (startSquare == 59 && endSquare == 7) {
+            return King::isBlackQueenCastlingLegal(board);
+        }
         return King::isBlackKingMoveLegal(board, startSquare, endSquare);
         break;
     default:
@@ -219,6 +239,11 @@ void Game::makeMove(int startSquare, int endSquare) {
             Queen::moveWhiteQueen(board, startSquare, endSquare);
             break;
         case Chessboard::WHITE_KING:
+            if(startSquare == 3 && endSquare == 0) {
+                King::castleWhiteKing(board, startSquare, endSquare);
+            } else if(startSquare == 3 && endSquare == 7) {
+                King::castleWhiteKing(board, startSquare, endSquare);
+            }
             King::moveWhiteKing(board, startSquare, endSquare);
             break;
         case Chessboard::BLACK_PAWN:
@@ -240,6 +265,11 @@ void Game::makeMove(int startSquare, int endSquare) {
             Queen::moveBlackQueen(board, startSquare, endSquare);
             break;
         case Chessboard::BLACK_KING:
+            if(startSquare == 59 && endSquare == 0) {
+                King::castleBlackKing(board, startSquare, endSquare);
+            } else if (startSquare == 59 && endSquare == 7) {
+                King::castleBlackKing(board, startSquare, endSquare);
+            }
             King::moveBlackKing(board, startSquare, endSquare);
             break;
         default:
