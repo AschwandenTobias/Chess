@@ -6,6 +6,30 @@
 #include "Queen.h"
 #include "Pawn.h"
 
+bool King::isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare) {
+    Bitboard enemyKing = board.blackKing;  
+    int enemyKingSquare = __builtin_ffsll(enemyKing) - 1; 
+    int endRow = endSquare / 8, endCol = endSquare % 8;
+    int enemyRow = enemyKingSquare / 8, enemyCol = enemyKingSquare % 8;
+    if (abs(endRow - enemyRow) <= 1 && abs(endCol - enemyCol) <= 1) {
+        return true;
+    }
+    
+    return false;
+}
+
+bool King::isBlackKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare) {
+    Bitboard enemyKing = board.whiteKing;  
+    int enemyKingSquare = __builtin_ffsll(enemyKing) - 1; 
+    int endRow = endSquare / 8, endCol = endSquare % 8;
+    int enemyRow = enemyKingSquare / 8, enemyCol = enemyKingSquare % 8;
+    if (abs(endRow - enemyRow) <= 1 && abs(endCol - enemyCol) <= 1) {
+        return true;
+    }
+    
+    return false;
+}
+
 void King::castleWhiteKing(Chessboard &board, int startSquare, int endSquare) {
     board.whiteKing &= ~(1ULL << 3);  
     if(endSquare == 0) {
@@ -265,6 +289,7 @@ bool King::isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(!board.checkIfWhiteKingIsOnSquare(from)) return false;
     if(board.checkIfWhitePieceIsOnSquare(to)) return false;
     if(isSquareInWhiteCheck(board, endSquare)) return false;
+    if(isWhiteKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
@@ -297,6 +322,7 @@ bool King::isBlackKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(!board.checkIfBlackKingIsOnSquare(from)) return false;
     if(board.checkIfBlackPieceIsOnSquare(to)) return false;
     if(isSquareInBlackCheck(board, endSquare)) return false;
+    if(isBlackKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;

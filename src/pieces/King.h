@@ -29,6 +29,9 @@ public:
     static void castleBlackKing(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackKingCastlingLegal(Chessboard &board);
     static bool isBlackQueenCastlingLegal(Chessboard &board);
+    static bool isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare);
+    static bool isBlackKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare);
+
 };
 
 #endif
