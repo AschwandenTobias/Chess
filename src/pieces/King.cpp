@@ -26,7 +26,6 @@ bool King::isBlackKingMoveNextToEnemyKing(Chessboard &board, int startSquare, in
     if (abs(endRow - enemyRow) <= 1 && abs(endCol - enemyCol) <= 1) {
         return true;
     }
-    
     return false;
 }
 

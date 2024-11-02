@@ -1,5 +1,4 @@
 General TODOs:
--Kings should not be able to move near other kings
 Bugs:
 -Enforce bishops cant move over the col boundaries
 -King moves are heavily bugged
