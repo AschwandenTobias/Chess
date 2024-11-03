@@ -53,3 +53,12 @@ TEST(BishopTest, BlackCaptureChecks) {
     Bishop::moveBlackBishop(board, 15, 50);
     EXPECT_EQ(board.blackBishops, 0x0400000000008000);
 }
+
+TEST(BishopTest, TestBoardBoundaries) {
+    Chessboard board;
+    Pawn::moveBlackPawn(board, 54, 46);
+    Bishop::moveBlackBishop(board, 61, 54);
+    Bishop::moveBlackBishop(board, 54, 47);
+    Bishop::moveBlackBishop(board, 47, 40);
+    EXPECT_EQ(board.blackBishops, 0x0400800000000000);
+}

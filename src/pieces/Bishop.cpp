@@ -82,10 +82,23 @@ bool Bishop::checkDiagonalMoves(Chessboard &board, int startSquare, int endSquar
     } else {
         direction = (endSquare > startSquare) ? 9 : -9;
     }
+    if(std::abs(endSquare - startSquare) == 7 || std::abs(endSquare - startSquare) == 9) {
+        int startRow = startSquare % 8;
+        int endRow = endSquare % 8;
+        if(std::abs(endRow - startRow) != 1) return false;
+    }
+    
     //std::cout << "Direction: " << direction << "\n";
     Bitboard tmp = 1ULL << (startSquare + direction);
     for(int i = startSquare + direction; i != endSquare; i += direction) {
-        //std::cout << "i: " << i << "\n";
+        std::cout << "Bishop::Check following square: i: " << i << "\n";
+        int currentRow = i % 8;
+        int nextRow = (i + direction) % 8;
+        std::cout << "Bishop::CurrentRow: " << currentRow << ", nextRow: " << nextRow << "\n";
+        if (std::abs(nextRow - currentRow) != 1) {
+            std::cout << "Stepping over board boundaries detected\n";
+            return false; 
+        }
         if(board.checkIfPieceIsOnSquare(tmp)) return false;
         tmp = (direction > 0) ? tmp << std::abs(direction) : tmp >> std::abs(direction);
     }
