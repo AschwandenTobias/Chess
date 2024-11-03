@@ -39,6 +39,7 @@ public:
     Chessboard();
     void printBoard();
     bool checkIfPieceIsOnSquare(Bitboard square);
+    bool checkIfPieceIsOnSquare(int Square);
     bool checkIfWhitePieceIsOnSquare(Bitboard square);
     bool checkIfBlackPieceIsOnSquare(Bitboard square);
     bool checkIfBlackPawnIsOnSquare(Bitboard square);

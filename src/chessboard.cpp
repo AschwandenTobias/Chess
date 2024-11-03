@@ -193,6 +193,28 @@ bool Chessboard::checkIfBlackPieceIsOnSquare(int squareToDelete) {
     }
 }
 
+bool Chessboard::checkIfPieceIsOnSquare(int Square) {
+    Bitboard square = 1Ull << Square;
+    if(whitePawns & square) return true;
+    else if(whiteRooks & square) return true;
+    else if(whiteKnights & square) return true;
+    else if(whiteBishops & square) return true;
+    else if(whiteQueen & square) return true;
+    else if(whiteKing & square) return true;
+    else if(blackPawns & square) return true;
+    else if(blackKnights & square) return true;
+    else if(blackBishops & square) return true;
+    else if(blackRooks & square) return true;
+    else if(blackQueen & square) return true;
+    else if(blackKing & square) return true;
+    else {
+        //std::cout << "Detected no piece on the square\n";
+        return false;
+    }
+    //std::cout << "Some issue in checkIfPieceIsOnSquare\n";
+    return false;
+}
+
 bool Chessboard::checkIfPieceIsOnSquare(Bitboard square) {
     if(whitePawns & square) return true;
     else if(whiteRooks & square) return true;
