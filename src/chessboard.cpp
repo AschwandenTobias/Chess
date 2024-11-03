@@ -227,12 +227,12 @@ void Chessboard::printBoard() {
             else if (whiteBishops & (1ULL << square)) piece = 'B';
             else if (whiteQueen & (1ULL << square)) piece = 'Q';
             else if (whiteKing & (1ULL << square)) piece = 'K';
-            else if (blackPawns & (1ULL << square)) piece = 'P';
-            else if (blackRooks & (1ULL << square)) piece = 'R';
-            else if (blackKnights & (1ULL << square)) piece = 'N';
-            else if (blackBishops & (1ULL << square)) piece = 'B';
-            else if (blackQueen & (1ULL << square)) piece = 'Q';
-            else if (blackKing & (1ULL << square)) piece = 'K';
+            else if (blackPawns & (1ULL << square)) piece = 'p';
+            else if (blackRooks & (1ULL << square)) piece = 'r';
+            else if (blackKnights & (1ULL << square)) piece = 'n';
+            else if (blackBishops & (1ULL << square)) piece = 'b';
+            else if (blackQueen & (1ULL << square)) piece = 'q';
+            else if (blackKing & (1ULL << square)) piece = 'k';
             else {
                 
             }

@@ -95,6 +95,7 @@ int Game::translateMove(std::string move) {
 bool Game::isMoveValid(int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
+    //std::cout << "Piece at startSquare was: " << piece << "\n";
     switch (piece)
     {
     case Chessboard::WHITE_PAWN:
@@ -136,9 +137,12 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_KING:
+        std::cout << "Black King detected. In isMoveValid\n";
         if(startSquare == 59 && endSquare == 0) {
+            std::cout << "Black Kingside Castling detected\n";
             return King::isBlackKingCastlingLegal(board);
         } else if (startSquare == 59 && endSquare == 7) {
+            std::cout << "Black Queenside Castling detected\n";
             return King::isBlackQueenCastlingLegal(board);
         }
         return King::isBlackKingMoveLegal(board, startSquare, endSquare);
