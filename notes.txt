@@ -1,6 +1,7 @@
 General TODOs:
 -Implement checkmate
 -Implement that the king cannot be in check at the end of its turn
+-Things like stalemate and draw after repeating moves etc.
 Bugs:
 -Enforce bishops cant move over the col boundaries
 -King moves are heavily bugged
@@ -9,6 +10,4 @@ Bugs:
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000100_00000000_10000000_00000000_00000000_00000000_00000000_00000000
-0400800000000000
-0400010000000000
+

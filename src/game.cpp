@@ -18,6 +18,15 @@ Game::Game() {
     kingIsInCheck = false;
 }
 
+bool Game::isWhiteCheckmate() {
+    //Three conditions
+        //King must be in check
+        //King cannot escape
+        //No other piece can interfere
+    bool check = King::isWhiteKingInCheck(board);
+    return false;
+}
+
 
 void Game::start(const std::vector<std::string>& moves) {
     size_t moveIndex = 0;
@@ -309,5 +318,8 @@ void Game::makeMove(int startSquare, int endSquare) {
 }
 
 bool Game::checkGameOver() {
+    if(IsCheckmate) {
+        return true;
+    }
     return false;
 }

@@ -6,6 +6,10 @@
 #include "Queen.h"
 #include "Pawn.h"
 
+void King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
+    
+}
+
 bool King::isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare) {
     Bitboard enemyKing = board.blackKing;  
     int enemyKingSquare = __builtin_ffsll(enemyKing) - 1; 

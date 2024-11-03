@@ -5,6 +5,7 @@
 typedef uint64_t Bitboard;
 class King {
 public:
+    static void generateAllPossibleKingMoves(Chessboard &board, bool white);
     static void moveWhiteKing(Chessboard &board, int startSquare, int endSquare);
     static bool isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackKing(Chessboard &board, int startSquare, int endSquare);

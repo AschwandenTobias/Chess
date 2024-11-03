@@ -17,6 +17,7 @@ public:
     bool isDraw;
     bool kingIsInCheck;
 
+    bool isWhiteCheckmate();
     bool isMoveValid(int startSquare, int endSquare);
     void makeMove(int startSquare, int endSquare);
     bool checkGameOver();
