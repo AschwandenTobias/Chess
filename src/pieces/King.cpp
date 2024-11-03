@@ -45,14 +45,14 @@ void King::castleWhiteKing(Chessboard &board, int startSquare, int endSquare) {
 
 bool King::isWhiteKingCastlingLegal(Chessboard &board) {
     if(board.whiteKingRookMoved || board.whiteKingMoved) return false;
-    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 2) || isSquareInBlackCheck(board, 1)) return false;
+    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 2) || isSquareInWhiteCheck(board, 1)) return false;
     if(board.checkIfPieceIsOnSquare(2) || board.checkIfPieceIsOnSquare(1)) return false;
     return true;
 }
 
 bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
     if(board.whiteQueenRookMoved || board.whiteKingMoved) return false;
-    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 4) || isSquareInBlackCheck(board, 5)) return false;
+    if(isSquareInWhiteCheck(board, 3) ||isSquareInWhiteCheck(board, 4) || isSquareInWhiteCheck(board, 5)) return false;
     if(board.checkIfPieceIsOnSquare(4) || board.checkIfPieceIsOnSquare(5)) return false;
     return true;
 }
@@ -74,7 +74,7 @@ void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
 }
 
 bool King::isBlackKingCastlingLegal(Chessboard &board) {
-    std::cout << "King::start ofisBlackKingCastlingLegal\n";
+    std::cout << "King::start of isBlackKingCastlingLegal\n";
     if(board.blackKingRookMoved || board.blackKingMoved) return false;
     std::cout << "King::blackKingRook hasn't moved and the black King hasn't moved\n";
     if(isSquareInBlackCheck(board, 59) ||isSquareInBlackCheck(board, 58) || isSquareInBlackCheck(board, 57)) return false;
