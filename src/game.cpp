@@ -19,20 +19,33 @@ Game::Game() {
 }
 
 
-void Game::start() {
-    while(!IsCheckmate && !isDraw) {
+void Game::start(const std::vector<std::string>& moves) {
+    size_t moveIndex = 0;
+    
+    while (!IsCheckmate && !isDraw) {
         board.printBoard();
         std::string move;
-        if(whiteTurn) {
-            std::cout << "Its whites turn: Enter your move in the following format: \"e2e4\" \n";
-            std::cout << "Castling White KingSide == CWKS, Castling B QueenSide == CBQS etc.\n";
+
+        // For automated testing, use the provided moves
+        if (!moves.empty() && moveIndex < moves.size()) {
+            move = moves[moveIndex++];
+            std::cout << "Automated move: " << move << "\n";
         } else {
-            std::cout << "Its blacks turn: Enter your move:\n";
+            // Regular player input
+            if (whiteTurn) {
+                std::cout << "It's white's turn: Enter your move in the format \"e2e4\"\n";
+                std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
+            } else {
+                std::cout << "It's black's turn: Enter your move:\n";
+            }
+            std::cin >> move;
         }
-        std::cin >> move;
-        if(move.length() != 4) {
+
+        if (move.length() != 4) {
+            std::cout << "Invalid input length. Try again.\n";
             continue;
         }
+
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
         std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
@@ -40,14 +53,24 @@ void Game::start() {
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
-            if(whiteTurn) {
+
+            // Check if king is in check after the move
+            if (whiteTurn) {
                 King::isWhiteKingInCheck(board);
             } else {
                 King::isBlackKingInCheck(board);
             }
-            checkGameOver();
+
+            if(checkGameOver()) {
+                board.printBoard();
+                break;
+            }
         } else {
             std::cout << "Invalid move. Try again.\n";
+        }
+        if (!moves.empty() && moveIndex >= moves.size()) {
+            std::cout << "All automated moves have been played.\n";
+            break;
         }
     }
 }
@@ -278,6 +301,6 @@ void Game::makeMove(int startSquare, int endSquare) {
     }
 }
 
-void Game::checkGameOver() {
-
+bool Game::checkGameOver() {
+    return false;
 }
