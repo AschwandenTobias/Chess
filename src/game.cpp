@@ -51,6 +51,7 @@ void Game::start(const std::vector<std::string>& moves) {
         std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
+            std::cout << "Game::Move was valid \n";
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
 
@@ -70,6 +71,7 @@ void Game::start(const std::vector<std::string>& moves) {
         }
         if (!moves.empty() && moveIndex >= moves.size()) {
             std::cout << "All automated moves have been played.\n";
+            board.printBoard();
             break;
         }
     }
@@ -137,12 +139,12 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_KING:
-        std::cout << "Black King detected. In isMoveValid\n";
+        std::cout << "Black King detected. In Game::isMoveValid\n";
         if(startSquare == 59 && endSquare == 0) {
-            std::cout << "Black Kingside Castling detected\n";
+            std::cout << "Game::Black Kingside Castling detected\n";
             return King::isBlackKingCastlingLegal(board);
         } else if (startSquare == 59 && endSquare == 7) {
-            std::cout << "Black Queenside Castling detected\n";
+            std::cout << "Game::Black Queenside Castling detected\n";
             return King::isBlackQueenCastlingLegal(board);
         }
         return King::isBlackKingMoveLegal(board, startSquare, endSquare);
@@ -292,6 +294,7 @@ void Game::makeMove(int startSquare, int endSquare) {
             Queen::moveBlackQueen(board, startSquare, endSquare);
             break;
         case Chessboard::BLACK_KING:
+            std::cout << "Game::startSquare: " << startSquare << ", endSquare: " << endSquare << "\n";
             if(startSquare == 59 && endSquare == 0) {
                 King::castleBlackKing(board, startSquare, endSquare);
             } else if (startSquare == 59 && endSquare == 7) {

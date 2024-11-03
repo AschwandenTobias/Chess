@@ -59,17 +59,18 @@ bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
 
 
 void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
-    board.whiteKing &= ~(1ULL << 59);  
+    std::cout << "Im in King::castleBlackKing\n";
+    board.blackKing &= ~(1ULL << 59);  
     if(endSquare == 0) {
-        board.whiteKing |= (1ULL << 57);  
-        board.whiteRooks &= ~(1ULL << 56); 
-        board.whiteRooks |= (1ULL << 58);  
+        board.blackKing |= (1ULL << 57);  
+        board.blackRooks &= ~(1ULL << 56); 
+        board.blackRooks |= (1ULL << 58);  
     } else if(endSquare == 7) {
-        board.whiteKing |= (1ULL << 61);  
-        board.whiteRooks &= ~(1ULL << 63); 
-        board.whiteRooks |= (1ULL << 60);  
+        board.blackKing |= (1ULL << 61);  
+        board.blackRooks &= ~(1ULL << 63); 
+        board.blackRooks |= (1ULL << 60);  
     }
-    board.whiteKingMoved = true;
+    board.blackKingMoved = true;
 }
 
 bool King::isBlackKingCastlingLegal(Chessboard &board) {
