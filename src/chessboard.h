@@ -59,6 +59,7 @@ public:
     bool checkIfBlackKnightIsOnSquare(Bitboard square);
     bool checkIfWhiteKingIsOnSquare(Bitboard square);
     bool checkIfBlackKingIsOnSquare(Bitboard square);
+    int getSquareOfKing(bool white);
     Piece getPieceAtSquare(int square);
 };
 

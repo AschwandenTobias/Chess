@@ -7,7 +7,13 @@
 #include "Pawn.h"
 
 void King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
-    
+    //we only have 8 possible King moves, so just check each one of them?
+    //This list will be different for the AI, since this doesnt take castling into account
+
+    int kingSquare = board.getSquareOfKing(white);
+    //Check is all possible Kingmoves are legal. If they are, add them to a list/array/vector?
+    //return the list/vector/array of all the possible moves
+
 }
 
 bool King::isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare) {

@@ -30,8 +30,6 @@ Chessboard::Chessboard() {
     
 }
 
-
-
 Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
     Bitboard squareMask = 1ULL << square;
 
@@ -49,6 +47,14 @@ Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
     if (blackKing & squareMask) return BLACK_KING;
 
     return EMPTY;
+}
+
+int Chessboard::getSquareOfKing(bool white) {
+    if(white) {
+        return(__builtin_ffsll(whiteKing) - 1);
+    } else {
+        return(__builtin_ffsll(blackKing) - 1);
+    }
 }
 
 void Chessboard::updateLastMove(int startSquare, int endSquare) {

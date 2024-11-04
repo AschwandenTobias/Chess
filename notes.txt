@@ -6,6 +6,8 @@ Bugs:
 -Enforce bishops cant move over the col boundaries
 -King moves are heavily bugged
 
+Next: 
+-Am implementing the function in King that returns a list of all possible king moves.
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
