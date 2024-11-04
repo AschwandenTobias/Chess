@@ -24,6 +24,7 @@ bool Game::isWhiteCheckmate() {
         //King cannot escape
         //No other piece can interfere
     bool check = King::isWhiteKingInCheck(board);
+    bool hasKingEscapeSquares = King::generateAllPossibleKingMoves(board, true).empty();
     return false;
 }
 

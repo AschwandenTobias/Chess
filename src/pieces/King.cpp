@@ -5,15 +5,30 @@
 #include "Rook.h"
 #include "Queen.h"
 #include "Pawn.h"
+#include <vector>
 
-void King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
-    //we only have 8 possible King moves, so just check each one of them?
-    //This list will be different for the AI, since this doesnt take castling into account
-
+//we only have 8 possible King moves, so just check each one of them?
+//This list will be different for the AI, since this doesnt take castling into account
+std::vector<std::pair<int, int>> King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleKingMoves;
     int kingSquare = board.getSquareOfKing(white);
-    //Check is all possible Kingmoves are legal. If they are, add them to a list/array/vector?
-    //return the list/vector/array of all the possible moves
-
+    int kingMoves[8] = {8, 7, -1, -7, -8, -9, 1, 9};
+    if(white) {
+        for(int i = 0; i < 8; i++) {
+            int squareToCheck = kingSquare + kingMoves[i];
+            if(isWhiteKingMoveLegal(board, kingSquare, squareToCheck)) {
+                possibleKingMoves.emplace_back(kingSquare, squareToCheck);
+            }
+        }
+    } else {
+        for(int i = 0; i < 8; i++) {
+            int squareToCheck = kingSquare + kingMoves[i];
+            if(isBlackKingMoveLegal(board, kingSquare, squareToCheck)) {
+                possibleKingMoves.emplace_back(kingSquare, squareToCheck);
+            }
+        }
+    }
+    return possibleKingMoves;
 }
 
 bool King::isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare) {
