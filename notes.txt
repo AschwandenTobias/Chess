@@ -5,7 +5,6 @@ General TODOs:
 Bugs:
 -Enforce bishops cant move over the col boundaries
 -King moves are heavily bugged
--I can move opposite pieces in the wrong turn
 
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000

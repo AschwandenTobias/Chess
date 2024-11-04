@@ -107,6 +107,14 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
     //std::cout << "Piece at startSquare was: " << piece << "\n";
+    if(whiteTurn && board.checkIfWhitePieceIsOnSquare(startSquare)) {
+
+    } else if(!whiteTurn && board.checkIfBlackPieceIsOnSquare(startSquare)) {
+
+    } else {
+        std::cout << "Not your own piece!\n";
+        return false;
+    }
     switch (piece)
     {
     case Chessboard::WHITE_PAWN:

@@ -11,7 +11,8 @@
 
 int main() {
     Game game;
-    game.start();
+    std::vector<std::string> moves;
+    game.start(moves);
     
     return 0; 
 }
