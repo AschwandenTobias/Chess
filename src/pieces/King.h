@@ -33,7 +33,9 @@ public:
     static bool isBlackQueenCastlingLegal(Chessboard &board);
     static bool isWhiteKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackKingMoveNextToEnemyKing(Chessboard &board, int startSquare, int endSquare);
-
+    static std::vector<int> getAttackingSquares(Chessboard &board, bool white);
+    static int numberOfAttackingPieces(Chessboard &board, bool white);
+    static bool canPieceInterfereCheck(Chessboard &board, bool white);
 };
 
 #endif

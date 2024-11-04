@@ -1,6 +1,8 @@
 #include "chessboard.h" 
 #include <iostream>
 
+#include "pieces/Pawn.h"
+
 
 
 Chessboard::Chessboard() {
@@ -27,7 +29,6 @@ Chessboard::Chessboard() {
     blackKingRookMoved = false;
     whiteKingMoved = false;
     blackKingMoved = false;
-    
 }
 
 Chessboard::Piece Chessboard::getPieceAtSquare(int square) {

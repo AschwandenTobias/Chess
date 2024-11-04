@@ -28,6 +28,31 @@ bool Game::isWhiteCheckmate() {
     return false;
 }
 
+/*bool Game::canPawnAttackSquare(Chessboard &board, int square, bool white) {
+    if(white) {
+        Bitboard tmp = board.whitePawns;
+        int numberOfPawns = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfPawns; i++) {
+            int pawnSquare = __builtin_ffsll(tmp) - 1;
+            if(Pawn::isWhitePawnMoveLegal(board, pawnSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    } else {
+        Bitboard tmp = board.blackPawns;
+        int numberOfPawns = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfPawns; i++) {
+            int pawnSquare = __builtin_ffsll(tmp) - 1;
+            if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    }
+    return false;
+}*/
+
 
 void Game::start(const std::vector<std::string>& moves) {
     size_t moveIndex = 0;

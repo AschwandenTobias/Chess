@@ -7,6 +7,21 @@
 #include "Pawn.h"
 #include <vector>
 
+std::vector<int> King::getAttackingSquares(Chessboard &board, bool white) {
+    std::vector<int> attackingSquares;
+    return attackingSquares;
+}
+
+//Check each piece individually. No two of the same pieces can be involved in a double attack
+int King::numberOfAttackingPieces(Chessboard &board, bool white) {
+    return 0;
+}
+
+bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
+    if(numberOfAttackingPieces(board, white) != 1) return false;
+    return false;
+}
+
 //we only have 8 possible King moves, so just check each one of them?
 //This list will be different for the AI, since this doesnt take castling into account
 std::vector<std::pair<int, int>> King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
