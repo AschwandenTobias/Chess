@@ -16,39 +16,13 @@ std::vector<int> King::getAttackingSquares(Chessboard &board, bool white) {
 //Check each piece individually. No two of the same pieces can be involved in a double attack
 int King::numberOfAttackingPieces(Chessboard &board, int square, bool white) {
     int numberOfAttackingPieces = 0;
-    if(canPawnAttackSquare(board, square, white)) {
-        numberOfAttackingPieces++;
-    }
+    
+    std::cout << "Number of attacking pieces: " << numberOfAttackingPieces << "\n";
     return numberOfAttackingPieces;
 }
 
 bool King::canPieceInterfereCheck(Chessboard &board, int kingSquare, bool white) {
     if(numberOfAttackingPieces(board, kingSquare, white) != 1) return false;
-    return false;
-}
-
-bool King::canPawnAttackSquare(Chessboard &board, int square, bool white) {
-    if(white) {
-        Bitboard tmp = board.whitePawns;
-        int numberOfPawns = __builtin_popcountll(tmp);
-        for(int i = 0; i < numberOfPawns; i++) {
-            int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(Pawn::isWhitePawnMoveLegal(board, pawnSquare, square)) {
-                return true;
-            }
-            tmp &= tmp - 1;
-        }
-    } else {
-        Bitboard tmp = board.blackPawns;
-        int numberOfPawns = __builtin_popcountll(tmp);
-        for(int i = 0; i < numberOfPawns; i++) {
-            int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, square)) {
-                return true;
-            }
-            tmp &= tmp - 1;
-        }
-    }
     return false;
 }
 

@@ -3,6 +3,31 @@
 #include "rook.h"
 #include <iostream>
 
+bool Queen::canQueenAttackSquare(Chessboard &board, int square, bool white) {
+    if(white) {
+        Bitboard tmp = board.whiteQueen;
+        int numberOfQueens = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfQueens; i++) {
+            int queenSquare = __builtin_ffsll(tmp) - 1;
+            if(isWhiteQueenMoveLegal(board, queenSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    } else {
+        Bitboard tmp = board.blackQueen;
+        int numberOfQueens = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfQueens; i++) {
+            int queenSquare = __builtin_ffsll(tmp) - 1;
+            if(isBlackQueenMoveLegal(board, queenSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    }
+    return false;
+}
+
 void Queen::moveWhiteQueen(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;

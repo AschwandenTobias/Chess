@@ -11,6 +11,7 @@ public:
     static bool isWhiteQueenMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackQueen(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackQueenMoveLegal(Chessboard &board, int startSquare, int endSquare);
+    static bool canQueenAttackSquare(Chessboard &board, int square, bool white);
 };
 
 #endif
