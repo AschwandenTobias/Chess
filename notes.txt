@@ -8,6 +8,7 @@ Bugs:
 
 Next: 
 -Am implementing the function in King that returns a list of all possible king moves.
+-Write function for every piece if they can attack a square in King. This to determine the number of attackers if the king is in check.
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 

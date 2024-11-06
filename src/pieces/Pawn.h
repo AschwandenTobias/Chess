@@ -13,6 +13,8 @@ public:
     static void moveBlackPawn(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkForBlackEnPassant(Chessboard &board, int startSquare, int endSquare);
+    static bool canPawnAttackSquare(Chessboard &board, int square, bool white);
+
 };
 
 #endif

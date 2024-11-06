@@ -31,6 +31,10 @@ Chessboard::Chessboard() {
     blackKingMoved = false;
 }
 
+bool Chessboard::canPawnAttackSquare(int square, bool white) {
+    return false;
+}
+
 Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
     Bitboard squareMask = 1ULL << square;
 

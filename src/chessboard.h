@@ -61,6 +61,7 @@ public:
     bool checkIfBlackKingIsOnSquare(Bitboard square);
     int getSquareOfKing(bool white);
     Piece getPieceAtSquare(int square);
+    bool canPawnAttackSquare(int square, bool white);
 };
 
 #endif 
