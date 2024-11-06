@@ -16,7 +16,19 @@ std::vector<int> King::getAttackingSquares(Chessboard &board, bool white) {
 //Check each piece individually. No two of the same pieces can be involved in a double attack
 int King::numberOfAttackingPieces(Chessboard &board, int square, bool white) {
     int numberOfAttackingPieces = 0;
-    
+    if(white) {
+        if(checkBlackRookMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkBlackKnightMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkBlackBishopMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkBlackQueenMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkBlackPawnMovesForCheck(board, square)) numberOfAttackingPieces++;
+    } else {
+        if(checkWhiteRookMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkWhiteKnightMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkWhiteBishopMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkWhiteQueenMovesForCheck(board, square)) numberOfAttackingPieces++;
+        if(checkWhitePawnMovesForCheck(board, square)) numberOfAttackingPieces++;
+    }
     std::cout << "Number of attacking pieces: " << numberOfAttackingPieces << "\n";
     return numberOfAttackingPieces;
 }

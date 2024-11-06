@@ -12,7 +12,6 @@ public:
     static void moveBlackBishop(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkDiagonalMoves(Chessboard &board, int startSquare, int endSquare);
-    static bool canBishopAttackSquare(Chessboard &board, int square, bool white);
 };
 
 #endif
