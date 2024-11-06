@@ -1,6 +1,31 @@
 #include "bishop.h"
 #include <iostream>
 
+bool Bishop::canBishopAttackSquare(Chessboard &board, int square, bool white) {
+    if(white) {
+        Bitboard tmp = board.whiteBishops;
+        int numberOfBishops = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfBishops; i++) {
+            int bishopSquare = __builtin_ffsll(tmp) - 1;
+            if(isWhiteBishopMoveLegal(board, bishopSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    } else {
+        Bitboard tmp = board.blackBishops;
+        int numberOfBishops = __builtin_popcountll(tmp);
+        for(int i = 0; i < numberOfBishops; i++) {
+            int bishopSquare = __builtin_ffsll(tmp) - 1;
+            if(isBlackBishopMoveLegal(board, bishopSquare, square)) {
+                return true;
+            }
+            tmp &= tmp - 1;
+        }
+    }
+    return false;
+}
+
 void Bishop::moveWhiteBishop(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;

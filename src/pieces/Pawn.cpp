@@ -9,7 +9,7 @@ bool Pawn::canPawnAttackSquare(Chessboard &board, int square, bool white) {
         int numberOfPawns = __builtin_popcountll(tmp);
         for(int i = 0; i < numberOfPawns; i++) {
             int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(Pawn::isWhitePawnMoveLegal(board, pawnSquare, square)) {
+            if(isWhitePawnMoveLegal(board, pawnSquare, square)) {
                 return true;
             }
             tmp &= tmp - 1;
@@ -19,7 +19,7 @@ bool Pawn::canPawnAttackSquare(Chessboard &board, int square, bool white) {
         int numberOfPawns = __builtin_popcountll(tmp);
         for(int i = 0; i < numberOfPawns; i++) {
             int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, square)) {
+            if(isBlackPawnMoveLegal(board, pawnSquare, square)) {
                 return true;
             }
             tmp &= tmp - 1;
@@ -188,7 +188,6 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     return false; // Invalid move
 }
 
-//TODO test if it works
 bool Pawn::checkForWhiteEnPassant(Chessboard &board, int startSquare, int endSquare) {
     //std::cout << "Landed in the checkForWhiteEnPassant\n" << "startSquare: " << startSquare << ", endSquare: " << endSquare <<"\n";
     if(board.lastMoveWasTwoSquarePawnMove) {
