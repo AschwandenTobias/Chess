@@ -1,5 +1,26 @@
 #include "bishop.h"
 #include <iostream>
+#include <vector>
+
+//this doesnt check if the move is legal, it just returns all attacking squares
+std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white) {
+    std::vector<int> attackingSquares;
+    int distance = std::abs(endSquare - startSquare);
+    int direction = 0;
+    int tmpSquare = startSquare;
+        if(distance % 7 == 0) {
+            direction = (endSquare > startSquare) ? 7 : -7;
+        } else if(distance % 9 == 0) {
+            direction = (endSquare - startSquare) ? 9 : -9;
+        } else {
+            return attackingSquares;
+        }
+        while(tmpSquare != endSquare) {
+            attackingSquares.emplace_back(tmpSquare);
+            tmpSquare += direction;
+        }
+    return attackingSquares;
+}
 
 
 void Bishop::moveWhiteBishop(Chessboard &board, int startSquare, int endSquare) {

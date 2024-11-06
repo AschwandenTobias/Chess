@@ -173,6 +173,7 @@ bool King::isBlackKingInCheck(Chessboard &board) {
     return isSquareInBlackCheck(board, kingSquare);
 }
 
+//These just check if the piece is able to attack a square, not specifically the king
 bool King::checkWhitePawnMovesForCheck(Chessboard &board, int startSquare) {
     Bitboard whitePawns = board.whitePawns;
     int numberOfWhitePawns = __builtin_popcountll(whitePawns);
