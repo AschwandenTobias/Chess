@@ -8,8 +8,12 @@
 #include "../game.h"
 #include <vector>
 
-std::vector<int> King::getAttackingSquares(Chessboard &board, bool white) {
+std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bool white) {
     std::vector<int> attackingSquares;
+    //std::vector<int> tmp = Pawn::getAttackingSquares(board, kingSquare, white);
+    if(checkWhitePawnMovesForCheck(board, kingSquare)) {
+        //look at notes
+    }
     return attackingSquares;
 }
 
@@ -33,8 +37,26 @@ int King::numberOfAttackingPieces(Chessboard &board, int square, bool white) {
     return numberOfAttackingPieces;
 }
 
+//takes all attacking moves and checks if any piece can intercept one of the attacking moves.
 bool King::canPieceInterfereCheck(Chessboard &board, int kingSquare, bool white) {
+    std::vector<int> attackingMoves = getAttackingSquares(board, kingSquare, white);
     if(numberOfAttackingPieces(board, kingSquare, white) != 1) return false;
+    for(int i = 0; i < attackingMoves.size(); i++) {
+        int squareToCheck = attackingMoves[i];
+        if(white) {
+            if(checkWhitePawnMovesForCheck(board, squareToCheck)) return true;
+            if(checkWhiteBishopMovesForCheck(board, squareToCheck)) return true;
+            if(checkWhiteKnightMovesForCheck(board, squareToCheck)) return true;
+            if(checkWhiteRookMovesForCheck(board, squareToCheck)) return true;
+            if(checkWhiteQueenMovesForCheck(board, squareToCheck)) return true;
+        } else {
+            if(checkBlackPawnMovesForCheck(board, squareToCheck)) return true;
+            if(checkBlackRookMovesForCheck(board, squareToCheck)) return true;
+            if(checkBlackBishopMovesForCheck(board, squareToCheck)) return true;
+            if(checkBlackKnightMovesForCheck(board, squareToCheck)) return true;
+            if(checkBlackQueenMovesForCheck(board, squareToCheck)) return true;
+        }
+    }
     return false;
 }
 
