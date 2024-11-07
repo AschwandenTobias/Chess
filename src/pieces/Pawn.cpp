@@ -2,30 +2,11 @@
 #include <iostream>
 #include "../game.h"
 
-
-bool Pawn::canPawnAttackSquare(Chessboard &board, int square, bool white) {
-    if(white) {
-        Bitboard tmp = board.whitePawns;
-        int numberOfPawns = __builtin_popcountll(tmp);
-        for(int i = 0; i < numberOfPawns; i++) {
-            int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(isWhitePawnMoveLegal(board, pawnSquare, square)) {
-                return true;
-            }
-            tmp &= tmp - 1;
-        }
-    } else {
-        Bitboard tmp = board.blackPawns;
-        int numberOfPawns = __builtin_popcountll(tmp);
-        for(int i = 0; i < numberOfPawns; i++) {
-            int pawnSquare = __builtin_ffsll(tmp) - 1;
-            if(isBlackPawnMoveLegal(board, pawnSquare, square)) {
-                return true;
-            }
-            tmp &= tmp - 1;
-        }
-    }
-    return false;
+//Doesnt check for move legality.
+std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white) {
+    std::vector<int> attackingSquares;
+    attackingSquares.emplace_back(startSquare);
+    return attackingSquares;
 }
 
 void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {

@@ -2,6 +2,7 @@
 #define PAWN_H
 
 #include "../chessboard.h"
+#include <vector>
 
 typedef uint64_t Bitboard;
 
@@ -13,6 +14,7 @@ public:
     static void moveBlackPawn(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkForBlackEnPassant(Chessboard &board, int startSquare, int endSquare);
+    static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white);
 };
 
 #endif

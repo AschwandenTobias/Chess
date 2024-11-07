@@ -3,7 +3,7 @@
 #include <vector>
 
 //this doesnt check if the move is legal, it just returns all attacking squares
-std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white) {
+std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;
     int distance = std::abs(endSquare - startSquare);
     int direction = 0;
