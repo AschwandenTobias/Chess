@@ -1,6 +1,13 @@
 #include "knight.h"
 #include <iostream>
 
+//this doesnt check if the move is legal, it just returns all attacking squares
+std::vector<int> Knight::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
+    std::vector<int> attackingSquares;
+    attackingSquares.emplace_back(startSquare);
+    return attackingSquares;
+}
+
 void Knight::moveWhiteKnight(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare);
     Bitboard to = (1ULL << endSquare);

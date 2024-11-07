@@ -2,6 +2,7 @@
 #define KNIGHT_H
 
 #include "../chessboard.h"
+#include <vector>
 
 typedef uint64_t Bitboard;
 
@@ -11,6 +12,7 @@ public:
     static bool isWhiteKnightMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackKnight(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackKnightMoveLegal(Chessboard &board, int startSquare, int endSquare);
+    static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare);
 };
 
 #endif
