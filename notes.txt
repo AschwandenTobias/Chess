@@ -11,9 +11,7 @@ Next:
 -Write function for every piece if they can attack a square in the according piece class. This to determine the number of attackers if the king is in check.
     -Missing getAttackingSquares for:
         -Rooks
-        -Knights
         -Queens
-        -Pawns
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
 

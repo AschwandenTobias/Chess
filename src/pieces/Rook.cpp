@@ -1,6 +1,24 @@
 #include "rook.h"
 #include <iostream>
 
+//this doesnt check if the move is legal, it just returns all attacking squares
+std::vector<int> Rook::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
+    std::vector<int> attackingSquares;
+    int distance = std::abs(endSquare - startSquare);
+    int direction = 0;
+
+    if(distance % 8 == 0) {
+        direction = (endSquare > startSquare) ? 8 : -8;
+    } else {
+        direction = (endSquare > startSquare) ? 1 : -1;
+    }
+    while (startSquare != endSquare) {
+        attackingSquares.emplace_back(startSquare);
+        startSquare += direction;
+    }
+    return attackingSquares;
+}
+
 void Rook::moveWhiteRook(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
