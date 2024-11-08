@@ -4,9 +4,9 @@ General TODOs:
 -Things like stalemate and draw after repeating moves etc.
 Bugs:
 -King moves are heavily bugged, if think mainly if in check, since i dont really check future moves but only with the current board status.
--Checks or Chekmate tests now SegFault the entire game
 
 Next: 
+-Fix Checkmate since it is very incorrect somewhere. Game aborts in weird places.
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 

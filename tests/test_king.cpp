@@ -24,11 +24,12 @@ TEST(KingTest, TestWhiteKingMovements) {
     ASSERT_EQ(board.whiteKing, 0x0000000400000000);
 }
 
-/*TEST(KingTest, FoolsMate) {
+TEST(KingTest, FoolsMate) {
     Game game;
         std::vector<std::string> moves = {
         "f2f3", "e7e5", "g2g4", "d8h4"
     };
     game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, true);
 
-}*/
+}
