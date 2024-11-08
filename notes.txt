@@ -3,11 +3,11 @@ General TODOs:
 -Implement that the king cannot be in check at the end of its turn
 -Things like stalemate and draw after repeating moves etc.
 Bugs:
--Enforce bishops cant move over the col boundaries
--King moves are heavily bugged
+-King moves are heavily bugged, if think mainly if in check, since i dont really check future moves but only with the current board status.
+-Checks or Chekmate tests now SegFault the entire game
 
 Next: 
--Need to get the specific squares the king is checked from.
+
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
 

@@ -34,6 +34,8 @@ std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bo
             return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         }
     }
+    std::vector<int> attackingSquares;
+    return attackingSquares;
 }
 
 //Check each piece individually. No two of the same pieces can be involved in a double attack
