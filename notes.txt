@@ -6,7 +6,7 @@ Bugs:
 -King moves are heavily bugged, if think mainly if in check, since i dont really check future moves but only with the current board status.
 
 Next: 
--Fix Checkmate since it is very incorrect somewhere. Game aborts in weird places.
+-Fix Checkmate since it is very incorrect somewhere. Game aborts in weird places. Write checks for it!
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
