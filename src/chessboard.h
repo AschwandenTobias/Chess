@@ -24,6 +24,8 @@ public:
     int lastMoveEndSquare;    
     bool lastMoveWasTwoSquarePawnMove;
 
+    int attackingPieceSquare;
+
     bool whiteQueenRookMoved;
     bool whiteKingRookMoved;
     bool blackQueenRookMoved;
@@ -61,7 +63,6 @@ public:
     bool checkIfBlackKingIsOnSquare(Bitboard square);
     int getSquareOfKing(bool white);
     Piece getPieceAtSquare(int square);
-    bool canPawnAttackSquare(int square, bool white);
 };
 
 #endif 

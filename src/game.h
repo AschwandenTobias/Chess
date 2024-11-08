@@ -26,7 +26,6 @@ public:
     bool checkIfBlackPawnPromotes(int endSquare);
     void promoteWhitePawn(int endSquare);
     void promoteBlackPawn(int endSquare);
-    bool canPawnAttackSquare(Chessboard &board, int square, bool white);
 
     Chessboard board;
 };

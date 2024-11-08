@@ -3,7 +3,7 @@
 #include "../game.h"
 
 //Doesnt check for move legality.
-std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white) {
+std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;
     attackingSquares.emplace_back(startSquare);
     return attackingSquares;

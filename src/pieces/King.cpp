@@ -9,12 +9,31 @@
 #include <vector>
 
 std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bool white) {
-    std::vector<int> attackingSquares;
-    //std::vector<int> tmp = Pawn::getAttackingSquares(board, kingSquare, white);
-    if(checkWhitePawnMovesForCheck(board, kingSquare)) {
-        //look at notes
+       if(white) {
+        if(checkWhitePawnMovesForCheck(board, kingSquare)) {
+            return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
+        } else if (checkWhiteRookMovesForCheck(board, kingSquare)) {
+            return Rook::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkWhiteBishopMovesForCheck(board, kingSquare)) {
+            return Bishop::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkWhiteKnightMovesForCheck(board, kingSquare)) {
+           return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if(checkWhiteQueenMovesForCheck(board, kingSquare)) {
+            return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        }
+    } else {
+        if(checkBlackPawnMovesForCheck(board, kingSquare)) {
+            return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
+        } else if (checkBlackRookMovesForCheck(board, kingSquare)) {
+            return Rook::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkBlackBishopMovesForCheck(board, kingSquare)) {
+            return Bishop::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkBlackKnightMovesForCheck(board, kingSquare)) {
+            return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if(checkBlackQueenMovesForCheck(board, kingSquare)) {
+            return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        }
     }
-    return attackingSquares;
 }
 
 //Check each piece individually. No two of the same pieces can be involved in a double attack
@@ -38,7 +57,8 @@ int King::numberOfAttackingPieces(Chessboard &board, int square, bool white) {
 }
 
 //takes all attacking moves and checks if any piece can intercept one of the attacking moves.
-bool King::canPieceInterfereCheck(Chessboard &board, int kingSquare, bool white) {
+bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
+    int kingSquare = board.getSquareOfKing(white);
     std::vector<int> attackingMoves = getAttackingSquares(board, kingSquare, white);
     if(numberOfAttackingPieces(board, kingSquare, white) != 1) return false;
     for(int i = 0; i < attackingMoves.size(); i++) {
@@ -202,6 +222,7 @@ bool King::checkWhitePawnMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfWhitePawns; i++) {
         int pawnSquare = __builtin_ffsll(whitePawns) - 1;
         if(Pawn::isWhitePawnMoveLegal(board, pawnSquare, startSquare)) {
+            board.attackingPieceSquare = pawnSquare;
             return true;
         }
         whitePawns &= whitePawns - 1;
@@ -215,6 +236,7 @@ bool King::checkWhiteQueenMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfWhiteQueens; i++) {
         int queenSquare = __builtin_ffsll(whiteQueen) - 1;
         if(Queen::isWhiteQueenMoveLegal(board, queenSquare, startSquare)) {
+            board.attackingPieceSquare = queenSquare;
             return true;
         }
         whiteQueen &= whiteQueen - 1;
@@ -231,6 +253,7 @@ bool King::checkWhiteBishopMovesForCheck(Chessboard &board, int startSquare) {
         int bishopSquare = __builtin_ffsll(whiteBishops) - 1;
         if(Bishop::isBlackBishopMoveLegal(board, bishopSquare, startSquare)) { //changed from checking diagonal moves to checking if blackBishopMoveLegal
             //std::cout << "White Bishop can attack the black King!\n";
+            board.attackingPieceSquare = bishopSquare;
             return true;
         }
         whiteBishops &= whiteBishops - 1;
@@ -245,6 +268,7 @@ bool King::checkWhiteKnightMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfWhiteKnights; i++) {
         int knightSquare = __builtin_ffsll(whiteKnights) - 1;
         if(Knight::isWhiteKnightMoveLegal(board, knightSquare, startSquare)) {
+            board.attackingPieceSquare = knightSquare;
             return true;
         }
         whiteKnights &= whiteKnights - 1;
@@ -258,6 +282,7 @@ bool King::checkWhiteRookMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfWhiteRooks; i++) {
         int rookSquare = __builtin_ffsll(whiteRooks) - 1;
         if(Rook::isWhiteRookMoveLegal(board, rookSquare, startSquare)) {
+            board.attackingPieceSquare = rookSquare;
             return true;
         }
         whiteRooks &= whiteRooks - 1;
@@ -286,6 +311,7 @@ bool King::checkBlackPawnMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfBlackPawns; i++) {
         int pawnSquare = __builtin_ffsll(blackPawns) - 1;
         if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, startSquare)) {
+            board.attackingPieceSquare = pawnSquare;
             return true;
         }
         blackPawns &= blackPawns - 1;
@@ -299,6 +325,7 @@ bool King::checkBlackQueenMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfBlackQueens; i++) {
         int queenSquare = __builtin_ffsll(blackQueen) - 1;
         if(Queen::isBlackQueenMoveLegal(board, queenSquare, startSquare)) {
+            board.attackingPieceSquare = queenSquare;
             return true;
         }
         blackQueen &= blackQueen - 1;
@@ -315,6 +342,7 @@ bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
         int bishopSquare = __builtin_ffsll(blackBishops) - 1;
         if(Bishop::isWhiteBishopMoveLegal(board, bishopSquare, startSquare)) {
             std::cout << "Black Bishop can attack the white King!\n";
+            board.attackingPieceSquare = bishopSquare;
             return true;
         }
         blackBishops &= blackBishops - 1;
@@ -329,6 +357,7 @@ bool King::checkBlackKnightMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfBlackKnights; i++) {
         int knightSquare = __builtin_ffsll(blackKnights) - 1;
         if(Knight::isBlackKnightMoveLegal(board, knightSquare, startSquare)) {
+            board.attackingPieceSquare = knightSquare;
             return true;
         }
         blackKnights &= blackKnights - 1;
@@ -342,6 +371,7 @@ bool King::checkBlackRookMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfBlackRooks; i++) {
         int rookSquare = __builtin_ffsll(blackRooks) - 1;
         if(Rook::isBlackRookMoveLegal(board, rookSquare, startSquare)) {
+            board.attackingPieceSquare = rookSquare;
             return true;
         }
         blackRooks &= blackRooks - 1;

@@ -25,6 +25,12 @@ bool Game::isWhiteCheckmate() {
         //No other piece can interfere
     bool check = King::isWhiteKingInCheck(board);
     bool hasKingEscapeSquares = King::generateAllPossibleKingMoves(board, true).empty();
+    bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
+    if(check && !hasKingEscapeSquares && !friendlyPieceCanInterfere) {
+        std::cout << "CHECKMATE!!!!\n" << whiteTurn << " wins!\n";
+        IsCheckmate = true;
+        return true;
+    } 
     return false;
 }
 
@@ -326,6 +332,7 @@ void Game::makeMove(int startSquare, int endSquare) {
 }
 
 bool Game::checkGameOver() {
+    isWhiteCheckmate();
     if(IsCheckmate) {
         return true;
     }

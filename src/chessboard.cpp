@@ -22,6 +22,8 @@ Chessboard::Chessboard() {
     int lastMoveStartSquare = 0;  
     int lastMoveEndSquare = 0;    
     bool lastMoveWasTwoSquarePawnMove = false;
+
+    int attackingPieceSquare = -1;
     
     whiteQueenRookMoved = false;
     whiteKingRookMoved = false;
@@ -29,10 +31,6 @@ Chessboard::Chessboard() {
     blackKingRookMoved = false;
     whiteKingMoved = false;
     blackKingMoved = false;
-}
-
-bool Chessboard::canPawnAttackSquare(int square, bool white) {
-    return false;
 }
 
 Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
@@ -50,7 +48,6 @@ Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
     if (blackBishops & squareMask) return BLACK_BISHOP;
     if (blackQueen & squareMask) return BLACK_QUEEN;
     if (blackKing & squareMask) return BLACK_KING;
-
     return EMPTY;
 }
 

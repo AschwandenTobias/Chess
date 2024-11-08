@@ -13,7 +13,7 @@ public:
     static void moveBlackBishop(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkDiagonalMoves(Chessboard &board, int startSquare, int endSquare);
-    std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare);
+    static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare);
 };
 
 #endif

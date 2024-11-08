@@ -14,7 +14,7 @@ public:
     static void moveBlackPawn(Chessboard &board, int startSquare, int endSquare);
     static bool isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkForBlackEnPassant(Chessboard &board, int startSquare, int endSquare);
-    static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare, bool white);
+    static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare);
 };
 
 #endif
