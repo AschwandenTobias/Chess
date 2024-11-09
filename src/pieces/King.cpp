@@ -87,7 +87,7 @@ bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
 std::vector<std::pair<int, int>> King::generateAllPossibleKingMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleKingMoves;
     int kingSquare = board.getSquareOfKing(white);
-    int kingMoves[8] = {8, 7, -1, -7, -8, -9, 1, 9};
+    int kingMoves[8] = {1, -1, 7, -7, 8, -8, 9, -9};
     if(white) {
         for(int i = 0; i < 8; i++) {
             int squareToCheck = kingSquare + kingMoves[i];
@@ -413,7 +413,12 @@ bool King::isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
+    std::cout << "startRow: " << startRow << ", endRow: " << endRow << "\n";
     if (std::abs(endRow - startRow) > 1) return false;
+    int startCol = startSquare % 8;
+    int endCol = endSquare % 8;
+    std::cout << "startCol: " << startCol << ", endCol: " << endCol << "\n";
+    if (std::abs(endCol - startCol) > 1) return false;
     if(distance == 1 || distance == 7 || distance == 8 || distance == 9) {
         return true;
     }
@@ -447,6 +452,9 @@ bool King::isBlackKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
     if (std::abs(endRow - startRow) > 1) return false;
+    int startCol = startSquare % 8;
+    int endCol = endSquare % 8;
+    if (std::abs(endCol - startCol) > 1) return false;
     if(distance == 1 || distance == 7 || distance == 8 || distance == 9) {
         return true;
     }

@@ -11,7 +11,7 @@ std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare,
         if(distance % 7 == 0) {
             direction = (endSquare > startSquare) ? 7 : -7;
         } else if(distance % 9 == 0) {
-            direction = (endSquare - startSquare) ? 9 : -9;
+            direction = (endSquare > startSquare) ? 9 : -9;
         } else {
             return attackingSquares;
         }

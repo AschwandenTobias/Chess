@@ -26,8 +26,34 @@ TEST(KingTest, TestWhiteKingMovements) {
     ASSERT_EQ(board.whiteKing, 0x0000000400000000);
     King::moveWhiteKing(board, 34, 42);
     ASSERT_EQ(board.whiteKing, 0x0000000400000000);
+    //board.printBoard();
 }
 
+TEST(KingTest, TestKingBordersLimits) {
+    Game game;
+    Pawn::moveWhitePawn(game.board, 11, 19);
+    King::moveWhiteKing(game.board, 3, 11);
+    King::moveWhiteKing(game.board, 11, 18);
+    King::moveWhiteKing(game.board, 18, 17);
+    King::moveWhiteKing(game.board, 17, 16);
+    King::moveWhiteKing(game.board, 16, 23);
+    EXPECT_EQ(game.board.whiteKing, 0x0000000000010000);
+    //game.board.printBoard();
+}
+
+TEST(KingTest, ManuallyTestKingBorderMovement) {
+    Game game;
+    game.board.whiteKing = 0x0000000001000000;
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 15), false);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 23), false);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 31), false);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 16), true);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 17), true);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 25), true);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 33), true);
+    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 32), true);
+    game.board.printBoard();
+}
 
 TEST(KingTest, TestNumberOfAttackingPieces_NoPiece) {
     Game game;
@@ -64,7 +90,7 @@ TEST(KingTest, TestGetAttackingSquares) {
     Pawn::moveWhitePawn(game.board, 11, 19);
     Pawn::moveBlackPawn(game.board, 50, 42);
     Queen::moveWhiteQueen(game.board, 4, 32);
-    game.board.printBoard();
+    //game.board.printBoard();
     std::vector<int> shouldSquares = {32, 41, 50};
     std::vector<int> attackingSquares = Queen::getAttackingSquares(game.board, 32, 59);
     //std::cout << "Number of attacking Squares: " << attackingSquares.size() << "\n";
@@ -77,7 +103,7 @@ TEST(KingTest, TestCanPieceInterfere_WhiteQueenOnBorder) {
     Pawn::moveWhitePawn(game.board, 11, 19);
     Pawn::moveBlackPawn(game.board, 50, 42);
     Queen::moveWhiteQueen(game.board, 4, 32);
-    game.board.printBoard();
+    //game.board.printBoard();
     EXPECT_EQ(King::canPieceInterfereCheck(game.board, true), false); //no piece should be able to interfere
 }
 
@@ -95,9 +121,10 @@ TEST(KingTest, GeneratedPossibleKingMoves_OneSquareForward) {
     EXPECT_EQ(King::generateAllPossibleKingMoves(game.board, true), shouldSquares);
 }
 
-TEST(KingTest, GeneratedPossibleKingMoves_OneBoardBorder) {
+TEST(KingTest, GeneratedPossibleKingMoves_KingOnBoardBorder) {
     Game game;
     game.board.whiteKing = 0x0000000001000000;
     std::vector<std::pair<int, int>> shouldSquares = {{24, 31}, {24, 17}, {24, 16}, {24, 25}, {24, 33}};
+    //game.board.printBoard();
     EXPECT_EQ(King::generateAllPossibleKingMoves(game.board, true), shouldSquares);
 }
