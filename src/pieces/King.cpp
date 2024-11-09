@@ -223,7 +223,7 @@ bool King::checkWhitePawnMovesForCheck(Chessboard &board, int startSquare) {
     int numberOfWhitePawns = __builtin_popcountll(whitePawns);
     for(int i = 0; i < numberOfWhitePawns; i++) {
         int pawnSquare = __builtin_ffsll(whitePawns) - 1;
-        if(Pawn::isWhitePawnMoveLegal(board, pawnSquare, startSquare)) {
+        if((pawnSquare + 7) == startSquare || (pawnSquare + 9) == startSquare) {
             board.attackingPieceSquare = pawnSquare;
             return true;
         }
@@ -294,29 +294,37 @@ bool King::checkWhiteRookMovesForCheck(Chessboard &board, int startSquare) {
 
 bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
     if(checkBlackBishopMovesForCheck(board, square)) {
+        //std::cout << "Black bishop check detected\n";
         return true;
     } else if (checkBlackKnightMovesForCheck(board, square)) {
+        //std::cout << "Black Knight Check detected\n";
         return true;
     } else if (checkBlackRookMovesForCheck(board, square)) {
+        //std::cout << "black Rook Check detected\n";
         return true;
     } else if(checkBlackQueenMovesForCheck(board, square)) {
+        //std::cout << "black Queen Check detected\n";
         return true;
     } else if (checkBlackPawnMovesForCheck(board, square)) {
+        std::cout << "black Pawn Check detected\n";
         return true;
     }
     return false;
 }
 
 bool King::checkBlackPawnMovesForCheck(Chessboard &board, int startSquare) {
-    Bitboard blackPawns = board.blackPawns;
-    int numberOfBlackPawns = __builtin_popcountll(blackPawns);
+    Bitboard tmpBlackPawns = board.blackPawns;
+    int numberOfBlackPawns = __builtin_popcountll(tmpBlackPawns);
+    //std::cout << "Number of Black Pawns: " << numberOfBlackPawns << "\n";
     for(int i = 0; i < numberOfBlackPawns; i++) {
-        int pawnSquare = __builtin_ffsll(blackPawns) - 1;
-        if(Pawn::isBlackPawnMoveLegal(board, pawnSquare, startSquare)) {
+        int pawnSquare = __builtin_ffsll(tmpBlackPawns) - 1;
+        //std::cout << "pawnSquare: " << pawnSquare << "\n";
+        //doesnt work since pawns dont attack the squares they can move to!
+        if((pawnSquare - 7) == startSquare || (pawnSquare - 9) == startSquare) {
             board.attackingPieceSquare = pawnSquare;
             return true;
         }
-        blackPawns &= blackPawns - 1;
+        tmpBlackPawns &= tmpBlackPawns - 1;
     }
     return false; 
 }
@@ -408,16 +416,18 @@ bool King::isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(endSquare < 0 || endSquare > 63) return false;
     if(!board.checkIfWhiteKingIsOnSquare(from)) return false;
     if(board.checkIfWhitePieceIsOnSquare(to)) return false;
+    //std::cout << "Should arrive here\n";
     if(isSquareInWhiteCheck(board, endSquare)) return false;
+    //std::cout << "I think doesnt arrive here\n";
     if(isWhiteKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
-    std::cout << "startRow: " << startRow << ", endRow: " << endRow << "\n";
+    //std::cout << "startRow: " << startRow << ", endRow: " << endRow << "\n";
     if (std::abs(endRow - startRow) > 1) return false;
     int startCol = startSquare % 8;
     int endCol = endSquare % 8;
-    std::cout << "startCol: " << startCol << ", endCol: " << endCol << "\n";
+    //std::cout << "startCol: " << startCol << ", endCol: " << endCol << "\n";
     if (std::abs(endCol - startCol) > 1) return false;
     if(distance == 1 || distance == 7 || distance == 8 || distance == 9) {
         return true;

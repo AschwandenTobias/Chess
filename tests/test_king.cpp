@@ -44,14 +44,14 @@ TEST(KingTest, TestKingBordersLimits) {
 TEST(KingTest, ManuallyTestKingBorderMovement) {
     Game game;
     game.board.whiteKing = 0x0000000001000000;
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 15), false);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 23), false);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 31), false);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 16), true);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 17), true);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 25), true);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 15), false);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 23), false);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 31), false);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 16), true);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 17), true);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 25), true);
     EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 33), true);
-    //EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 32), true);
+    EXPECT_EQ(King::isWhiteKingMoveLegal(game.board, 24, 32), true);
     game.board.printBoard();
 }
 
