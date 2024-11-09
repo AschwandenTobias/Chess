@@ -54,7 +54,7 @@ int King::numberOfAttackingPieces(Chessboard &board, int square, bool white) {
         if(checkWhiteQueenMovesForCheck(board, square)) numberOfAttackingPieces++;
         if(checkWhitePawnMovesForCheck(board, square)) numberOfAttackingPieces++;
     }
-    std::cout << "Number of attacking pieces: " << numberOfAttackingPieces << "\n";
+    //std::cout << "Number of attacking pieces: " << numberOfAttackingPieces << "\n";
     return numberOfAttackingPieces;
 }
 

@@ -6,11 +6,8 @@ Bugs:
 -King moves are heavily bugged, if think mainly if in check, since i dont really check future moves but only with the current board status.
 
 Next: 
--Fix mistakes in isSquareInWhiteCheck
-    -Issue narrowed down to checkBlackPawnMovesForCheck
+-Fix mistakes in checkmate recognition
+
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
 00000000_00000000_00000000_00000000_00000000_00000001_00000000_00000000
-
-
-8, 7, -1, -7, -8, -9, 1, 9

@@ -6,7 +6,8 @@
 #include "pieces/Queen.h"
 #include "pieces/Knight.h"
 #include "pieces/Rook.h"
-#include <utility> // For std::pair
+#include <utility> 
+#include <algorithm> 
 
 TEST(KingTest, TestWhiteKingMovements) {
     Chessboard board;
@@ -124,7 +125,9 @@ TEST(KingTest, GeneratedPossibleKingMoves_OneSquareForward) {
 TEST(KingTest, GeneratedPossibleKingMoves_KingOnBoardBorder) {
     Game game;
     game.board.whiteKing = 0x0000000001000000;
-    std::vector<std::pair<int, int>> shouldSquares = {{24, 31}, {24, 17}, {24, 16}, {24, 25}, {24, 33}};
-    //game.board.printBoard();
-    EXPECT_EQ(King::generateAllPossibleKingMoves(game.board, true), shouldSquares);
+    std::vector<std::pair<int, int>> shouldSquares = {{24, 32}, {24, 17}, {24, 16}, {24, 25}, {24, 33}};
+    std::vector<std::pair<int, int>> areSquares = King::generateAllPossibleKingMoves(game.board, true);
+    std::sort(shouldSquares.begin(), shouldSquares.end());
+    std::sort(areSquares.begin(), areSquares.end());
+    EXPECT_EQ(areSquares, shouldSquares);
 }
