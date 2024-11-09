@@ -7,6 +7,11 @@ Bugs:
 
 Next: 
 -Fix mistakes in checkmate recognition
+    -Mistake in King has mistake Squares
+
+
+./ChessEngineTests --gtest_filter=KingTest.TestWhiteKingMovements
+./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 

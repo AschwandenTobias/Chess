@@ -62,6 +62,11 @@ TEST(FullGameTest, FoolsMate) {
         "f2f3", "e7e5", "g2g4", "d8h4"
     };
     game.start(moves);
+    std::vector<std::pair<int, int>> kingMoves = King::generateAllPossibleKingMoves(game.board, true);
+    std::cout << "kingMoves: ";
+    for (const auto &move : kingMoves) {
+        std::cout << "(" << move.first << ", " << move.second << ") ";
+    }
+    std::cout << "\n";
     ASSERT_EQ(game.IsCheckmate, true);
-
 }
