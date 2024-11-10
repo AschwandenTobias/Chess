@@ -65,6 +65,51 @@ void Chessboard::updateLastMove(int startSquare, int endSquare) {
     lastMoveWasTwoSquarePawnMove = false;
 }
 
+void Chessboard::setPiece(int square, Piece piece) {
+    Bitboard mask = (1ULL << square);
+
+    switch (piece) {
+        case WHITE_PAWN:
+            whitePawns |= mask;
+            break;
+        case WHITE_ROOK:
+            whiteRooks |= mask;
+            break;
+        case WHITE_KNIGHT:
+            whiteKnights |= mask;
+            break;
+        case WHITE_BISHOP:
+            whiteBishops |= mask;
+            break;
+        case WHITE_QUEEN:
+            whiteQueen |= mask;
+            break;
+        case WHITE_KING:
+            whiteKing |= mask;
+            break;
+        case BLACK_PAWN:
+            blackPawns |= mask;
+            break;
+        case BLACK_ROOK:
+            blackRooks |= mask;
+            break;
+        case BLACK_KNIGHT:
+            blackKnights |= mask;
+            break;
+        case BLACK_BISHOP:
+            blackBishops |= mask;
+            break;
+        case BLACK_QUEEN:
+            blackQueen |= mask;
+            break;
+        case BLACK_KING:
+            blackKing |= mask;
+            break;
+        default:
+            break;
+    }
+}
+
 void Chessboard::deletePiece(Bitboard square) {
     Bitboard del = ~square;
     whitePawns &= del;
@@ -81,7 +126,7 @@ void Chessboard::deletePiece(Bitboard square) {
     blackKing &= del;
 }
 
-void Chessboard::deletePiece(int squareToDelete) { //not sure this works
+void Chessboard::deletePiece(int squareToDelete) {
     Bitboard del = ~(1ULL << squareToDelete);
     whitePawns &= del;
     whiteRooks &= del;

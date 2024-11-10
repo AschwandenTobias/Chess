@@ -4,6 +4,7 @@
 #include "chessboard.h"
 #include <string>
 #include <vector>
+#include <sstream>
 
 
 typedef uint64_t Bitboard;
@@ -17,7 +18,7 @@ public:
     bool isDraw;
     bool kingIsInCheck;
 
-    bool isWhiteCheckmate();
+    bool isCheckmate();
     bool isMoveValid(int startSquare, int endSquare);
     void makeMove(int startSquare, int endSquare);
     bool checkGameOver();

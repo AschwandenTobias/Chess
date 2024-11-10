@@ -52,6 +52,7 @@ void Game::start(const std::vector<std::string>& moves) {
                 std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
             } else {
                 std::cout << "It's black's turn: Enter your move:\n";
+                std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
             }
             std::cin >> move;
         }
@@ -91,33 +92,34 @@ void Game::start(const std::vector<std::string>& moves) {
     }
 }
 
-int Game::translateMove(std::string move) {
-    //std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
-    //int file = move[0];
-    //std::cout << "file as number: " << file << "\n";
-    if (move == "CW") {  
-        return 3;
-    } else if (move == "KS") {  
-        return 0;
-    } else if (move == "QS") {  
-        return 7;
-    } else if (move == "CB") {  
-        return 59;
-    }
-    int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
-    return square;
-}
-
 bool Game::isMoveValid(int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
-    //std::cout << "Piece at startSquare was: " << piece << "\n";
+    std::cout << "Piece at startSquare was: " << piece << "\n";
     if(whiteTurn && board.checkIfWhitePieceIsOnSquare(startSquare)) {
 
     } else if(!whiteTurn && board.checkIfBlackPieceIsOnSquare(startSquare)) {
 
     } else {
         std::cout << "Not your own piece!\n";
+        return false;
+    }
+
+    Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
+    board.setPiece(endSquare, piece);  
+    board.deletePiece(startSquare);  
+
+    bool kingStillSafe = whiteTurn ? !King::isWhiteKingInCheck(board) : !King::isBlackKingInCheck(board);
+
+    board.setPiece(startSquare, piece);        
+    if (capturedPiece != Chessboard::EMPTY) {
+    board.setPiece(endSquare, capturedPiece);
+    } else {
+        board.deletePiece(endSquare);
+    }
+
+    if (!kingStillSafe) {
+        std::cout << "Move would put king in check. Invalid.\n";
         return false;
     }
     switch (piece)
@@ -175,8 +177,26 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return false;
         break;
     }
-    return true;
+    return false;
 }
+
+int Game::translateMove(std::string move) {
+    //std::cout << "move[0]: " << move[0] << ", move[1]: " << move[1] << "\n";
+    //int file = move[0];
+    //std::cout << "file as number: " << file << "\n";
+    if (move == "CW") {  
+        return 3;
+    } else if (move == "KS") {  
+        return 0;
+    } else if (move == "QS") {  
+        return 7;
+    } else if (move == "CB") {  
+        return 59;
+    }
+    int square = (move[1] - '1') * 8 + 7 - (move[0] - 'a');
+    return square;
+}
+
 
 void Game::promoteWhitePawn(int endSquare) {
     std::string promotionPiece;
@@ -216,53 +236,6 @@ void Game::promoteWhitePawn(int endSquare) {
     }
 }
 
-void Game::promoteBlackPawn(int endSquare) {
-    std::string promotionPiece;
-    Bitboard promotionSquare = (1ULL << endSquare);
-    while (true) {
-        std::cout << "Your pawn promotes! Enter the first letter of the piece! (B, K, Q, R)\n";
-        std::cin >> promotionPiece;
-        promotionPiece[0] = std::toupper(promotionPiece[0]);
-        if(promotionPiece.length() != 1) {
-            std::cout << "Pls only enter one character :) \n";
-            continue;
-        }
-        if(promotionPiece == "B") {
-            board.deletePiece(endSquare);
-            board.blackBishops |= promotionSquare;
-            break;
-        } else if (promotionPiece != "R") {
-            board.deletePiece(endSquare);
-            board.blackRooks |= promotionSquare;
-            break;
-        } else if (promotionPiece != "K") {
-            board.deletePiece(endSquare);
-            board.blackKnights |= promotionSquare;
-            break;
-        } else if(promotionPiece != "Q") {
-            board.deletePiece(endSquare);
-            board.blackQueen |= promotionSquare;
-            break;
-        } else {
-            std::cout << "No correct piece detected!\n";
-            continue;
-        }
-    }
-}
-
-bool Game::checkIfWhitePawnPromotes(int endSquare) {
-    if(endSquare < 56 || endSquare > 63) {
-        return false;
-    }
-    return true;
-}
-
-bool Game::checkIfBlackPawnPromotes(int endSquare) {
-    if(endSquare < 0 || endSquare > 7) {
-        return false;
-    }
-    return true;
-}
 
 void Game::makeMove(int startSquare, int endSquare) {
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
@@ -332,7 +305,7 @@ void Game::makeMove(int startSquare, int endSquare) {
 
 //Now only checks for checkmate, not stalemate/draw etc
 bool Game::checkGameOver() {
-    isWhiteCheckmate();
+    isCheckmate();
     if(IsCheckmate) {
         return true;
     }
@@ -351,9 +324,9 @@ std::vector<std::string> Game::notationTranslator(std::string moves) {
             translatedMoves.push_back(whiteTurn ? "CWKS" : "CBKS");
         } else if (move == "0-0-0") {
             translatedMoves.push_back(whiteTurn ? "CWQS" : "CBQS");
-        } else if (move.length() == 2) {
+        } else if (move.length() == 2) { //pawn move
 
-        } else if(move.length() == 3) {
+        } else if(move.length() == 3) { //other piece move or pawn capture
 
         } else {
             std::cout << "Something went wrong in the notationTranslator\n";
@@ -403,4 +376,52 @@ void Game::removeMoveNumbersAndResult(std::string& moves) {
             ++i;  // Only advance if no erase operation was performed
         }
     }
+}
+
+void Game::promoteBlackPawn(int endSquare) {
+    std::string promotionPiece;
+    Bitboard promotionSquare = (1ULL << endSquare);
+    while (true) {
+        std::cout << "Your pawn promotes! Enter the first letter of the piece! (B, K, Q, R)\n";
+        std::cin >> promotionPiece;
+        promotionPiece[0] = std::toupper(promotionPiece[0]);
+        if(promotionPiece.length() != 1) {
+            std::cout << "Pls only enter one character :) \n";
+            continue;
+        }
+        if(promotionPiece == "B") {
+            board.deletePiece(endSquare);
+            board.blackBishops |= promotionSquare;
+            break;
+        } else if (promotionPiece != "R") {
+            board.deletePiece(endSquare);
+            board.blackRooks |= promotionSquare;
+            break;
+        } else if (promotionPiece != "K") {
+            board.deletePiece(endSquare);
+            board.blackKnights |= promotionSquare;
+            break;
+        } else if(promotionPiece != "Q") {
+            board.deletePiece(endSquare);
+            board.blackQueen |= promotionSquare;
+            break;
+        } else {
+            std::cout << "No correct piece detected!\n";
+            continue;
+        }
+    }
+}
+
+bool Game::checkIfWhitePawnPromotes(int endSquare) {
+    if(endSquare < 56 || endSquare > 63) {
+        return false;
+    }
+    return true;
+}
+
+bool Game::checkIfBlackPawnPromotes(int endSquare) {
+    if(endSquare < 0 || endSquare > 7) {
+        return false;
+    }
+    return true;
 }
