@@ -18,15 +18,15 @@ Game::Game() {
     kingIsInCheck = false;
 }
 
-bool Game::isWhiteCheckmate() {
+bool Game::isCheckmate() {
     //Three conditions
         //King must be in check
         //King cannot escape
         //No other piece can interfere
-    bool check = King::isWhiteKingInCheck(board);
-    std::cout << "bool check in isWhiteCheckmate: " << check << "\n";
+    bool check = whiteTurn ? King::isWhiteKingInCheck(board) : King::isBlackKingInCheck(board);
+    //std::cout << "bool check in isWhiteCheckmate: " << check << "\n";
     bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
-    std::cout << "bool hasKingEscapeSquares in isWhiteCheckmate: " << check << "\n";
+    //std::cout << "bool hasKingEscapeSquares in isWhiteCheckmate: " << hasKingNoEscapeSquares << "\n";
     bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
     if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
         std::cout << "CHECKMATE!!!!\n" << !whiteTurn << " wins!\n";
