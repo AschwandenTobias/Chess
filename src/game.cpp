@@ -340,18 +340,51 @@ bool Game::checkGameOver() {
 }
 
 std::vector<std::string> Game::notationTranslator(std::string moves) {
+    removeChessComDollarSigns(moves);
+    removeXandPlus(moves);
+    removeMoveNumbersAndResult(moves);
     std::vector<std::string> translatedMoves;
     return translatedMoves;
 }
 
-std::string Game::removeChessComDollarSigns(std::string moves) {
+void Game::removeChessComDollarSigns(std::string& moves) {
     for (size_t i = 0; i < moves.length(); ++i) {
         if (moves[i] == '$') {
-            moves.erase(i, 1); // remove the '$' character
+            moves.erase(i, 1);
             while (i < moves.length() && std::isdigit(moves[i])) {
                 moves.erase(i, 1);
             }
         }
     }
-    return moves;
+}
+
+void Game::removeXandPlus(std::string& moves) {
+    for(size_t i = 0; i < moves.length(); i++) {
+        if(moves[i] == '+' || moves[i] == 'x') {
+            moves.erase(i, 1);
+            i--;
+        }
+    }
+}
+
+void Game::removeMoveNumbersAndResult(std::string& moves) {
+    for (size_t i = 0; i < moves.length(); ) {
+        // Remove move numbers like "1.", "2.", etc.
+        if (std::isdigit(moves[i]) && (i + 1 < moves.length()) && moves[i + 1] == '.') {
+            // Find start of the move number and erase up to the dot
+            size_t j = i;
+            while (j > 0 && std::isdigit(moves[j - 1])) j--;
+            moves.erase(j, i - j + 2);  // Remove number and the dot
+            i = j;  // Reset `i` to the position of `j` after erasing
+        }
+        // Remove game result "1-0", "0-1", or "1/2-1/2"
+        else if ((i + 2 < moves.length() && 
+                  ((moves[i] == '1' && moves[i + 1] == '-' && moves[i + 2] == '0') ||
+                   (moves[i] == '0' && moves[i + 1] == '-' && moves[i + 2] == '1'))) ||
+                 (i + 6 < moves.length() && moves.substr(i, 7) == "1/2-1/2")) {
+            moves.erase(i, (moves[i] == '1' && moves[i + 1] == '/' ? 7 : 3));
+        } else {
+            ++i;  // Only advance if no erase operation was performed
+        }
+    }
 }

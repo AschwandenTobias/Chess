@@ -26,9 +26,10 @@ public:
     bool checkIfBlackPawnPromotes(int endSquare);
     void promoteWhitePawn(int endSquare);
     void promoteBlackPawn(int endSquare);
-    std::vector<std::pair<int, int>> notationTranslator(std::string moves);
-    std::string removeChessComDollarSigns(std::string moves);
-
+    std::vector<std::string> notationTranslator(std::string moves);
+    void removeChessComDollarSigns(std::string& moves);
+    void removeXandPlus(std::string& moves);
+    void removeMoveNumbersAndResult(std::string& moves);
     Chessboard board;
 };
 
