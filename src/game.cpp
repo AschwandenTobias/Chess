@@ -343,7 +343,23 @@ std::vector<std::string> Game::notationTranslator(std::string moves) {
     removeChessComDollarSigns(moves);
     removeXandPlus(moves);
     removeMoveNumbersAndResult(moves);
-    std::vector<std::string> translatedMoves;
+    std::vector<std::string> translatedMoves; 
+    std::istringstream iss(moves);
+    std::string move;
+    while (iss >> move) {
+        if(move == "0-0") {
+            translatedMoves.push_back(whiteTurn ? "CWKS" : "CBKS");
+        } else if (move == "0-0-0") {
+            translatedMoves.push_back(whiteTurn ? "CWQS" : "CBQS");
+        } else if (move.length() == 2) {
+
+        } else if(move.length() == 3) {
+
+        } else {
+            std::cout << "Something went wrong in the notationTranslator\n";
+        }
+    }
+    
     return translatedMoves;
 }
 
