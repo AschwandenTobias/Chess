@@ -43,12 +43,10 @@ void Game::start(const std::vector<std::string>& moves) {
         board.printBoard();
         std::string move;
 
-        // For automated testing, use the provided moves
         if (!moves.empty() && moveIndex < moves.size()) {
             move = moves[moveIndex++];
             std::cout << "Automated move: " << move << "\n";
         } else {
-            // Regular player input
             if (whiteTurn) {
                 std::cout << "It's white's turn: Enter your move in the format \"e2e4\"\n";
                 std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
@@ -72,7 +70,6 @@ void Game::start(const std::vector<std::string>& moves) {
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
 
-            // Check if king is in check after the move
             if (whiteTurn) {
                 King::isWhiteKingInCheck(board);
             } else {
@@ -340,4 +337,21 @@ bool Game::checkGameOver() {
         return true;
     }
     return false;
+}
+
+std::vector<std::string> Game::notationTranslator(std::string moves) {
+    std::vector<std::string> translatedMoves;
+    return translatedMoves;
+}
+
+std::string Game::removeChessComDollarSigns(std::string moves) {
+    for (size_t i = 0; i < moves.length(); ++i) {
+        if (moves[i] == '$') {
+            moves.erase(i, 1); // remove the '$' character
+            while (i < moves.length() && std::isdigit(moves[i])) {
+                moves.erase(i, 1);
+            }
+        }
+    }
+    return moves;
 }
