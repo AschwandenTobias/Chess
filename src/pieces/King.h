@@ -36,6 +36,8 @@ public:
     static std::vector<int> getAttackingSquares(Chessboard &board, int kingSquare, bool white);
     static int numberOfAttackingPieces(Chessboard &board, int square, bool white);
     static bool canPieceInterfereCheck(Chessboard &board, bool white);
+    static bool doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white);
+
 };
 
 #endif

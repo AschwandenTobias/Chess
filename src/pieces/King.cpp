@@ -7,13 +7,13 @@
 #include "Pawn.h"
 #include "../game.h"
 #include <vector>
-#include "chessboard.h"
+#include "../chessboard.h"
 
 //need way to get the pieces enum
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
     //Piece piece Chessboard::getPieceAtSquare(endSquare);
     board.deletePiece(endSquare);
-    board.setPiece()
+    //board.setPiece()
 }
 
 std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bool white) {
