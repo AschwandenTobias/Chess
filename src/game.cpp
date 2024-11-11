@@ -26,7 +26,7 @@ bool Game::isCheckmate() {
     bool check = whiteTurn ? King::isWhiteKingInCheck(board) : King::isBlackKingInCheck(board);
     std::cout << "bool check in isCheckmate: " << check << "\n";
     bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
-    std::cout << "bool hasKingEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
+    std::cout << "bool hasKingNoEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
     bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
     std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
     if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
@@ -65,10 +65,10 @@ void Game::start(const std::vector<std::string>& moves) {
 
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
-        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
+        //std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
-            std::cout << "Game::Move was valid \n";
+            //std::cout << "Game::Move was valid \n";
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
 
@@ -96,7 +96,7 @@ void Game::start(const std::vector<std::string>& moves) {
 bool Game::isMoveValid(int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
     Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
-    std::cout << "Piece at startSquare was: " << piece << "\n";
+    //std::cout << "Piece at startSquare was: " << piece << "\n";
     if(whiteTurn && board.checkIfWhitePieceIsOnSquare(startSquare)) {
 
     } else if(!whiteTurn && board.checkIfBlackPieceIsOnSquare(startSquare)) {
@@ -159,16 +159,16 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Rook::isBlackRookMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_QUEEN:
-    std::cout << "Black Queen move in Game::isMoveValid detected\n";
+    //std::cout << "Black Queen move in Game::isMoveValid detected\n";
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_KING:
-        std::cout << "Black King detected. In Game::isMoveValid\n";
+        //std::cout << "Black King detected. In Game::isMoveValid\n";
         if(startSquare == 59 && endSquare == 0) {
-            std::cout << "Game::Black Kingside Castling detected\n";
+            //std::cout << "Game::Black Kingside Castling detected\n";
             return King::isBlackKingCastlingLegal(board);
         } else if (startSquare == 59 && endSquare == 7) {
-            std::cout << "Game::Black Queenside Castling detected\n";
+            //std::cout << "Game::Black Queenside Castling detected\n";
             return King::isBlackQueenCastlingLegal(board);
         }
         return King::isBlackKingMoveLegal(board, startSquare, endSquare);
@@ -289,7 +289,7 @@ void Game::makeMove(int startSquare, int endSquare) {
             Queen::moveBlackQueen(board, startSquare, endSquare);
             break;
         case Chessboard::BLACK_KING:
-            std::cout << "Game::startSquare: " << startSquare << ", endSquare: " << endSquare << "\n";
+            //std::cout << "Game::startSquare: " << startSquare << ", endSquare: " << endSquare << "\n";
             if(startSquare == 59 && endSquare == 0) {
                 King::castleBlackKing(board, startSquare, endSquare);
             } else if (startSquare == 59 && endSquare == 7) {

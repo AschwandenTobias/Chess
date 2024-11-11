@@ -68,10 +68,13 @@ TEST(FullGameTest, FoolsMate) {
         std::cout << "(" << move.first << ", " << move.second << ") ";
     }
     std::cout << "\n";
+    //std::vector<int> attackingSquares = King::getAttackingSquares(game.board, 3, true);
+    //std::vector<int> shouldSquares = {24, 17, 10};
+    //ASSERT_EQ(attackingSquares, shouldSquares);
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FullgameTest, ScholarsMate) {
+TEST(FullGameTest, ScholarsMate) {
     Game game;
     std::vector<std::string> moves = {"e2e4", "e7e5", "d1h5", "b8c6", "f1c4", "g8f6", "h5f7"};
     game.start(moves);

@@ -9,6 +9,32 @@ std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, i
     return attackingSquares;
 }
 
+bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
+    if(white) {
+        Bitboard whitePawns = board.whitePawns;
+        int numberOfWhitePawns = __builtin_popcountll(whitePawns);
+        for(int i = 0; i < numberOfWhitePawns; i++) {
+            int pawnSquare = __builtin_ffsll(whitePawns) - 1;
+            if((pawnSquare < 16 && pawnSquare > 7 && pawnSquare + 16 == endSquare) || pawnSquare + 8 == endSquare) {
+                return true;
+            }
+            whitePawns &= whitePawns - 1;
+        }  
+    } else {
+        Bitboard blackPawns = board.blackPawns;
+        int numberOfBlackPawns = __builtin_popcountll(blackPawns);
+        for(int i = 0; i < numberOfBlackPawns; i++) {
+            int pawnSquare = __builtin_ffsll(blackPawns) - 1;
+            if(isBlackPawnMoveLegal(board, pawnSquare, endSquare)) {
+                return true;
+            }
+            blackPawns &= blackPawns - 1;
+        }  
+
+    }
+    return false;
+}
+
 void Pawn::moveBlackPawn(Chessboard &board, int startSquare, int endSquare) {
     Bitboard from = (1ULL << startSquare); // sets the bit to the correct from square
     Bitboard to = (1ULL << endSquare); // sets the bit to the correct to square

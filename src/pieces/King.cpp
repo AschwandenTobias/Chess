@@ -29,7 +29,7 @@ bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSq
 }
 
 std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bool white) {
-    std::cout << "Get the Squares that attack the King\n";
+    //std::cout << "Get the Squares that attack the King\n";
        if(white) {
         if(checkBlackPawnMovesForCheck(board, kingSquare)) {
             return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
@@ -43,13 +43,13 @@ std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bo
             return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         }
     } else {
-        std::cout << "We check for checks against the black King with the white pieces\n";
+        //std::cout << "We check for checks against the black King with the white pieces\n";
         if(checkWhitePawnMovesForCheck(board, kingSquare)) {
             return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
         } else if (checkWhiteRookMovesForCheck(board, kingSquare)) {
             return Rook::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         } else if (checkWhiteBishopMovesForCheck(board, kingSquare)) {
-            std::cout << "Get the attacking Squares of the white Bishop since the bishop can attack the King\n";
+            //std::cout << "Get the attacking Squares of the white Bishop since the bishop can attack the King\n";
             return Bishop::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         } else if (checkWhiteKnightMovesForCheck(board, kingSquare)) {
            return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
@@ -89,13 +89,30 @@ bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
     for(int i = 0; i < attackingMoves.size(); i++) {
         int squareToCheck = attackingMoves[i];
         if(white) {
-            if(checkWhitePawnMovesForCheck(board, squareToCheck)) return true;
-            if(checkWhiteBishopMovesForCheck(board, squareToCheck)) return true;
-            if(checkWhiteKnightMovesForCheck(board, squareToCheck)) return true;
-            if(checkWhiteRookMovesForCheck(board, squareToCheck)) return true;
-            if(checkWhiteQueenMovesForCheck(board, squareToCheck)) return true;
+            std::cout << "We check if any of the white pieces can interfere the attacking squares\n";
+            if(Pawn::canAPawnMoveToSquare(board, squareToCheck, white)) {
+                std::cout << "A pawn can interfere the check at square: " << squareToCheck << "\n";
+                return true;
+            } 
+            if(checkWhiteBishopMovesForCheck(board, squareToCheck)) {
+                std::cout << "A Bishop can interfere the check at square: " << squareToCheck << "\n";
+                return true;
+            } 
+            if(checkWhiteKnightMovesForCheck(board, squareToCheck)) {
+                std::cout << "A Knight can interfere the check at square: " << squareToCheck << "\n";
+                return true;
+            } 
+            if(checkWhiteRookMovesForCheck(board, squareToCheck)) {
+                std::cout << "A Rook can interfere the check at square: " << squareToCheck << "\n";
+                return true;
+            } 
+            if(checkWhiteQueenMovesForCheck(board, squareToCheck)) {
+                std::cout << "A Queen can interfere the check at square: " << squareToCheck << "\n";
+                return true;
+            } 
         } else {
-            if(checkBlackPawnMovesForCheck(board, squareToCheck)) return true;
+            std::cout << "We check if any of the black pieces can interfere the attacking squares\n";
+            if(Pawn::canAPawnMoveToSquare(board, squareToCheck, !white)) return true;
             if(checkBlackRookMovesForCheck(board, squareToCheck)) return true;
             if(checkBlackBishopMovesForCheck(board, squareToCheck)) return true;
             if(checkBlackKnightMovesForCheck(board, squareToCheck)) return true;
@@ -182,7 +199,7 @@ bool King::isWhiteQueenCastlingLegal(Chessboard &board) {
 
 
 void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
-    std::cout << "Im in King::castleBlackKing\n";
+    //std::cout << "Im in King::castleBlackKing\n";
     board.blackKing &= ~(1ULL << 59);  
     if(endSquare == 0) {
         board.blackKing |= (1ULL << 57);  
@@ -197,13 +214,13 @@ void King::castleBlackKing(Chessboard &board, int startSquare, int endSquare) {
 }
 
 bool King::isBlackKingCastlingLegal(Chessboard &board) {
-    std::cout << "King::start of isBlackKingCastlingLegal\n";
+    //std::cout << "King::start of isBlackKingCastlingLegal\n";
     if(board.blackKingRookMoved || board.blackKingMoved) return false;
-    std::cout << "King::blackKingRook hasn't moved and the black King hasn't moved\n";
+    //std::cout << "King::blackKingRook hasn't moved and the black King hasn't moved\n";
     if(isSquareInBlackCheck(board, 59) ||isSquareInBlackCheck(board, 58) || isSquareInBlackCheck(board, 57)) return false;
-    std::cout << "King::The Squares the King moves over are not in check\n";
+    //std::cout << "King::The Squares the King moves over are not in check\n";
     if(board.checkIfPieceIsOnSquare(58) || board.checkIfPieceIsOnSquare(57)) return false;
-    std::cout << "King::No Pieces are in the way of castling\n";
+    //std::cout << "King::No Pieces are in the way of castling\n";
     return true;
 }
 
@@ -216,19 +233,19 @@ bool King::isBlackQueenCastlingLegal(Chessboard &board) {
 
 bool King::isSquareInBlackCheck(Chessboard &board, int square) {
     if(checkWhiteBishopMovesForCheck(board, square)) {
-        std::cout << "King::White Bishop that can attack the square detected\n";
+        //std::cout << "King::White Bishop that can attack the square detected\n";
         return true;
     } else if (checkWhiteKnightMovesForCheck(board, square)) {
-        std::cout << "King::White Knight that can attack the square detected\n";
+        //std::cout << "King::White Knight that can attack the square detected\n";
         return true;
     } else if (checkWhiteRookMovesForCheck(board, square)) {
-        std::cout << "King::White Rook that can attack the square detected\n";
+        //std::cout << "King::White Rook that can attack the square detected\n";
         return true;
     } else if(checkWhiteQueenMovesForCheck(board, square)) {
-        std::cout << "King::White Queen that can attack the square detected\n";
+        //std::cout << "King::White Queen that can attack the square detected\n";
         return true;
     } else if (checkWhitePawnMovesForCheck(board, square)) {
-        std::cout << "King::White Pawn that can attack the square detected\n";
+        //std::cout << "King::White Pawn that can attack the square detected\n";
         return true;
     }
     return false;
@@ -236,7 +253,7 @@ bool King::isSquareInBlackCheck(Chessboard &board, int square) {
 
 bool King::isBlackKingInCheck(Chessboard &board) {
     int kingSquare = __builtin_ffsll(board.blackKing) - 1;
-    std::cout << "KingSquare: " << kingSquare << "\n";
+    //std::cout << "KingSquare: " << kingSquare << "\n";
     return isSquareInBlackCheck(board, kingSquare);
 }
 
@@ -270,10 +287,10 @@ bool King::checkWhiteQueenMovesForCheck(Chessboard &board, int startSquare) {
 }
 
 bool King::checkWhiteBishopMovesForCheck(Chessboard &board, int startSquare) {
-    std::cout << "We check now enemy Bishop moves for checks\n";
+    //std::cout << "We check now enemy Bishop moves for checks\n";
     Bitboard whiteBishops = board.whiteBishops;
     int numberOfWhiteBishops = __builtin_popcountll(whiteBishops);
-    std::cout << "Number of White Bishops: " << numberOfWhiteBishops << "\n";
+    //std::cout << "Number of White Bishops: " << numberOfWhiteBishops << "\n";
     for(int i = 0; i < numberOfWhiteBishops; i++) {
         int bishopSquare = __builtin_ffsll(whiteBishops) - 1;
         if(Bishop::isWhiteBishopMoveLegal(board, bishopSquare, startSquare)) { //changed from checking diagonal moves to checking is blackBishopMoveLegal. PS: 11.11: changed to wrong bishop color :(            std::cout << "White Bishop can attack the black King from square: " << bishopSquare << "\n";
@@ -282,7 +299,7 @@ bool King::checkWhiteBishopMovesForCheck(Chessboard &board, int startSquare) {
         }
         whiteBishops &= whiteBishops - 1;
     }
-    std::cout << "No White Bishop checks detected\n";
+    //std::cout << "No White Bishop checks detected\n";
     return false; 
 }
 
@@ -328,7 +345,7 @@ bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
         //std::cout << "black Queen Check detected\n";
         return true;
     } else if (checkBlackPawnMovesForCheck(board, square)) {
-        std::cout << "black Pawn Check detected\n";
+        //std::cout << "black Pawn Check detected\n";
         return true;
     }
     return false;
@@ -413,7 +430,7 @@ bool King::checkBlackRookMovesForCheck(Chessboard &board, int startSquare) {
 
 bool King::isWhiteKingInCheck(Chessboard &board) {
     int kingSquare = __builtin_ffsll(board.whiteKing) - 1;
-    std::cout << "KingSquare: " << kingSquare << "\n";
+    //std::cout << "KingSquare: " << kingSquare << "\n";
     return isSquareInWhiteCheck(board, kingSquare);
 }
 
@@ -481,9 +498,9 @@ bool King::isBlackKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(board.checkIfBlackPieceIsOnSquare(to)) return false;
     if(isSquareInBlackCheck(board, endSquare)) return false;
     if(isBlackKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
-    std::cout << "Before check if BlackKingMove puts me in check\n";
+    //std::cout << "Before check if BlackKingMove puts me in check\n";
     if(doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
-    std::cout << "After check if BlackKingMove puts me in check\n";
+    //std::cout << "After check if BlackKingMove puts me in check\n";
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;

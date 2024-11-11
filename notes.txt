@@ -5,13 +5,13 @@ Bugs:
 
 Next: 
 -Mistake in checkmate recognition
-    -Black Kings escape moves return the wrong moves
-    -For scholars mate the king thinks it can capture the white queen (it cannot because the queen is protected)
-        -Started writing in King::doesTmpMovePutMeInCheck
+    -Fools Mate for some reason is not recogniced anymore
+        -Issus in check if friend can interfere
+            -Need to refine the pawn interference, they can either capture the attacking piece or move to a attacking Square that is not the square of the attacking piece itself
 
 
 ./ChessEngineTests --gtest_filter=FullGameTest.FoolsMate
-./ChessEngineTests --gtest_filter=KingTest.*
+./ChessEngineTests --gtest_filter=FullGameTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
