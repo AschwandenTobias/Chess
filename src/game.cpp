@@ -45,7 +45,7 @@ void Game::start(const std::vector<std::string>& moves) {
 
         if (!moves.empty() && moveIndex < moves.size()) {
             move = moves[moveIndex++];
-            std::cout << "Automated move: " << move << "\n";
+            //std::cout << "Automated move: " << move << "\n";
         } else {
             if (whiteTurn) {
                 std::cout << "It's white's turn: Enter your move in the format \"e2e4\"\n";
@@ -71,11 +71,11 @@ void Game::start(const std::vector<std::string>& moves) {
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
 
-            if (whiteTurn) {
+            /*if (whiteTurn) {
                 King::isWhiteKingInCheck(board);
             } else {
                 King::isBlackKingInCheck(board);
-            }
+            }*/
 
             if(checkGameOver()) {
                 board.printBoard();
@@ -104,19 +104,17 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         std::cout << "Not your own piece!\n";
         return false;
     }
-
+    //TODO: mistake here
     Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
+    board.deletePiece(endSquare);
     board.setPiece(endSquare, piece);  
     board.deletePiece(startSquare);  
 
     bool kingStillSafe = whiteTurn ? !King::isWhiteKingInCheck(board) : !King::isBlackKingInCheck(board);
 
-    board.setPiece(startSquare, piece);        
-    if (capturedPiece != Chessboard::EMPTY) {
-    board.setPiece(endSquare, capturedPiece);
-    } else {
-        board.deletePiece(endSquare);
-    }
+    board.setPiece(startSquare, piece); 
+    board.deletePiece(endSquare);
+    if (capturedPiece != Chessboard::EMPTY) board.setPiece(endSquare, capturedPiece); 
 
     if (!kingStillSafe) {
         std::cout << "Move would put king in check. Invalid.\n";
@@ -160,6 +158,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return Rook::isBlackRookMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_QUEEN:
+    std::cout << "Black Queen move in Game::isMoveValid detected\n";
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
     case Chessboard::BLACK_KING:
