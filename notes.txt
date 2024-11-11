@@ -3,14 +3,15 @@ General TODOs:
 -Things like stalemate and draw after repeating moves etc.
 -Finish writting the move translator to easily implement mass game testing
 Bugs:
--King moves are heavily bugged, if think mainly if in check, since i dont really check future moves but only with the current board status.
 
 Next: 
--Fix mistakes in checkmate recognition
-    -Mistake in King has mistake Squares
+-Mistake in checkmate recognition
+    -Black Kings escape moves return the wrong moves
+    -For scholars mate the king thinks it can capture the white queen (it cannot because the queen is protected)
+        -Started writing in King::doesTmpMovePutMeInCheck
 
 
-./ChessEngineTests --gtest_filter=FullgameTest.ScholarsMate
+./ChessEngineTests --gtest_filter=KingTest.GeneratedPossibleKingMoves_blackKingInMate
 ./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000

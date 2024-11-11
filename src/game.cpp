@@ -24,10 +24,11 @@ bool Game::isCheckmate() {
         //King cannot escape
         //No other piece can interfere
     bool check = whiteTurn ? King::isWhiteKingInCheck(board) : King::isBlackKingInCheck(board);
-    //std::cout << "bool check in isWhiteCheckmate: " << check << "\n";
+    std::cout << "bool check in isCheckmate: " << check << "\n";
     bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
-    //std::cout << "bool hasKingEscapeSquares in isWhiteCheckmate: " << hasKingNoEscapeSquares << "\n";
+    std::cout << "bool hasKingEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
     bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
+    std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
     if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
         std::cout << "CHECKMATE!!!!\n" << !whiteTurn << " wins!\n";
         IsCheckmate = true;

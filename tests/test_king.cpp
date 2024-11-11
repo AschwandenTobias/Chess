@@ -4,6 +4,7 @@
 #include "pieces/Pawn.h"
 #include "game.h"
 #include "pieces/Queen.h"
+#include "pieces/Bishop.h"
 #include "pieces/Knight.h"
 #include "pieces/Rook.h"
 #include <utility> 
@@ -127,6 +128,20 @@ TEST(KingTest, GeneratedPossibleKingMoves_KingOnBoardBorder) {
     game.board.whiteKing = 0x0000000001000000;
     std::vector<std::pair<int, int>> shouldSquares = {{24, 32}, {24, 17}, {24, 16}, {24, 25}, {24, 33}};
     std::vector<std::pair<int, int>> areSquares = King::generateAllPossibleKingMoves(game.board, true);
+    std::sort(shouldSquares.begin(), shouldSquares.end());
+    std::sort(areSquares.begin(), areSquares.end());
+    EXPECT_EQ(areSquares, shouldSquares);
+}
+
+TEST(KingTest, GeneratedPossibleKingMoves_blackKingInMate) {
+    Game game;
+    Pawn::moveWhitePawn(game.board, 11, 19);
+    Queen::moveWhiteQueen(game.board, 4, 32);
+    Bishop::moveWhiteBishop(game.board, 2, 29);
+    Queen::moveWhiteQueen(game.board, 32, 50);
+    game.board.printBoard();
+    std::vector<std::pair<int, int>> shouldSquares = {};
+    std::vector<std::pair<int, int>> areSquares = King::generateAllPossibleKingMoves(game.board, false);
     std::sort(shouldSquares.begin(), shouldSquares.end());
     std::sort(areSquares.begin(), areSquares.end());
     EXPECT_EQ(areSquares, shouldSquares);
