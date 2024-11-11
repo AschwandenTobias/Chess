@@ -87,7 +87,7 @@ TEST(KingTest, TestNumberOfAttackingPieces_TwoPieces) {
     ASSERT_EQ(King::numberOfAttackingPieces(game.board, 3, true), 2);
 }
 
-TEST(KingTest, TestGetAttackingSquares) {
+TEST(KingTest, TestGetAttackingSquaresQueen) {
     Game game;
     Pawn::moveWhitePawn(game.board, 11, 19);
     Pawn::moveBlackPawn(game.board, 50, 42);
@@ -98,6 +98,18 @@ TEST(KingTest, TestGetAttackingSquares) {
     //std::cout << "Number of attacking Squares: " << attackingSquares.size() << "\n";
     EXPECT_EQ(shouldSquares.size(), attackingSquares.size());
     EXPECT_EQ(shouldSquares, attackingSquares);
+}
+
+TEST(KingTest, TestGetAttackingSquaresBishop) {
+    Game game;
+    Pawn::moveWhitePawn(game.board, 11, 19);
+    Pawn::moveBlackPawn(game.board, 50, 42);
+    King::moveBlackKing(game.board, 59, 50);
+    Bishop::moveWhiteBishop(game.board, 2, 29);
+    game.board.printBoard();
+    std::vector<int> shouldSquares = {29, 36, 43, 50};
+    std::vector<int> areSquares = King::getAttackingSquares(game.board, 50, false);
+    EXPECT_EQ(areSquares, shouldSquares);
 }
 
 TEST(KingTest, TestCanPieceInterfere_WhiteQueenOnBorder) {

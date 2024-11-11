@@ -67,7 +67,6 @@ void Chessboard::updateLastMove(int startSquare, int endSquare) {
 
 void Chessboard::setPiece(int square, Piece piece) {
     Bitboard mask = (1ULL << square);
-
     switch (piece) {
         case WHITE_PAWN:
             whitePawns |= mask;

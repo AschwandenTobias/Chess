@@ -8,17 +8,17 @@ std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare,
     int distance = std::abs(endSquare - startSquare);
     int direction = 0;
     int tmpSquare = startSquare;
-        if(distance % 7 == 0) {
-            direction = (endSquare > startSquare) ? 7 : -7;
-        } else if(distance % 9 == 0) {
-            direction = (endSquare > startSquare) ? 9 : -9;
-        } else {
-            return attackingSquares;
-        }
-        while(tmpSquare != endSquare) {
-            attackingSquares.emplace_back(tmpSquare);
-            tmpSquare += direction;
-        }
+    if(distance % 7 == 0) {
+        direction = (endSquare > startSquare) ? 7 : -7;
+    } else if(distance % 9 == 0) {
+        direction = (endSquare > startSquare) ? 9 : -9;
+    } else {
+        return attackingSquares;
+    }
+    while(tmpSquare != (endSquare + direction)) {
+        attackingSquares.emplace_back(tmpSquare);
+        tmpSquare += direction;
+    }
     return attackingSquares;
 }
 

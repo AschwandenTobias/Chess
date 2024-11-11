@@ -1,5 +1,4 @@
 General TODOs:
--Implement that the king cannot be in check at the end of its turn
 -Things like stalemate and draw after repeating moves etc.
 -Finish writting the move translator to easily implement mass game testing
 Bugs:
@@ -11,7 +10,7 @@ Next:
         -Started writing in King::doesTmpMovePutMeInCheck
 
 
-./ChessEngineTests --gtest_filter=KingTest.GeneratedPossibleKingMoves_blackKingInMate
+./ChessEngineTests --gtest_filter=FullGameTest.FoolsMate
 ./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000

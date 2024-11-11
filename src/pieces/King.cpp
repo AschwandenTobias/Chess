@@ -9,27 +9,28 @@
 #include <vector>
 #include "../chessboard.h"
 
-//need way to get the pieces enum
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
-    //Piece piece Chessboard::getPieceAtSquare(endSquare);
+    Chessboard::Piece endPiece = board.getPieceAtSquare(endSquare);
+    Chessboard::Piece startPiece = board.getPieceAtSquare(startSquare);
+
     board.deletePiece(endSquare);
-    //board.setPiece()
+    board.setPiece(endSquare, startPiece);
+    board.deletePiece(startSquare);
+    //board.printBoard();
+    bool isInCheck = white ? King::isWhiteKingInCheck(board) : King::isBlackKingInCheck(board);
+
+    board.deletePiece(endSquare);
+    board.setPiece(startSquare, startPiece);
+    if (endPiece != Chessboard::EMPTY) {
+        board.setPiece(endSquare, endPiece); 
+    }
+    //board.printBoard();
+    return isInCheck;
 }
 
 std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bool white) {
+    std::cout << "Get the Squares that attack the King\n";
        if(white) {
-        if(checkWhitePawnMovesForCheck(board, kingSquare)) {
-            return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
-        } else if (checkWhiteRookMovesForCheck(board, kingSquare)) {
-            return Rook::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
-        } else if (checkWhiteBishopMovesForCheck(board, kingSquare)) {
-            return Bishop::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
-        } else if (checkWhiteKnightMovesForCheck(board, kingSquare)) {
-           return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
-        } else if(checkWhiteQueenMovesForCheck(board, kingSquare)) {
-            return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
-        }
-    } else {
         if(checkBlackPawnMovesForCheck(board, kingSquare)) {
             return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
         } else if (checkBlackRookMovesForCheck(board, kingSquare)) {
@@ -39,6 +40,20 @@ std::vector<int> King::getAttackingSquares(Chessboard &board, int kingSquare, bo
         } else if (checkBlackKnightMovesForCheck(board, kingSquare)) {
             return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         } else if(checkBlackQueenMovesForCheck(board, kingSquare)) {
+            return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        }
+    } else {
+        std::cout << "We check for checks against the black King with the white pieces\n";
+        if(checkWhitePawnMovesForCheck(board, kingSquare)) {
+            return Pawn::getAttackingSquares(board, board.attackingPieceSquare, kingSquare); 
+        } else if (checkWhiteRookMovesForCheck(board, kingSquare)) {
+            return Rook::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkWhiteBishopMovesForCheck(board, kingSquare)) {
+            std::cout << "Get the attacking Squares of the white Bishop since the bishop can attack the King\n";
+            return Bishop::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if (checkWhiteKnightMovesForCheck(board, kingSquare)) {
+           return Knight::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
+        } else if(checkWhiteQueenMovesForCheck(board, kingSquare)) {
             return Queen::getAttackingSquares(board, board.attackingPieceSquare, kingSquare);
         }
     }
@@ -255,20 +270,19 @@ bool King::checkWhiteQueenMovesForCheck(Chessboard &board, int startSquare) {
 }
 
 bool King::checkWhiteBishopMovesForCheck(Chessboard &board, int startSquare) {
-    //std::cout << "We check now enemy Bishop moves for checks\n";
+    std::cout << "We check now enemy Bishop moves for checks\n";
     Bitboard whiteBishops = board.whiteBishops;
     int numberOfWhiteBishops = __builtin_popcountll(whiteBishops);
-    //std::cout << "Number of White Bishops: " << numberOfWhiteBishops << "\n";
+    std::cout << "Number of White Bishops: " << numberOfWhiteBishops << "\n";
     for(int i = 0; i < numberOfWhiteBishops; i++) {
         int bishopSquare = __builtin_ffsll(whiteBishops) - 1;
-        if(Bishop::isBlackBishopMoveLegal(board, bishopSquare, startSquare)) { //changed from checking diagonal moves to checking if blackBishopMoveLegal
-            //std::cout << "White Bishop can attack the black King!\n";
+        if(Bishop::isWhiteBishopMoveLegal(board, bishopSquare, startSquare)) { //changed from checking diagonal moves to checking is blackBishopMoveLegal. PS: 11.11: changed to wrong bishop color :(            std::cout << "White Bishop can attack the black King from square: " << bishopSquare << "\n";
             board.attackingPieceSquare = bishopSquare;
             return true;
         }
         whiteBishops &= whiteBishops - 1;
     }
-    //std::cout << "No White Bishop checks detected\n";
+    std::cout << "No White Bishop checks detected\n";
     return false; 
 }
 
@@ -428,6 +442,7 @@ bool King::isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(isSquareInWhiteCheck(board, endSquare)) return false;
     //std::cout << "I think doesnt arrive here\n";
     if(isWhiteKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
+    if(doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
@@ -466,6 +481,9 @@ bool King::isBlackKingMoveLegal(Chessboard &board, int startSquare, int endSquar
     if(board.checkIfBlackPieceIsOnSquare(to)) return false;
     if(isSquareInBlackCheck(board, endSquare)) return false;
     if(isBlackKingMoveNextToEnemyKing(board, startSquare, endSquare)) return false;
+    std::cout << "Before check if BlackKingMove puts me in check\n";
+    if(doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
+    std::cout << "After check if BlackKingMove puts me in check\n";
     int distance = std::abs(endSquare - startSquare);
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
