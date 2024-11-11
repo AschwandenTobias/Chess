@@ -70,3 +70,11 @@ TEST(FullGameTest, FoolsMate) {
     std::cout << "\n";
     ASSERT_EQ(game.IsCheckmate, true);
 }
+
+TEST(FullgameTest, ScholarsMate) {
+    Game game;
+    std::vector<std::string> moves = {"e2e4", "e7e5", "d1h5", "b8c6", "f1c4", "g8f6", "h5f7"};
+    game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, true);
+    //game.board.printBoard();
+}
