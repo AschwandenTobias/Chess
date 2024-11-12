@@ -42,7 +42,8 @@ bool Pawn::canPawnAttackSquare(Chessboard &board, int endSquare, bool white) {
         int numberOfWhitePawns = __builtin_popcountll(whitePawns);
         for(int i = 0; i < numberOfWhitePawns; i++) {
             int pawnSquare = __builtin_ffsll(whitePawns) - 1;
-            if((endSquare - pawnSquare == 7 && pawnSquare % 8 != 7) || (endSquare - pawnSquare == 9 && pawnSquare % 8 != 0)) {
+            if((endSquare - pawnSquare == 7 && pawnSquare % 8 != 0) || (endSquare - pawnSquare == 9 && pawnSquare % 8 != 7)) {
+                std::cout << "Pawn at square: " << pawnSquare << " can attack piece at square: " << endSquare << "\n";
                 return true;
             }
             whitePawns &= whitePawns - 1;
@@ -52,7 +53,7 @@ bool Pawn::canPawnAttackSquare(Chessboard &board, int endSquare, bool white) {
         int numberOfBlackPawns = __builtin_popcountll(blackPawns);
         for(int i = 0; i < numberOfBlackPawns; i++) {
             int pawnSquare = __builtin_ffsll(blackPawns) - 1;
-            if((pawnSquare - endSquare == 7 && pawnSquare % 8 != 7) || (pawnSquare - endSquare == 9  && pawnSquare % 8 != 0)) {
+            if((pawnSquare - endSquare == 7 && pawnSquare % 8 != 0) || (pawnSquare - endSquare == 9  && pawnSquare % 8 != 7)) {
                 return true;
             }
             blackPawns &= blackPawns - 1;

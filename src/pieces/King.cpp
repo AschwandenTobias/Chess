@@ -90,16 +90,19 @@ bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
     int biggestAttackingSquare = *std::max_element(attackingMoves.begin(), attackingMoves.end());
     int smallestAttackingSquare = *std::min_element(attackingMoves.begin(), attackingMoves.end());
     int attackerSquare = (kingSquare < biggestAttackingSquare) ? biggestAttackingSquare : smallestAttackingSquare;
+    std::cout << "Attacker Square: " << attackerSquare << "\n";
     for(int i = 0; i < attackingMoves.size(); i++) {
         int squareToCheck = attackingMoves[i];
         if(white) {
             std::cout << "We check if any of the white pieces can interfere the attacking squares\n";
             if(squareToCheck == attackerSquare) {
                 if(Pawn::canPawnAttackSquare(board, squareToCheck, white)) {
+                    std::cout << "Pawn can attack the attacking Piece!\n";
                     return true;
                 }
             } else {
                 if(Pawn::canAPawnMoveToSquare(board, squareToCheck, white)) {
+                    std::cout << "Pawn can block the attacking Piece!\n";
                     return true;
                 }
             }
