@@ -16,7 +16,7 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
         for(int i = 0; i < numberOfWhitePawns; i++) {
             int pawnSquare = __builtin_ffsll(whitePawns) - 1;
             if((pawnSquare < 16 && pawnSquare > 7 && pawnSquare + 16 == endSquare) || pawnSquare + 8 == endSquare) {
-                if(Chessboard::checkIfPieceIsOnSquare(pawnSquare + 8)) return false;
+                if(board.checkIfPieceIsOnSquare(pawnSquare + 8)) return false;
                 return true;
             }
             whitePawns &= whitePawns - 1;
@@ -27,7 +27,7 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
         for(int i = 0; i < numberOfBlackPawns; i++) {
             int pawnSquare = __builtin_ffsll(blackPawns) - 1;
             if((pawnSquare < 56 && pawnSquare > 47 && pawnSquare - 16 == endSquare) || pawnSquare - 8 == endSquare) {
-                if(Chessboard::checkIfPieceIsOnSquare(pawnSquare - 8)) return false;
+                if(board.checkIfPieceIsOnSquare(pawnSquare - 8)) return false;
                 return true;
             }
             blackPawns &= blackPawns - 1;

@@ -8,6 +8,7 @@
 #include "../game.h"
 #include <vector>
 #include "../chessboard.h"
+#include <algorithm>
 
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
     Chessboard::Piece endPiece = board.getPieceAtSquare(endSquare);
@@ -86,14 +87,22 @@ bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
     int kingSquare = board.getSquareOfKing(white);
     std::vector<int> attackingMoves = getAttackingSquares(board, kingSquare, white);
     if(numberOfAttackingPieces(board, kingSquare, white) != 1) return false;
+    int biggestAttackingSquare = *std::max_element(attackingMoves.begin(), attackingMoves.end());
+    int smallestAttackingSquare = *std::min_element(attackingMoves.begin(), attackingMoves.end());
+    int attackerSquare = (kingSquare < biggestAttackingSquare) ? biggestAttackingSquare : smallestAttackingSquare;
     for(int i = 0; i < attackingMoves.size(); i++) {
         int squareToCheck = attackingMoves[i];
         if(white) {
             std::cout << "We check if any of the white pieces can interfere the attacking squares\n";
-            if(Pawn::canAPawnMoveToSquare(board, squareToCheck, white)) {
-                std::cout << "A pawn can interfere the check at square: " << squareToCheck << "\n";
-                return true;
-            } 
+            if(squareToCheck == attackerSquare) {
+                if(Pawn::canPawnAttackSquare(board, squareToCheck, white)) {
+                    return true;
+                }
+            } else {
+                if(Pawn::canAPawnMoveToSquare(board, squareToCheck, white)) {
+                    return true;
+                }
+            }
             if(checkWhiteBishopMovesForCheck(board, squareToCheck)) {
                 std::cout << "A Bishop can interfere the check at square: " << squareToCheck << "\n";
                 return true;
