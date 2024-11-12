@@ -51,6 +51,21 @@ Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
     return EMPTY;
 }
 
+void Chessboard::setAllPiecesToZero() {
+    whitePawns = 0;
+    whiteRooks = 0;
+    whiteBishops = 0;
+    whiteKnights = 0;
+    whiteQueen = 0;
+    whiteKing = 0;
+    blackPawns = 0;
+    blackRooks = 0;
+    blackBishops = 0;
+    blackKnights = 0;
+    blackQueen = 0;
+    blackKing = 0;
+}
+
 int Chessboard::getSquareOfKing(bool white) {
     if(white) {
         return(__builtin_ffsll(whiteKing) - 1);

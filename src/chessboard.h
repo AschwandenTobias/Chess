@@ -65,6 +65,7 @@ public:
     Piece getPieceAtSquare(int square);
     void reverseMove(int startSquare, int endSquare);
     void setPiece(int square, Piece piece);
+    void setAllPiecesToZero();
 };
 
 #endif 

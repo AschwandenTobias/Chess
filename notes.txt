@@ -1,13 +1,10 @@
 General TODOs:
 -Things like stalemate and draw after repeating moves etc.
 -Finish writting the move translator to easily implement mass game testing
+-START WRITING THE DAMN ENGINE BEFORE I PISS MYSELF
 Bugs:
 
 Next: 
--Mistake in checkmate recognition
-    -Fools Mate for some reason is not recogniced anymore
-        -Issus in check if friend can interfere
-            -Need to refine the pawn interference, they can either capture the attacking piece or move to a attacking Square that is not the square of the attacking piece itself
 
 
 ./ChessEngineTests --gtest_filter=FullGameTest.FoolsMate
@@ -15,7 +12,7 @@ Next:
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000000_00000000_00000000_00000000_00000000_00000001_00000000_00000000
+00000000_00000001_00000000_00000000_00000000_00000001_00000000_00000000
 
 
 Chess.com:

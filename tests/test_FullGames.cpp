@@ -8,7 +8,7 @@
 #include "pieces/king.h"
 #include "game.h"
 
-TEST(FullGameTest, Tobi_Dobenah) {
+TEST(MyFullGames, Tobi_Dobenah) {
     Game game;
         std::vector<std::string> moves = {
         "e2e4", "e7e5", "f1c4", "g8f6", "d1f3", "f8c5", "b1c3", "CBKS"
@@ -28,7 +28,7 @@ TEST(FullGameTest, Tobi_Dobenah) {
     //ASSERT_EQ(game.board.blackQueen , 0x0000000000000000);
 }
 
-TEST(FullGameTest, Ian_Carlsen_2021_Game1) {
+TEST(FamousGames, Ian_Carlsen_2021_Game1) {
     Game game;
         std::vector<std::string> moves = {
         "e2e4", "e7e5", "g1f3", "b8c6", "f1b5", "a7a6", "b5a4", "g8f6", "CWKS", "f8e7", 
@@ -56,7 +56,7 @@ TEST(FullGameTest, Ian_Carlsen_2021_Game1) {
     ASSERT_EQ(game.board.blackQueen , 0x0000000000000000);
 }
 
-TEST(FullGameTest, FoolsMate) {
+TEST(FamousCheckmates, FoolsMate) {
     Game game;
         std::vector<std::string> moves = {
         "f2f3", "e7e5", "g2g4", "d8h4"
@@ -74,10 +74,36 @@ TEST(FullGameTest, FoolsMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FullGameTest, ScholarsMate) {
+TEST(FamousCheckmates, ScholarsMate) {
     Game game;
     std::vector<std::string> moves = {"e2e4", "e7e5", "d1h5", "b8c6", "f1c4", "g8f6", "h5f7"};
     game.start(moves);
     ASSERT_EQ(game.IsCheckmate, true);
     game.board.printBoard();
+}
+
+TEST(FamousCheckmates, AnastasiasMate) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.blackKing = 0x0001000000000000;
+    game.board.blackPawns = 0x0002000000000000;
+    game.board.whiteKing = 0x0000000000000001;
+    game.board.whiteKnights = 0x0008000000000000;
+    game.board.whiteRooks = 0x0000000000000200;
+    std::vector<std::string> moves = {"g2h2"};
+    game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, true);
+}
+
+TEST(FamousCheckmates, AndersensMate) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.blackKing = 0x0200000000000000;
+    game.board.whitePawns = 0x0002000000000000;
+    game.board.whiteKing = 0x0000040000000000;
+    game.board.whiteRooks = 0x0000000000000001;
+    std::vector<std::string> moves = {"h1h8"};
+    ASSERT_EQ(game.IsCheckmate, false);
+    game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, true);
 }
