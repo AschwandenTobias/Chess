@@ -16,6 +16,7 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
         for(int i = 0; i < numberOfWhitePawns; i++) {
             int pawnSquare = __builtin_ffsll(whitePawns) - 1;
             if((pawnSquare < 16 && pawnSquare > 7 && pawnSquare + 16 == endSquare) || pawnSquare + 8 == endSquare) {
+                if(Chessboard::checkIfPieceIsOnSquare(pawnSquare + 8)) return false;
                 return true;
             }
             whitePawns &= whitePawns - 1;
@@ -25,12 +26,37 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
         int numberOfBlackPawns = __builtin_popcountll(blackPawns);
         for(int i = 0; i < numberOfBlackPawns; i++) {
             int pawnSquare = __builtin_ffsll(blackPawns) - 1;
-            if(isBlackPawnMoveLegal(board, pawnSquare, endSquare)) {
+            if((pawnSquare < 56 && pawnSquare > 47 && pawnSquare - 16 == endSquare) || pawnSquare - 8 == endSquare) {
+                if(Chessboard::checkIfPieceIsOnSquare(pawnSquare - 8)) return false;
                 return true;
             }
             blackPawns &= blackPawns - 1;
         }  
+    }
+    return false;
+}
 
+bool Pawn::canPawnAttackSquare(Chessboard &board, int endSquare, bool white) {
+    if(white) {
+        Bitboard whitePawns = board.whitePawns;
+        int numberOfWhitePawns = __builtin_popcountll(whitePawns);
+        for(int i = 0; i < numberOfWhitePawns; i++) {
+            int pawnSquare = __builtin_ffsll(whitePawns) - 1;
+            if((endSquare - pawnSquare == 7 && pawnSquare % 8 != 7) || (endSquare - pawnSquare == 9 && pawnSquare % 8 != 0)) {
+                return true;
+            }
+            whitePawns &= whitePawns - 1;
+        }  
+    } else {
+        Bitboard blackPawns = board.blackPawns;
+        int numberOfBlackPawns = __builtin_popcountll(blackPawns);
+        for(int i = 0; i < numberOfBlackPawns; i++) {
+            int pawnSquare = __builtin_ffsll(blackPawns) - 1;
+            if((pawnSquare - endSquare == 7 && pawnSquare % 8 != 7) || (pawnSquare - endSquare == 9  && pawnSquare % 8 != 0)) {
+                return true;
+            }
+            blackPawns &= blackPawns - 1;
+        }  
     }
     return false;
 }
