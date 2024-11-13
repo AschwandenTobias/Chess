@@ -146,4 +146,19 @@ TEST(FamousCheckmates, BalestraMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-
+TEST(FamousCheckmates, BlackburnesMate) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.whiteKing = 0x0200000000000000;
+    game.board.blackKing = 0x0000000000000001;
+    game.board.blackBishops = 0x00000000000000C0;
+    game.board.whiteRooks = 0x0800000000000000;
+    game.board.blackKnights = 0x0000000200000000;
+    std::vector<std::string> moves = {"e8f8", "b1h7"};
+    std::vector<std::pair<int, int>> kingEscapesMoves = King::generateAllPossibleKingMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldMoves = {};
+    //ASSERT_EQ(game.IsCheckmate, false);
+    game.start(moves);
+    ASSERT_EQ(kingEscapesMoves, shouldMoves);
+    //ASSERT_EQ(game.IsCheckmate, true);
+}

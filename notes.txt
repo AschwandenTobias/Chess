@@ -3,16 +3,19 @@ General TODOs:
 -Finish writting the move translator to easily implement mass game testing
 -START WRITING THE DAMN ENGINE BEFORE I PISS MYSELF
 Bugs:
+-BlackburnesMate doesnt work with white
+    -Doesnt recognize bishop moves for escapeSquares
+    -Doesnt recognize own Rook that should block escapeSquares
 
 Next: 
 
 
-./ChessEngineTests --gtest_filter=FullGameTest.FoolsMate
+./ChessEngineTests --gtest_filter=FamousCheckmates.BlackburnesMate
 ./ChessEngineTests --gtest_filter=FullGameTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000000_00000001_00000000_00000000_00000000_00000001_00000000_00000000
+00000000_00000000_00000000_00000010_00000000_00000000_00000000_00000000
 
 
 Chess.com:
