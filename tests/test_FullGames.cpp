@@ -74,7 +74,7 @@ TEST(FamousCheckmates, FoolsMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, ScholarsMate) {
+TEST(FamousCheckmates, ScholarsMate_white) {
     Game game;
     std::vector<std::string> moves = {"e2e4", "e7e5", "d1h5", "b8c6", "f1c4", "g8f6", "h5f7"};
     game.start(moves);
@@ -82,7 +82,7 @@ TEST(FamousCheckmates, ScholarsMate) {
     game.board.printBoard();
 }
 
-TEST(FamousCheckmates, AnastasiasMate) {
+TEST(FamousCheckmates, AnastasiasMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x0001000000000000;
@@ -95,7 +95,7 @@ TEST(FamousCheckmates, AnastasiasMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, AndersensMate) {
+TEST(FamousCheckmates, AndersensMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x0200000000000000;
@@ -107,7 +107,7 @@ TEST(FamousCheckmates, AndersensMate) {
     game.start(moves);
     ASSERT_EQ(game.IsCheckmate, true);
 }
-TEST(FamousCheckmates, ArabianMate) {
+TEST(FamousCheckmates, ArabianMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x0100000000000000;
@@ -120,7 +120,7 @@ TEST(FamousCheckmates, ArabianMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, BackRankMate) {
+TEST(FamousCheckmates, BackRankMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x0100000000000000;
@@ -133,7 +133,7 @@ TEST(FamousCheckmates, BackRankMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, BalestraMate) {
+TEST(FamousCheckmates, BalestraMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x0800000000000000;
@@ -146,7 +146,7 @@ TEST(FamousCheckmates, BalestraMate) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, BlackburnesMate) {
+TEST(FamousCheckmates, BlackburnesMate_black) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.whiteKing = 0x0200000000000000;
@@ -155,10 +155,34 @@ TEST(FamousCheckmates, BlackburnesMate) {
     game.board.whiteRooks = 0x0800000000000000;
     game.board.blackKnights = 0x0000000200000000;
     std::vector<std::string> moves = {"e8f8", "b1h7"};
-    std::vector<std::pair<int, int>> kingEscapesMoves = King::generateAllPossibleKingMoves(game.board, true);
-    std::vector<std::pair<int, int>> shouldMoves = {};
     ASSERT_EQ(game.IsCheckmate, false);
     game.start(moves);
-    //ASSERT_EQ(kingEscapesMoves, shouldMoves);
+    ASSERT_EQ(game.IsCheckmate, true);
+}
+
+TEST(FamousCheckmates, BlindSwineMate_white) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.whiteKing = 0x0200000000000000;
+    game.board.blackKing = 0x0000000000000001;
+    game.board.whiteRooks = 0x0800000000000000;
+    game.board.blackRooks = 0x0081000000000000;
+    std::vector<std::string> moves = {"e8f8", "a7g7"};
+    ASSERT_EQ(game.IsCheckmate, false);
+    game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, true);
+}
+
+TEST(FamousCheckmates, BodensMate_black) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.blackKing = 0x2000000000000000;
+    game.board.whiteKing = 0x0000000000000001;
+    game.board.blackRooks = 0x1000000000000000;
+    game.board.blackPawns = 0x0010000000000000;
+    game.board.whiteBishops = 0x0000000000000104;
+    std::vector<std::string> moves = {"f1a6"};
+    ASSERT_EQ(game.IsCheckmate, false);
+    game.start(moves);
     ASSERT_EQ(game.IsCheckmate, true);
 }
