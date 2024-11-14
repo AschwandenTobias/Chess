@@ -5,6 +5,9 @@
 *.so
 *.dylib
 
+# Ignore the specific executable (chess_game)
+chess_game
+
 # Ignore object files, static libraries, dynamic libraries
 *.o
 *.obj
