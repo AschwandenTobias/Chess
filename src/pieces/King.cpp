@@ -260,6 +260,7 @@ bool King::isSquareInBlackCheck(Chessboard &board, int square) {
         //std::cout << "King::White Pawn that can attack the square detected\n";
         return true;
     }
+    //std::cout << "No piece found that can attack the given Square\n";
     return false;
 }
 
@@ -345,21 +346,22 @@ bool King::checkWhiteRookMovesForCheck(Chessboard &board, int startSquare) {
 
 bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
     if(checkBlackBishopMovesForCheck(board, square)) {
-        //std::cout << "Black bishop check detected\n";
+        std::cout << "Black bishop check detected\n";
         return true;
     } else if (checkBlackKnightMovesForCheck(board, square)) {
-        //std::cout << "Black Knight Check detected\n";
+        std::cout << "Black Knight Check detected\n";
         return true;
     } else if (checkBlackRookMovesForCheck(board, square)) {
-        //std::cout << "black Rook Check detected\n";
+        std::cout << "black Rook Check detected\n";
         return true;
     } else if(checkBlackQueenMovesForCheck(board, square)) {
-        //std::cout << "black Queen Check detected\n";
+        std::cout << "black Queen Check detected\n";
         return true;
     } else if (checkBlackPawnMovesForCheck(board, square)) {
-        //std::cout << "black Pawn Check detected\n";
+        std::cout << "black Pawn Check detected\n";
         return true;
     }
+    std::cout << "No piece can attack given square\n";
     return false;
 }
 
@@ -401,7 +403,7 @@ bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
     //std::cout << "Number of Black Bishops: " << numberOfBlackBishops << "\n";
     for(int i = 0; i < numberOfBlackBishops; i++) {
         int bishopSquare = __builtin_ffsll(blackBishops) - 1;
-        if(Bishop::isWhiteBishopMoveLegal(board, bishopSquare, startSquare)) {
+        if(Bishop::isBlackBishopMoveLegal(board, bishopSquare, startSquare)) { //14.11 for some reason had isWhiteBishopMoveLegal here :(
             std::cout << "Black Bishop can attack the white King!\n";
             board.attackingPieceSquare = bishopSquare;
             return true;

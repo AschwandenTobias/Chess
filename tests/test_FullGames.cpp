@@ -157,8 +157,8 @@ TEST(FamousCheckmates, BlackburnesMate) {
     std::vector<std::string> moves = {"e8f8", "b1h7"};
     std::vector<std::pair<int, int>> kingEscapesMoves = King::generateAllPossibleKingMoves(game.board, true);
     std::vector<std::pair<int, int>> shouldMoves = {};
-    //ASSERT_EQ(game.IsCheckmate, false);
+    ASSERT_EQ(game.IsCheckmate, false);
     game.start(moves);
-    ASSERT_EQ(kingEscapesMoves, shouldMoves);
-    //ASSERT_EQ(game.IsCheckmate, true);
+    //ASSERT_EQ(kingEscapesMoves, shouldMoves);
+    ASSERT_EQ(game.IsCheckmate, true);
 }
