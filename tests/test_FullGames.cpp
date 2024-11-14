@@ -160,7 +160,7 @@ TEST(FamousCheckmates, BlackburnesMate_black) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, BlindSwineMate_white) {
+TEST(FamousCheckmates, BlindSwineMate_black) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.whiteKing = 0x0200000000000000;
@@ -173,7 +173,7 @@ TEST(FamousCheckmates, BlindSwineMate_white) {
     ASSERT_EQ(game.IsCheckmate, true);
 }
 
-TEST(FamousCheckmates, BodensMate_black) {
+TEST(FamousCheckmates, BodensMate_white) {
     Game game;
     game.board.setAllPiecesToZero();
     game.board.blackKing = 0x2000000000000000;
