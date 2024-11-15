@@ -10,14 +10,14 @@ Next:
 -Implement functions to get all possible piece moves
     -Pawns (done)
     -Kings (done)
-    -Knights
+    -Knights (done)
     -Rooks
     -Bishops
     -Queens
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
 
-./ChessEngineTests --gtest_filter=KingTest.getAllPossibleKingMoves_startingPosition
+./ChessEngineTests --gtest_filter=KnightTest.getAllPossibleKnightMoves_startingSquares
 ./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000

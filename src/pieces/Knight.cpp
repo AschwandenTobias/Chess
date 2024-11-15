@@ -9,8 +9,8 @@ std::vector<std::pair<int, int>> Knight::getAllPossibleKnightMoves(Chessboard &b
     auto isKnightMoveLegal = white ? &isWhiteKnightMoveLegal : &isBlackKnightMoveLegal;
     for(int i = 0; i < numberOfKnights; i++) {
         int knightSquare = __builtin_ffsll(knights) - 1;
-        for(int j = 0; i < 8; j++) {
-            int targetSquare = knightSquare + possibleKnightMoves[i];
+        for(int j = 0; j < 8; j++) {
+            int targetSquare = knightSquare + possibleKnightMoves[j];
             if(isKnightMoveLegal(board, knightSquare, targetSquare)) {
                 possibleMoves.emplace_back(knightSquare, targetSquare);
             }

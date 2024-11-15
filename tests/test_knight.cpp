@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
 #include "pieces/knight.h"
+#include "game.h"
 
 TEST(KnightTest, InitialKinghtPositionsAndMoves) {
     Chessboard board;
@@ -65,4 +66,14 @@ TEST(KnightTest, CaptureChecks) {
     Knight::moveBlackKnight(board, 11, 17);
     EXPECT_EQ(board.blackKnights, 0x0000000000220000);
     EXPECT_EQ(board.whiteRooks, 0x0000000000000080);  
+}
+
+TEST(KnightTest, getAllPossibleKnightMoves_startingSquares) {
+    Game game;
+    std::vector<std::pair<int, int>> areSquaresWhite = Knight::getAllPossibleKnightMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldSquaresWhite = {{1, 18}, {1, 16}, {6, 23}, {6, 21}};
+    std::vector<std::pair<int, int>> areSquaresBlack = Knight::getAllPossibleKnightMoves(game.board, false);
+    std::vector<std::pair<int, int>> shouldSquaresBlack = {{57, 42}, {57, 40}, {62, 47}, {62, 45}};
+    ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
+    ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
 }
