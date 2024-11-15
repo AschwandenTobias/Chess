@@ -10,6 +10,24 @@
 #include "../chessboard.h"
 #include <algorithm>
 
+std::vector<std::pair<int, int>> King::getAllPossibleKingMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves = generateAllPossibleKingMoves(board, white);
+    if(white) {
+        if(isWhiteKingCastlingLegal(board)) {
+            possibleMoves.emplace_back(3, 1);
+        } else if(isWhiteQueenCastlingLegal(board)) {
+            possibleMoves.emplace_back(3, 5);
+        }
+    } else {
+        if(isBlackKingCastlingLegal(board)) {
+            possibleMoves.emplace_back(59, 57);
+        } else if(isBlackQueenCastlingLegal(board)) {
+            possibleMoves.emplace_back(59, 61);
+        }
+    }
+    return possibleMoves;
+}
+
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
     Chessboard::Piece endPiece = board.getPieceAtSquare(endSquare);
     Chessboard::Piece startPiece = board.getPieceAtSquare(startSquare);

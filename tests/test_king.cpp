@@ -158,3 +158,21 @@ TEST(KingTest, GeneratedPossibleKingMoves_blackKingInMate) {
     std::sort(areSquares.begin(), areSquares.end());
     EXPECT_EQ(areSquares, shouldSquares);
 }
+
+TEST(KingTest, getAllPossibleKingMoves_startingPosition) {
+    Game game;
+    Pawn::moveWhitePawn(game.board, 9, 17);
+    Bishop::moveWhiteBishop(game.board, 2, 9);
+    Knight::moveWhiteKnight(game.board, 1, 18);
+    Pawn::moveBlackPawn(game.board, 52, 36);
+    Bishop::moveBlackBishop(game.board, 61, 43);
+    Queen::moveBlackQueen(game.board, 60, 44);
+    Knight::moveBlackKnight(game.board, 62, 47);
+    std::vector<std::pair<int, int>> areSquaresWhite = King::getAllPossibleKingMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldSquaresWhite = {{3, 2}, {3, 1}};
+    std::vector<std::pair<int, int>> areSquaresBlack = King::getAllPossibleKingMoves(game.board, false);
+    std::vector<std::pair<int, int>> shouldSquaresBlack = {{59, 60}, {59, 52}, {59, 61}};
+    //game.board.printBoard();
+    ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
+    ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
+}

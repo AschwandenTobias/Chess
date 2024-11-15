@@ -37,6 +37,7 @@ public:
     static int numberOfAttackingPieces(Chessboard &board, int square, bool white);
     static bool canPieceInterfereCheck(Chessboard &board, bool white);
     static bool doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white);
+    static std::vector<std::pair<int, int>> getAllPossibleKingMoves(Chessboard &board, bool white);
 
 };
 

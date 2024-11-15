@@ -7,9 +7,16 @@ Bugs:
 
 Next: 
 -Still implement all the famous checkmates (on hold)
+-Implement functions to get all possible piece moves
+    -Pawns (done)
+    -Kings (done)
+    -Knights
+    -Rooks
+    -Bishops
+    -Queens
 
-./ChessEngineTests --gtest_filter=FamousCheckmates.BlackburnesMate
-./ChessEngineTests --gtest_filter=FullGameTest.*
+./ChessEngineTests --gtest_filter=KingTest.getAllPossibleKingMoves_startingPosition
+./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
