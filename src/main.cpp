@@ -12,7 +12,30 @@
 int main() {
     Game game;
     std::vector<std::string> moves;
-    game.start(moves);
+    std::cout << "Welcome to the Chess Game!\n";
+    std::cout << "Please select an option:\n";
+    std::cout << "1. Play a normal game\n";
+    std::cout << "2. Play against the engine\n";
+    std::cout << "Enter your choice: ";
     
-    return 0; 
+    int choice;
+    std::cin >> choice;
+    
+    if (choice == 1) {
+        std::cout << "Starting a normal game...\n";
+        game.start(moves);  // Normal game mode
+    } else if (choice == 2) {
+        std::cout << "Starting a game against the engine...\n";
+        bool userIsWhite;
+        std::cout << "Do you want to play as white? (1 for Yes, 0 for No): ";
+        std::cin >> userIsWhite;
+        
+        // Assuming game.start() for engine mode takes parameters to configure the game
+        game.start(userIsWhite);  // Adjust `start` parameters in Game class as needed
+    } else {
+        std::cout << "Invalid choice. Exiting.\n";
+        return 1;  // Exit with error code
+    }
+    
+    return 0;
 }

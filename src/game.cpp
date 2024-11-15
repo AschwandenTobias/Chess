@@ -18,6 +18,10 @@ Game::Game() {
     kingIsInCheck = false;
 }
 
+void Game::start(bool userIsWhite) {
+    
+} 
+
 bool Game::isCheckmate() {
     //Three conditions
         //King must be in check
