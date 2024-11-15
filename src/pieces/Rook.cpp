@@ -1,5 +1,6 @@
 #include "rook.h"
 #include <iostream>
+#include "King.h"
 
 std::vector<std::pair<int, int>> Rook::getAllPossibleRookMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
@@ -82,6 +83,7 @@ bool Rook::isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
     if(endSquare < 0 || endSquare > 63) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     if(!(board.checkIfWhiteRookIsOnSquare(from))) {
         //std::cout << "there was no rook on the startSquare\n";
         return false;
@@ -133,6 +135,7 @@ bool Rook::isBlackRookMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
     if(endSquare < 0 || endSquare > 63) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     if(!(board.checkIfBlackRookIsOnSquare(from))) {
         //std::cout << "there was no rook on the startSquare\n";
         return false;

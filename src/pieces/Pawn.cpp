@@ -1,6 +1,7 @@
 #include "pawn.h"
 #include <iostream>
 #include "../game.h"
+#include "King.h"
 
 std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
@@ -130,6 +131,7 @@ bool Pawn::isBlackPawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard tmp = (1ULL << (startSquare - 8)); // Square ahead
     Bitboard captureLeft = (1ULL << (startSquare - 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare - 7)); // Capture right
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     int distance = startSquare - endSquare;
     //std::cout << distance <<"\n";
     if (distance == 8) {
@@ -218,6 +220,7 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard tmp = (1ULL << (startSquare + 8)); // Square ahead
     Bitboard captureLeft = (1ULL << (startSquare + 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare + 7)); // Capture right
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     int distance = endSquare - startSquare;
     //std::cout << distance <<"\n";
     if (distance == 8) {

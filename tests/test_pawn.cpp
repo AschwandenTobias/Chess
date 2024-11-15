@@ -73,14 +73,15 @@ TEST(PawnTest, TryAllCapturesWhitePawns) {
     board.blackKnights = 0x0000000084000000;
     board.blackQueen = 0x0000000008000000,
     board.blackRooks = 0x0000000010000000;
+    board.printBoard();
     Pawn::moveWhitePawn(board, 16, 25);
     Pawn::moveWhitePawn(board, 17, 24);
     Pawn::moveWhitePawn(board, 18, 27);
-    Pawn::moveWhitePawn(board, 19, 26);
     Pawn::moveWhitePawn(board, 20, 29);
-    Pawn::moveWhitePawn(board, 21, 28);
     Pawn::moveWhitePawn(board, 22, 31);
     Pawn::moveWhitePawn(board, 23, 30);
+    Pawn::moveWhitePawn(board, 19, 26);
+    Pawn::moveWhitePawn(board, 21, 28);
     EXPECT_EQ(board.whitePawns, 0x00000000FF000000); 
     EXPECT_EQ(board.blackPawns, 0x0000000000000000); 
     EXPECT_EQ(board.blackBishops, 0x0000000000000000); 
