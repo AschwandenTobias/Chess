@@ -194,7 +194,10 @@ int main(int argc, char **argv) {
 
 TEST(PawnTest, getAllPossiblePawnMoves_startingPositions) {
     Game game;
-    std::vector<std::pair<int, int>> areSquares = Pawn::getAllPossiblePawnMoves(game.board, true);
-    std::vector<std::pair<int, int>> shouldSquares = {{8, 16}};
-    ASSERT_EQ(areSquares, shouldSquares);
+    std::vector<std::pair<int, int>> areSquaresWhite = Pawn::getAllPossiblePawnMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldSquaresWhite = {{8, 16}, {8, 24}, {9, 17}, {9, 25}, {10, 18}, {10, 26}, {11, 19}, {11, 27}, {12, 20}, {12, 28}, {13, 21}, {13, 29}, {14, 22}, {14, 30}, {15, 23}, {15, 31}};
+    std::vector<std::pair<int, int>> areSquaresBlack = Pawn::getAllPossiblePawnMoves(game.board, false);
+    std::vector<std::pair<int, int>> shouldSquaresBlack = {{48, 40}, {48, 32}, {49, 41}, {49, 33}, {50, 42}, {50, 34}, {51, 43}, {51, 35}, {52, 44}, {52, 36}, {53, 45}, {53, 37}, {54, 46}, {54, 38}, {55, 47}, {55, 39}};
+    ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
+    ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
 }
