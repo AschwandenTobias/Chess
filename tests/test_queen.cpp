@@ -2,6 +2,7 @@
 #include "chessboard.h"
 #include "pieces/queen.h"
 #include "pieces/pawn.h"
+#include "game.h"
 
 //If fails it might be because of a check
 TEST(QueenTest, WhiteQueenCaptures) { 
@@ -40,4 +41,14 @@ TEST(QueenTest, BlackQueenCaptures) {
     Queen::moveBlackQueen(board, 0, 9);
 
     EXPECT_EQ(board.blackQueen, 0x0000000000000200);
+}
+
+TEST(QueenTest, getAllPossibleQueenMoves) {
+    Game game;
+    Pawn::moveWhitePawn(game.board, 11, 27);
+    Pawn::moveWhitePawn(game.board, 12, 28);
+    std::vector<std::pair<int, int>> areMovesWhite = Queen::getAllPossibleQueenMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldMovesWhite = {{4, 12}, {4, 20}, {4, 11}, {4, 18}, {4, 25}, {4, 32}};
+    game.board.printBoard();
+    ASSERT_EQ(areMovesWhite, shouldMovesWhite);
 }

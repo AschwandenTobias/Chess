@@ -18,7 +18,7 @@ Next:
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
 
-./ChessEngineTests --gtest_filter=BishopTest.getAllPossibleBishopMoves
+./ChessEngineTests --gtest_filter=QueenTest.getAllPossibleQueenMoves
 ./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
