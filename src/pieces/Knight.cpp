@@ -1,6 +1,25 @@
 #include "knight.h"
 #include <iostream>
 
+std::vector<std::pair<int, int>> Knight::getAllPossibleKnightMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves;
+    int possibleKnightMoves[8] = {10, 17, 15, 6, -6, -15, -17, -10};
+    Bitboard knights = white ? board.whiteKnights : board.blackKnights;
+    int numberOfKnights = __builtin_popcountll(knights);
+    auto isKnightMoveLegal = white ? &isWhiteKnightMoveLegal : &isBlackKnightMoveLegal;
+    for(int i = 0; i < numberOfKnights; i++) {
+        int knightSquare = __builtin_ffsll(knights) - 1;
+        for(int j = 0; i < 8; j++) {
+            int targetSquare = knightSquare + possibleKnightMoves[i];
+            if(isKnightMoveLegal(board, knightSquare, targetSquare)) {
+                possibleMoves.emplace_back(knightSquare, targetSquare);
+            }
+        }
+        knights &= knights - 1;
+    }
+    return possibleMoves;
+}
+
 //this doesnt check if the move is legal, it just returns all attacking squares
 std::vector<int> Knight::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;
