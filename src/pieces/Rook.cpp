@@ -1,6 +1,51 @@
 #include "rook.h"
 #include <iostream>
 
+std::vector<std::pair<int, int>> Rook::getAllPossibleRookMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves;
+    Bitboard rooks = white ? board.whiteRooks : board.blackRooks;
+    int numberOfRooks = __builtin_popcountll(rooks);
+    auto isRookMoveLegal = white ? &isWhiteRookMoveLegal : &isBlackRookMoveLegal;
+    for(int i = 0; i < numberOfRooks; i++) {
+        int rookSquare = __builtin_ffsll(rooks) - 1;
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = rookSquare + (8 * (j + 1));
+            if(isRookMoveLegal(board, rookSquare, targetSquare)) {
+                possibleMoves.emplace_back(rookSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = rookSquare - (8 * (j + 1));
+            if(isRookMoveLegal(board, rookSquare, targetSquare)) {
+                possibleMoves.emplace_back(rookSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = rookSquare + (j + 1);
+            if(isRookMoveLegal(board, rookSquare, targetSquare)) {
+                possibleMoves.emplace_back(rookSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = rookSquare - (j + 1);
+            if(isRookMoveLegal(board, rookSquare, targetSquare)) {
+                possibleMoves.emplace_back(rookSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        rooks &= rooks - 1;
+    }
+    return possibleMoves;
+}
+
+
 //this doesnt check if the move is legal, it just returns all attacking squares
 std::vector<int> Rook::getAttackingSquares(Chessboard &board, int startSquare, int endSquare) {
     std::vector<int> attackingSquares;
