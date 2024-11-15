@@ -2,6 +2,7 @@
 #include "chessboard.h"
 #include "pieces/rook.h"
 #include "pieces/pawn.h"
+#include "game.h"
 
 TEST(RookTest, AllDirectionWhiteRookMoves) {
     Chessboard board;
@@ -51,4 +52,18 @@ TEST(RookTest, AllDirectionBlackRookMoves) {
     Rook::moveBlackRook(board, 7, 6);
     Rook::moveBlackRook(board, 6, 5);    
     EXPECT_EQ(board.blackRooks, 0x0100000000000020);
+}
+
+TEST(RookTest, getAllPossibleRookMoves) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.whiteRooks = 0x0000000010000000;
+    game.board.blackRooks = 0x0000001000000000;
+    game.board.printBoard();
+    std::vector<std::pair<int, int>> areMovesWhite = Rook::getAllPossibleRookMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldMovesWhite = {{28, 36}, {28, 20}, {28, 12}, {28, 4}, {28, 29}, {28, 30}, {28, 31}, {28, 27}, {28, 26}, {28, 25}, {28, 24}};
+    ASSERT_EQ(areMovesWhite, shouldMovesWhite);
+    std::vector<std::pair<int, int>> areMovesBlack = Rook::getAllPossibleRookMoves(game.board, false);
+    std::vector<std::pair<int, int>> shouldMovesBlack = {{36, 44}, {36, 52}, {36, 60}, {36, 28}, {36, 37}, {36, 38}, {36, 39}, {36, 35}, {36, 34}, {36, 33}, {36, 32}};
+    ASSERT_EQ(areMovesBlack, shouldMovesBlack);
 }

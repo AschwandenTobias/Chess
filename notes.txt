@@ -11,18 +11,18 @@ Next:
     -Pawns (done)
     -Kings (done)
     -Knights (done)
-    -Rooks
+    -Rooks (done)
     -Bishops
     -Queens
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
 
-./ChessEngineTests --gtest_filter=KnightTest.getAllPossibleKnightMoves_startingSquares
+./ChessEngineTests --gtest_filter=RookTest.getAllPossibleRookMoves
 ./ChessEngineTests --gtest_filter=KingTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000000_00000000_00000000_00000000_00000000_00000000_00000001_00000100
+00000000_00000000_00000000_0010000_00000000_00000000_00000000_00000000
 
 
 Chess.com:
