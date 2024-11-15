@@ -2,6 +2,7 @@
 #define CHESSBOARD_H
 
 #include <cstdint>
+#include <vector>
 
 typedef uint64_t Bitboard;
 
@@ -66,6 +67,7 @@ public:
     void reverseMove(int startSquare, int endSquare);
     void setPiece(int square, Piece piece);
     void setAllPiecesToZero();
+    std::vector<std::pair<int, int>> generateAllPossibleMoves(bool white);
 };
 
 #endif 

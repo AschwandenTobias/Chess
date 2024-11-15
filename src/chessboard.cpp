@@ -2,6 +2,13 @@
 #include <iostream>
 
 #include "pieces/Pawn.h"
+#include "pieces/Rook.h"
+#include "pieces/Bishop.h"
+#include "pieces/Knight.h"
+#include "pieces/King.h"
+#include "pieces/Queen.h"
+#include <vector>
+#include <utility>
 
 
 
@@ -31,6 +38,38 @@ Chessboard::Chessboard() {
     blackKingRookMoved = false;
     whiteKingMoved = false;
     blackKingMoved = false;
+}
+
+std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white) {
+    std::vector<std::pair<int, int>> allMoves;
+    if(white) {
+        auto pawnMoves = Pawn::getAllPossiblePawnMoves(*this, white);
+        allMoves.insert(allMoves.end(), pawnMoves.begin(), pawnMoves.end());
+        auto rookMoves = Rook::getAllPossibleRookMoves(*this, white);
+        allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
+        auto knightMoves = Knight::getAllPossibleKnightMoves(*this, white);
+        allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
+        auto bishopMoves = Bishop::getAllPossibleBishopMoves(*this, white);
+        allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
+        auto queenMoves = Queen::getAllPossibleQueenMoves(*this, white);
+        allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
+        auto kingMoves = King::getAllPossibleKingMoves(*this, white);
+        allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
+    } else {
+        auto pawnMoves = Pawn::getAllPossiblePawnMoves(*this, !white);
+        allMoves.insert(allMoves.end(), pawnMoves.begin(), pawnMoves.end());
+        auto rookMoves = Rook::getAllPossibleRookMoves(*this, !white);
+        allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
+        auto knightMoves = Knight::getAllPossibleKnightMoves(*this, !white);
+        allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
+        auto bishopMoves = Bishop::getAllPossibleBishopMoves(*this, !white);
+        allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
+        auto queenMoves = Queen::getAllPossibleQueenMoves(*this, !white);
+        allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
+        auto kingMoves = King::getAllPossibleKingMoves(*this, !white);
+        allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
+    }
+    return allMoves;
 }
 
 Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
