@@ -50,8 +50,8 @@ void Game::startRandomEngine(bool userIsWhite) {
         } else {
             std::cout << "Engine's turn...\n";
 
-            std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(userIsWhite);
-            std::pair<int, int> randomMove = randomEngine.selectRandomMove(allMoves, userIsWhite);
+            std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(!userIsWhite);
+            std::pair<int, int> randomMove = randomEngine.selectRandomMove(allMoves, !userIsWhite);
             std::cout << "Random Engine move: " << randomMove.first << ", " << randomMove.second << "\n";
             int startSquare = randomMove.first;
             int endSquare = randomMove.second;

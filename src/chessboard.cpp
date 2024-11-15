@@ -56,17 +56,17 @@ std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white
         auto kingMoves = King::getAllPossibleKingMoves(*this, white);
         allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
     } else {
-        auto pawnMoves = Pawn::getAllPossiblePawnMoves(*this, !white);
+        auto pawnMoves = Pawn::getAllPossiblePawnMoves(*this, false);
         allMoves.insert(allMoves.end(), pawnMoves.begin(), pawnMoves.end());
-        auto rookMoves = Rook::getAllPossibleRookMoves(*this, !white);
+        auto rookMoves = Rook::getAllPossibleRookMoves(*this, false);
         allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
-        auto knightMoves = Knight::getAllPossibleKnightMoves(*this, !white);
+        auto knightMoves = Knight::getAllPossibleKnightMoves(*this, false);
         allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
-        auto bishopMoves = Bishop::getAllPossibleBishopMoves(*this, !white);
+        auto bishopMoves = Bishop::getAllPossibleBishopMoves(*this, false);
         allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
-        auto queenMoves = Queen::getAllPossibleQueenMoves(*this, !white);
+        auto queenMoves = Queen::getAllPossibleQueenMoves(*this, false);
         allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
-        auto kingMoves = King::getAllPossibleKingMoves(*this, !white);
+        auto kingMoves = King::getAllPossibleKingMoves(*this, false);
         allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
     }
     return allMoves;

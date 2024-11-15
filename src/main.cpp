@@ -11,6 +11,12 @@
 
 int main() {
     Game game;
+    /*std::vector<std::pair<int, int>> allMoves = game.board.generateAllPossibleMoves(true);
+
+    for (const auto& move : allMoves) {
+        std::cout << "Start: " << move.first << ", End: " << move.second << std::endl;
+    }*/
+    
     std::vector<std::string> moves;
     std::cout << "Welcome to the Chess Game!\n";
     std::cout << "Please select an option:\n";
