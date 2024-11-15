@@ -6,14 +6,14 @@ Bugs:
 
 
 Next: 
--Still implement all the famous checkmates
+-Still implement all the famous checkmates (on hold)
 
 ./ChessEngineTests --gtest_filter=FamousCheckmates.BlackburnesMate
 ./ChessEngineTests --gtest_filter=FullGameTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000000_00000000_00000000_00000010_00000000_00000000_00000000_00000000
+00000000_00000000_00000000_00000000_00000000_00000000_00000001_00000100
 
 
 Chess.com:

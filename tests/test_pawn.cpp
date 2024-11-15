@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "chessboard.h"
 #include "pieces/pawn.h"
+#include "game.h"
 
 TEST(PawnTest, InitialPawnPositions) {
     Chessboard chessboard;
@@ -191,7 +192,9 @@ int main(int argc, char **argv) {
     return RUN_ALL_TESTS();
 }
 
-/*
-TODO: 
--Try en passant
-*/
+TEST(PawnTest, getAllPossiblePawnMoves_startingPositions) {
+    Game game;
+    std::vector<std::pair<int, int>> areSquares = Pawn::getAllPossiblePawnMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldSquares = {{8, 16}};
+    ASSERT_EQ(areSquares, shouldSquares);
+}

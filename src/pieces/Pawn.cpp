@@ -2,6 +2,32 @@
 #include <iostream>
 #include "../game.h"
 
+std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves;
+    Bitboard pawns = white ? board.whitePawns : board.blackPawns;
+    int numberOfPawns = __builtin_popcountll(pawns);
+
+    const int possiblePawnMovesWhite[4] = {8, 16, 7, 9};
+    const int possiblePawnMovesBlack[4] = {-8, -16, -7, -9};
+    const int* possiblePawnMoves = white ? possiblePawnMovesWhite : possiblePawnMovesBlack;
+
+    auto isPawnMoveLegal = white ? &isWhitePawnMoveLegal : &isBlackPawnMoveLegal;
+
+    for (int i = 0; i < numberOfPawns; i++) {
+        int pawnSquare = __builtin_ffsll(pawns) - 1;
+        for (int j = 0; j < 4; j++) {
+            int targetSquare = pawnSquare + possiblePawnMoves[j];
+            if (isPawnMoveLegal(board, pawnSquare, targetSquare)) {
+                possibleMoves.emplace_back(pawnSquare, targetSquare);
+            }
+        }
+        pawns &= pawns - 1;
+    }
+
+    return possibleMoves;
+}
+
+
 //Doesnt check for move legality.
 std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;

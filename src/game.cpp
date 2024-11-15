@@ -112,7 +112,6 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         std::cout << "Not your own piece!\n";
         return false;
     }
-    //TODO: mistake here
     Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
     board.deletePiece(endSquare);
     board.setPiece(endSquare, piece);  
