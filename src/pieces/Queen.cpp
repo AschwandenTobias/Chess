@@ -3,6 +3,30 @@
 #include "rook.h"
 #include <iostream>
 
+std::vector<std::pair<int, int>> Queen::getAllPossibleQueenMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves;
+    int queenDirections[8] = {8, -8, 1, -1, 7, -7, 9, -9};
+    Bitboard queens = white ? board.whiteQueen : board.blackQueen;
+    int numberOfQueens = __builtin_popcountll(queens);
+    auto isQueenMoveLegal = white ? &isWhiteQueenMoveLegal : &isBlackQueenMoveLegal;
+    for(int i = 0; i < numberOfQueens; i++) {
+        int queenSquare = __builtin_ffsll(queens) - 1;
+        for(int dir = 0; dir < 8; dir++) {
+            for(int j = 0; j < 7; j++) {
+                int targetSquare = queenSquare + queenDirections[dir] * (j + 1);
+                if(isQueenMoveLegal(board, queenSquare, targetSquare)) {
+                    possibleMoves.emplace_back(queenSquare, targetSquare);
+                } else {
+                    break;
+                }
+            }
+        }
+        queens &= queens - 1;
+    }
+    return possibleMoves;   
+}
+
+
 //this doesnt check if the move is legal, it just returns all attacking squares
 std::vector<int> Queen::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;

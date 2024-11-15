@@ -2,6 +2,7 @@ General TODOs:
 -Things like stalemate and draw after repeating moves etc.
 -Finish writting the move translator to easily implement mass game testing
 -START WRITING THE DAMN ENGINE BEFORE I PISS MYSELF
+-Does it enforce that i cant castle if my king/rooks already moved?
 Bugs:
 
 
@@ -13,7 +14,7 @@ Next:
     -Knights (done)
     -Rooks (done)
     -Bishops (done)
-    -Queens
+    -Queens (done)
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
 
@@ -22,7 +23,7 @@ Next:
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
-00000000_00000000_00000000_0000000_00010000_00000000_00000000_00000000
+00000000_00000000_00000000_0000000_00100000_00000000_00000000_00000000
 
 
 Chess.com:
