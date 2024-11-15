@@ -2,6 +2,7 @@
 #include "chessboard.h"
 #include "pieces/bishop.h"
 #include "pieces/pawn.h"
+#include "game.h"
 
 TEST(BishopTest, WhiteCaptureChecks) {
     Chessboard board;
@@ -61,4 +62,15 @@ TEST(BishopTest, TestBoardBoundaries) {
     Bishop::moveBlackBishop(board, 54, 47);
     Bishop::moveBlackBishop(board, 47, 40);
     EXPECT_EQ(board.blackBishops, 0x0400800000000000);
+}
+
+TEST(BishopTest, getAllPossibleBishopMoves) {
+    Game game;
+    game.board.setAllPiecesToZero();
+    game.board.whiteBishops = 0x0000001000000000;
+    game.board.blackBishops = 0x0000000020000000;
+    game.board.printBoard();
+    std::vector<std::pair<int, int>> areMovesWhite = Bishop::getAllPossibleBishopMoves(game.board, true);
+    std::vector<std::pair<int, int>> shouldMovesWhite = {{36, 43}, {36, 50}, {36, 57}, {36, 29}, {36, 45}, {36, 54}, {36, 63}, {36, 27}, {36, 18}, {36, 9}, {36, 0}};
+    ASSERT_EQ(areMovesWhite, shouldMovesWhite);
 }
