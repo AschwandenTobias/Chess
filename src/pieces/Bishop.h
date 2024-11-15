@@ -14,6 +14,8 @@ public:
     static bool isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static bool checkDiagonalMoves(Chessboard &board, int startSquare, int endSquare);
     static std::vector<int> getAttackingSquares(Chessboard &board, int startSquare, int  endSquare);
+    static std::vector<std::pair<int, int>> getAllPossibleBishopMoves(Chessboard &board, bool white);
+
 };
 
 #endif

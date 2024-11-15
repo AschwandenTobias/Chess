@@ -2,6 +2,51 @@
 #include <iostream>
 #include <vector>
 
+std::vector<std::pair<int, int>> Bishop::getAllPossibleBishopMoves(Chessboard &board, bool white) {
+    std::vector<std::pair<int, int>> possibleMoves;
+    Bitboard bishops = white ? board.whiteBishops : board.blackBishops;
+    int numberOfBishops = __builtin_popcountll(bishops);
+    auto isBishopMoveLegal = white ? &isWhiteBishopMoveLegal : &isBlackBishopMoveLegal;
+    for(int i = 0; i < numberOfBishops; i++) {
+        int bishopSquare = __builtin_ffsll(bishops) - 1;
+        bishops &= bishops - 1;
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = bishopSquare + (7 * (j + 1));
+            if(isBishopMoveLegal(board, bishopSquare, targetSquare)) {
+                possibleMoves.emplace_back(bishopSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = bishopSquare - (7 * (j + 1));
+            if(isBishopMoveLegal(board, bishopSquare, targetSquare)) {
+                possibleMoves.emplace_back(bishopSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = bishopSquare + (9 * (j + 1));
+            if(isBishopMoveLegal(board, bishopSquare, targetSquare)) {
+                possibleMoves.emplace_back(bishopSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+        for(int j = 0; j < 7; j++) {
+            int targetSquare = bishopSquare - (9 * (j + 1));
+            if(isBishopMoveLegal(board, bishopSquare, targetSquare)) {
+                possibleMoves.emplace_back(bishopSquare, targetSquare);
+            } else {
+                break;
+            }
+        }
+    }
+    return possibleMoves;
+}
+
+
 //this doesnt check if the move is legal, it just returns all attacking squares
 std::vector<int> Bishop::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;

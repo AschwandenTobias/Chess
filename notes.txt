@@ -12,7 +12,7 @@ Next:
     -Kings (done)
     -Knights (done)
     -Rooks (done)
-    -Bishops
+    -Bishops (done)
     -Queens
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
