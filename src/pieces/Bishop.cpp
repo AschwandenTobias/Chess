@@ -1,6 +1,7 @@
 #include "bishop.h"
 #include <iostream>
 #include <vector>
+#include "King.h"
 
 std::vector<std::pair<int, int>> Bishop::getAllPossibleBishopMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
@@ -90,6 +91,7 @@ bool Bishop::isWhiteBishopMoveLegal(Chessboard &board, int startSquare, int endS
     int distance = std::abs(endSquare - startSquare);
     //std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     if(distance % 7 == 0 || distance % 9 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
             if(board.checkIfWhitePieceIsOnSquare(to)) {
@@ -98,7 +100,7 @@ bool Bishop::isWhiteBishopMoveLegal(Chessboard &board, int startSquare, int endS
                 return true;
             }
         } else {
-            std::cout << "Piece in the way detected \n";
+            //std::cout << "Piece in the way detected \n";
             return false;
         }
     }
@@ -127,6 +129,7 @@ bool Bishop::isBlackBishopMoveLegal(Chessboard &board, int startSquare, int endS
     int distance = std::abs(endSquare - startSquare);
     //std::cout << "Distance: " << distance << "\n";
     if((distance % 7 != 0) && (distance % 9 != 0)) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     if(distance % 7 == 0 || distance % 9 == 0) {
         if(checkDiagonalMoves(board, startSquare, endSquare)) {
             if(board.checkIfBlackPieceIsOnSquare(to)) {

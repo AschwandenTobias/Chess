@@ -1,5 +1,6 @@
 #include "knight.h"
 #include <iostream>
+#include "King.h"
 
 std::vector<std::pair<int, int>> Knight::getAllPossibleKnightMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
@@ -45,6 +46,7 @@ bool Knight::isWhiteKnightMoveLegal(Chessboard &board, int startSquare, int endS
     Bitboard to = (1ULL << endSquare);
     if(endSquare < 0 || endSquare > 63) return false;
     if(!board.checkIfWhiteKnightIsOnSquare(from)) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
     int startCol = startSquare % 8;
@@ -85,6 +87,7 @@ bool Knight::isBlackKnightMoveLegal(Chessboard &board, int startSquare, int endS
         //std::cout << "No Black Knight was on starting square\n";
         return false;
     }
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     int startRow = startSquare / 8;
     int endRow = endSquare / 8;
     int startCol = startSquare % 8;

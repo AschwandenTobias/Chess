@@ -8,13 +8,7 @@ Bugs:
 
 Next: 
 -Still implement all the famous checkmates (on hold)
--Implement functions to get all possible piece moves
-    -Pawns (done)
-    -Kings (done)
-    -Knights (done)
-    -Rooks (done)
-    -Bishops (done)
-    -Queens (done)
+
 
 -Dont forget to somewhere check if that move would put the king in check!!!!
 

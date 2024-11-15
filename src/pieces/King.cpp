@@ -108,40 +108,40 @@ bool King::canPieceInterfereCheck(Chessboard &board, bool white) {
     int biggestAttackingSquare = *std::max_element(attackingMoves.begin(), attackingMoves.end());
     int smallestAttackingSquare = *std::min_element(attackingMoves.begin(), attackingMoves.end());
     int attackerSquare = (kingSquare < biggestAttackingSquare) ? biggestAttackingSquare : smallestAttackingSquare;
-    std::cout << "Attacker Square: " << attackerSquare << "\n";
+    //std::cout << "Attacker Square: " << attackerSquare << "\n";
     for(int i = 0; i < attackingMoves.size(); i++) {
         int squareToCheck = attackingMoves[i];
         if(white) {
-            std::cout << "We check if any of the white pieces can interfere the attacking squares\n";
+            //std::cout << "We check if any of the white pieces can interfere the attacking squares\n";
             if(squareToCheck == attackerSquare) {
                 if(Pawn::canPawnAttackSquare(board, squareToCheck, white)) {
-                    std::cout << "Pawn can attack the attacking Piece!\n";
+                    //std::cout << "Pawn can attack the attacking Piece!\n";
                     return true;
                 }
             } else {
                 if(Pawn::canAPawnMoveToSquare(board, squareToCheck, white)) {
-                    std::cout << "Pawn can block the attacking Piece!\n";
+                    //std::cout << "Pawn can block the attacking Piece!\n";
                     return true;
                 }
             }
             if(checkWhiteBishopMovesForCheck(board, squareToCheck)) {
-                std::cout << "A Bishop can interfere the check at square: " << squareToCheck << "\n";
+                //std::cout << "A Bishop can interfere the check at square: " << squareToCheck << "\n";
                 return true;
             } 
             if(checkWhiteKnightMovesForCheck(board, squareToCheck)) {
-                std::cout << "A Knight can interfere the check at square: " << squareToCheck << "\n";
+                //std::cout << "A Knight can interfere the check at square: " << squareToCheck << "\n";
                 return true;
             } 
             if(checkWhiteRookMovesForCheck(board, squareToCheck)) {
-                std::cout << "A Rook can interfere the check at square: " << squareToCheck << "\n";
+                //std::cout << "A Rook can interfere the check at square: " << squareToCheck << "\n";
                 return true;
             } 
             if(checkWhiteQueenMovesForCheck(board, squareToCheck)) {
-                std::cout << "A Queen can interfere the check at square: " << squareToCheck << "\n";
+                //std::cout << "A Queen can interfere the check at square: " << squareToCheck << "\n";
                 return true;
             } 
         } else {
-            std::cout << "We check if any of the black pieces can interfere the attacking squares\n";
+            //std::cout << "We check if any of the black pieces can interfere the attacking squares\n";
             if(Pawn::canAPawnMoveToSquare(board, squareToCheck, !white)) return true;
             if(checkBlackRookMovesForCheck(board, squareToCheck)) return true;
             if(checkBlackBishopMovesForCheck(board, squareToCheck)) return true;
@@ -364,22 +364,22 @@ bool King::checkWhiteRookMovesForCheck(Chessboard &board, int startSquare) {
 
 bool King::isSquareInWhiteCheck(Chessboard &board, int square) {
     if(checkBlackBishopMovesForCheck(board, square)) {
-        std::cout << "Black bishop check detected\n";
+        //std::cout << "Black bishop check detected\n";
         return true;
     } else if (checkBlackKnightMovesForCheck(board, square)) {
-        std::cout << "Black Knight Check detected\n";
+        //std::cout << "Black Knight Check detected\n";
         return true;
     } else if (checkBlackRookMovesForCheck(board, square)) {
-        std::cout << "black Rook Check detected\n";
+        //std::cout << "black Rook Check detected\n";
         return true;
     } else if(checkBlackQueenMovesForCheck(board, square)) {
-        std::cout << "black Queen Check detected\n";
+        //std::cout << "black Queen Check detected\n";
         return true;
     } else if (checkBlackPawnMovesForCheck(board, square)) {
-        std::cout << "black Pawn Check detected\n";
+        //std::cout << "black Pawn Check detected\n";
         return true;
     }
-    std::cout << "No piece can attack given square\n";
+    //std::cout << "No piece can attack given square\n";
     return false;
 }
 
@@ -422,7 +422,7 @@ bool King::checkBlackBishopMovesForCheck(Chessboard &board, int startSquare) {
     for(int i = 0; i < numberOfBlackBishops; i++) {
         int bishopSquare = __builtin_ffsll(blackBishops) - 1;
         if(Bishop::isBlackBishopMoveLegal(board, bishopSquare, startSquare)) { //14.11 for some reason had isWhiteBishopMoveLegal here :(
-            std::cout << "Black Bishop can attack the white King!\n";
+            //std::cout << "Black Bishop can attack the white King!\n";
             board.attackingPieceSquare = bishopSquare;
             return true;
         }

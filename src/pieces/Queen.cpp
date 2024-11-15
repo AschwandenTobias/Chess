@@ -2,6 +2,7 @@
 #include "bishop.h"
 #include "rook.h"
 #include <iostream>
+#include "King.h"
 
 std::vector<std::pair<int, int>> Queen::getAllPossibleQueenMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
@@ -93,6 +94,7 @@ bool Queen::isWhiteQueenMoveLegal(Chessboard &board, int startSquare, int endSqu
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
     if (!(board.checkIfWhiteQueenIsOnSquare(from))) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
     if (board.checkIfWhitePieceIsOnSquare(to)) {
         return false;
     }
@@ -134,6 +136,7 @@ bool Queen::isBlackQueenMoveLegal(Chessboard &board, int startSquare, int endSqu
     Bitboard from = 1ULL << startSquare;
     Bitboard to = 1ULL << endSquare;
     if (!(board.checkIfBlackQueenIsOnSquare(from))) return false;
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     //std::cout << "We detected a black Queen on the from square\n";
     if (board.checkIfBlackPieceIsOnSquare(to)) {
         std::cout << "Detected black Piece on endSquare\n";
