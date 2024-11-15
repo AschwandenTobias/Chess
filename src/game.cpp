@@ -8,6 +8,7 @@
 #include "pieces/Queen.h"
 #include "pieces/Rook.h"
 #include "pieces/King.h"
+#include "engines/randomEngine.h"
 
 Game::Game() {
 
@@ -18,35 +19,54 @@ Game::Game() {
     kingIsInCheck = false;
 }
 
-void Game::start(bool userIsWhite) {
-    
-} 
+void Game::startRandomEngine(bool userIsWhite) {
+    RandomEngine randomEngine;
 
-bool Game::isCheckmate() {
-    //Three conditions
-        //King must be in check
-        //King cannot escape
-        //No other piece can interfere
-    bool check;
-    if(whiteTurn) {
-        std::cout << "We check isWhiteKingInCheck\n";
-        check = King::isWhiteKingInCheck(board);
-    } else {
-        std::cout << "We check isBlackKingInCheck\n";
-        check = King::isBlackKingInCheck(board);
+    while(!IsCheckmate && !isDraw) {
+        board.printBoard(); 
+
+        std::string move;
+        
+        if (whiteTurn == userIsWhite) {
+            std::cout << "It's your turn: Enter your move in the format \"e2e4\"\n";
+            std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
+            std::cin >> move;
+
+            if (move.length() != 4) {
+                std::cout << "Invalid input length. Try again.\n";
+                continue;
+            }
+
+            int startSquare = translateMove(move.substr(0, 2));
+            int endSquare = translateMove(move.substr(2, 3));
+
+            if (isMoveValid(startSquare, endSquare)) {
+                makeMove(startSquare, endSquare);  
+                whiteTurn = !whiteTurn;
+            } else {
+                std::cout << "Invalid move input by player. Try again.\n";
+            }
+
+        } else {
+            std::cout << "Engine's turn...\n";
+
+            std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(userIsWhite);
+            std::pair<int, int> randomMove = randomEngine.selectRandomMove(allMoves, userIsWhite);
+            std::cout << "Random Engine move: " << randomMove.first << ", " << randomMove.second << "\n";
+            int startSquare = randomMove.first;
+            int endSquare = randomMove.second;
+
+            if (isMoveValid(startSquare, endSquare)) {
+                makeMove(startSquare, endSquare); 
+                whiteTurn = !whiteTurn;  
+            }
+        }
+        if (checkGameOver()) {
+            board.printBoard(); 
+            break;
+        }
     }
-    std::cout << "bool check in isCheckmate: " << check << "\n";
-    bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
-    std::cout << "bool hasKingNoEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
-    bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
-    std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
-    if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
-        std::cout << "CHECKMATE!!!!\n" << !whiteTurn << " wins!\n";
-        IsCheckmate = true;
-        return true;
-    } 
-    return false;
-}
+} 
 
 void Game::start(const std::vector<std::string>& moves) {
     size_t moveIndex = 0;
@@ -82,13 +102,6 @@ void Game::start(const std::vector<std::string>& moves) {
             //std::cout << "Game::Move was valid \n";
             makeMove(startSquare, endSquare);
             whiteTurn = !whiteTurn;
-
-            /*if (whiteTurn) {
-                King::isWhiteKingInCheck(board);
-            } else {
-                King::isBlackKingInCheck(board);
-            }*/
-
             if(checkGameOver()) {
                 board.printBoard();
                 break;
@@ -102,6 +115,32 @@ void Game::start(const std::vector<std::string>& moves) {
             break;
         }
     }
+}
+
+//Three conditions
+        //King must be in check
+        //King cannot escape
+        //No other piece can interfere
+bool Game::isCheckmate() {
+    bool check;
+    if(whiteTurn) {
+        //std::cout << "We check isWhiteKingInCheck\n";
+        check = King::isWhiteKingInCheck(board);
+    } else {
+        //std::cout << "We check isBlackKingInCheck\n";
+        check = King::isBlackKingInCheck(board);
+    }
+    //std::cout << "bool check in isCheckmate: " << check << "\n";
+    bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
+    //std::cout << "bool hasKingNoEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
+    bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
+    //std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
+    if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
+        //std::cout << "CHECKMATE!!!!\n" << !whiteTurn << " wins!\n";
+        IsCheckmate = true;
+        return true;
+    } 
+    return false;
 }
 
 bool Game::isMoveValid(int startSquare, int endSquare) {

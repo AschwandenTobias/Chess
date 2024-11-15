@@ -11,7 +11,7 @@ class Chessboard;
 class RandomEngine {
 public:
     RandomEngine() = default; 
-    std::pair<int, int> generateRandomMove(Chessboard& board, bool isWhite);
+    std::pair<int, int> selectRandomMove(std::vector<std::pair<int, int>> allMoves, bool isWhite);
 };
 
 #endif

@@ -23,18 +23,17 @@ int main() {
     
     if (choice == 1) {
         std::cout << "Starting a normal game...\n";
-        game.start(moves);  // Normal game mode
+        game.start(moves);  
     } else if (choice == 2) {
         std::cout << "Starting a game against the engine...\n";
         bool userIsWhite;
         std::cout << "Do you want to play as white? (1 for Yes, 0 for No): ";
         std::cin >> userIsWhite;
         
-        // Assuming game.start() for engine mode takes parameters to configure the game
-        game.start(userIsWhite);  // Adjust `start` parameters in Game class as needed
+        game.startRandomEngine(userIsWhite); 
     } else {
         std::cout << "Invalid choice. Exiting.\n";
-        return 1;  // Exit with error code
+        return 1;
     }
     
     return 0;

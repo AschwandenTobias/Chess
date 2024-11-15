@@ -13,7 +13,7 @@ class Game {
 public:
     Game();
     void start(const std::vector<std::string>& moves = {});
-    void start(bool userIsWhite); 
+    void startRandomEngine(bool userIsWhite); 
     bool IsCheckmate;
     bool whiteTurn;
     bool isDraw;
