@@ -22,6 +22,7 @@ int main() {
     std::cout << "Please select an option:\n";
     std::cout << "1. Play a normal game\n";
     std::cout << "2. Play against the engine\n";
+    std::cout << "3. Let the engine play itself\n";
     std::cout << "Enter your choice: ";
     
     int choice;
@@ -37,6 +38,9 @@ int main() {
         std::cin >> userIsWhite;
         
         game.startRandomEngine(userIsWhite); 
+    } else if(choice == 3) {
+        std::cout << "Engine plays itself\n";
+        game.startRandomEnginePlayingItself();
     } else {
         std::cout << "Invalid choice. Exiting.\n";
         return 1;

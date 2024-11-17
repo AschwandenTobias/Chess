@@ -14,10 +14,12 @@ public:
     Game();
     void start(const std::vector<std::string>& moves = {});
     void startRandomEngine(bool userIsWhite); 
+    void startRandomEnginePlayingItself();
     bool IsCheckmate;
     bool whiteTurn;
     bool isDraw;
     bool kingIsInCheck;
+    int moveNumber;
 
     bool isCheckmate();
     bool isMoveValid(int startSquare, int endSquare);

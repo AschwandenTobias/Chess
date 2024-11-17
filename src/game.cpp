@@ -17,10 +17,50 @@ Game::Game() {
     isDraw = false;
     board;
     kingIsInCheck = false;
+    int moveNumber = 1;
 }
 
 void Game::storeGameMoves() {
 
+}
+
+void Game::startRandomEnginePlayingItself() {
+    RandomEngine randomEngine;
+    moveNumber = 1;
+    while (!IsCheckmate && !isDraw) {
+        board.printBoard(); 
+
+        std::cout << (whiteTurn ? "White" : "Black") << "'s turn on move: " << moveNumber << "\n";
+
+        std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(whiteTurn);
+        
+        if (allMoves.empty()) {
+            break;
+        }
+
+        std::pair<int, int> randomMove = randomEngine.selectRandomMove(allMoves, whiteTurn);
+        std::cout << "Engine move: " << randomMove.first << " -> " << randomMove.second << "\n";
+
+        int startSquare = randomMove.first;
+        int endSquare = randomMove.second;
+
+        if (isMoveValid(startSquare, endSquare)) {
+            makeMove(startSquare, endSquare);
+            whiteTurn = !whiteTurn; 
+        }
+
+        if (checkGameOver()) {
+            board.printBoard(); 
+            break;
+        }
+        if(whiteTurn) moveNumber++;
+    }
+
+    if (IsCheckmate) {
+        std::cout << (whiteTurn ? "Black" : "White") << " wins by checkmate!\n";
+    } else if (isDraw) {
+        std::cout << "The game is a draw.\n";
+    }
 }
 
 void Game::startRandomEngine(bool userIsWhite) {
