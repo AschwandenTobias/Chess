@@ -22,8 +22,8 @@ Game::Game() {
 
 std::string Game::squareToChessNotation(int square) {
     int file = square % 8;
-    int rank = 8 - (square / 8);
-    char fileChar = 'a' + file;
+    int rank = square / 8 + 1;
+    char fileChar = 'a' + 7 - file;
     return std::string(1, fileChar) + std::to_string(rank);
 }
 
