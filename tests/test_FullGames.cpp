@@ -10,7 +10,7 @@
 
 TEST(MyFullGames, Tobi_Dobenah) {
     Game game;
-        std::vector<std::string> moves = {
+    std::vector<std::string> moves = {
         "e2e4", "e7e5", "f1c4", "g8f6", "d1f3", "f8c5", "b1c3", "CBKS"
     };
     game.start(moves);
@@ -186,3 +186,12 @@ TEST(FamousCheckmates, BodensMate_white) {
     game.start(moves);
     ASSERT_EQ(game.IsCheckmate, true);
 }
+
+/*TEST(RandomEngineGames, rookCheck) {
+    Game game;
+    std::vector<std::string> moves = {
+        "e2e4", "c7c5", "f1c4", "e7e6", "d2d4", "h7h6", "d4d5", "d8f6", "d5e6", "f6g5", "e6f7", "e8e7", "c1g5", "h6g5", "b1c3" ,"b7b5", "d1g4", "h8h3","g4g5", "g8f6", "e4e5" ,"h3e3", "e5f6"
+    };
+    game.start(moves);
+    ASSERT_EQ(game.IsCheckmate, false);
+}*/

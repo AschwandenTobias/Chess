@@ -220,7 +220,12 @@ bool Pawn::isWhitePawnMoveLegal(Chessboard &board, int startSquare, int endSquar
     Bitboard tmp = (1ULL << (startSquare + 8)); // Square ahead
     Bitboard captureLeft = (1ULL << (startSquare + 9)); // Capture left
     Bitboard captureRight = (1ULL << (startSquare + 7)); // Capture right
-    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) return false;
+    std::cout << "Before the check if this white pawn move would put me in check\n";
+    if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, true)) {
+        std::cout << "This white pawn move would put me in check\n";
+        return false;
+    } 
+    std::cout << "Tmp white move from: " << startSquare << ", to: " << endSquare << " doesnt put me into check\n";
     int distance = endSquare - startSquare;
     //std::cout << distance <<"\n";
     if (distance == 8) {

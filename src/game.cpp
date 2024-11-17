@@ -166,7 +166,7 @@ void Game::start(const std::vector<std::string>& moves) {
 
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
-        //std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
+        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
             //std::cout << "Game::Move was valid \n";
@@ -227,7 +227,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         std::cout << "Not your own piece!\n";
         return false;
     }
-    Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
+    /*Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
     board.deletePiece(endSquare);
     board.setPiece(endSquare, piece);  
     board.deletePiece(startSquare);  
@@ -241,7 +241,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
     if (!kingStillSafe) {
         std::cout << "Move would put king in check. Invalid.\n";
         return false;
-    }
+    }*/
     switch (piece)
     {
     case Chessboard::WHITE_PAWN:

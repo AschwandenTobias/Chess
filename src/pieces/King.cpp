@@ -31,7 +31,6 @@ std::vector<std::pair<int, int>> King::getAllPossibleKingMoves(Chessboard &board
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
     Chessboard::Piece endPiece = board.getPieceAtSquare(endSquare);
     Chessboard::Piece startPiece = board.getPieceAtSquare(startSquare);
-
     board.deletePiece(endSquare);
     board.setPiece(endSquare, startPiece);
     board.deletePiece(startSquare);
@@ -43,6 +42,7 @@ bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSq
     if (endPiece != Chessboard::EMPTY) {
         board.setPiece(endSquare, endPiece); 
     }
+    //std::cout << "Bool isInCheck in doesTmpMovePutMeInCheck: " << isInCheck << "\n";
     //board.printBoard();
     return isInCheck;
 }
@@ -453,6 +453,7 @@ bool King::checkBlackRookMovesForCheck(Chessboard &board, int startSquare) {
         int rookSquare = __builtin_ffsll(blackRooks) - 1;
         if(Rook::isBlackRookMoveLegal(board, rookSquare, startSquare)) {
             board.attackingPieceSquare = rookSquare;
+            //std::cout << "A black rook can attack the square: " << startSquare <<", attackingPieceSquare: " << board.attackingPieceSquare << "\n";
             return true;
         }
         blackRooks &= blackRooks - 1;
