@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 
 
 typedef uint64_t Bitboard;
@@ -20,6 +21,7 @@ public:
     bool isDraw;
     bool kingIsInCheck;
     int moveNumber;
+    std::vector<std::pair<int, int>> moveHistory;
 
     bool isCheckmate();
     bool isMoveValid(int startSquare, int endSquare);
@@ -36,6 +38,7 @@ public:
     void removeMoveNumbersAndResult(std::string& moves);
     Chessboard board;
     void storeGameMoves();
+    std::string squareToChessNotation(int square);
 };
 
 #endif

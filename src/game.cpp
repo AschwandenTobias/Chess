@@ -11,17 +11,38 @@
 #include "engines/randomEngine.h"
 
 Game::Game() {
-
     IsCheckmate = false;
     whiteTurn = true;
     isDraw = false;
     board;
     kingIsInCheck = false;
     int moveNumber = 1;
+    std::vector<std::pair<int, int>> moveHistory;
+}
+
+std::string Game::squareToChessNotation(int square) {
+    int file = square % 8;
+    int rank = 8 - (square / 8);
+    char fileChar = 'a' + file;
+    return std::string(1, fileChar) + std::to_string(rank);
 }
 
 void Game::storeGameMoves() {
+    std::ofstream file("games.txt", std::ios::app);
 
+    if (!file.is_open()) {
+        std::cout << "Error opening file to store game moves.\n";
+        return;
+    }
+
+    for (const auto& move : moveHistory) {
+        file << squareToChessNotation(move.first) << squareToChessNotation(move.second) << " ";
+    }
+
+    file << "\n";
+
+    file.close(); 
+    std::cout << "Game moves stored successfully.\n";
 }
 
 void Game::startRandomEnginePlayingItself() {
@@ -46,6 +67,7 @@ void Game::startRandomEnginePlayingItself() {
 
         if (isMoveValid(startSquare, endSquare)) {
             makeMove(startSquare, endSquare);
+            moveHistory.push_back({startSquare, endSquare});
             whiteTurn = !whiteTurn; 
         }
 
@@ -61,6 +83,7 @@ void Game::startRandomEnginePlayingItself() {
     } else if (isDraw) {
         std::cout << "The game is a draw.\n";
     }
+    storeGameMoves();
 }
 
 void Game::startRandomEngine(bool userIsWhite) {
@@ -85,6 +108,7 @@ void Game::startRandomEngine(bool userIsWhite) {
             int endSquare = translateMove(move.substr(2, 3));
 
             if (isMoveValid(startSquare, endSquare)) {
+                moveHistory.push_back({startSquare, endSquare});
                 makeMove(startSquare, endSquare);  
                 whiteTurn = !whiteTurn;
             } else {
@@ -145,6 +169,7 @@ void Game::start(const std::vector<std::string>& moves) {
         if (isMoveValid(startSquare, endSquare)) {
             //std::cout << "Game::Move was valid \n";
             makeMove(startSquare, endSquare);
+            moveHistory.push_back({startSquare, endSquare});
             whiteTurn = !whiteTurn;
             if(checkGameOver()) {
                 board.printBoard();
