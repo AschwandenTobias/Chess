@@ -4,7 +4,7 @@ General TODOs:
 -START WRITING THE DAMN ENGINE BEFORE I PISS MYSELF
 -Does it enforce that i cant castle if my king/rooks already moved?
 Bugs:
-
+-Queen can teleport, Square 39 to 25.
 
 Next: 
 -Still implement all the famous checkmates (on hold)

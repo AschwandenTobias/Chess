@@ -19,6 +19,10 @@ Game::Game() {
     kingIsInCheck = false;
 }
 
+void Game::storeGameMoves() {
+
+}
+
 void Game::startRandomEngine(bool userIsWhite) {
     RandomEngine randomEngine;
 
@@ -130,11 +134,11 @@ bool Game::isCheckmate() {
         //std::cout << "We check isBlackKingInCheck\n";
         check = King::isBlackKingInCheck(board);
     }
-    //std::cout << "bool check in isCheckmate: " << check << "\n";
+    std::cout << "bool check in isCheckmate: " << check << "\n";
     bool hasKingNoEscapeSquares = King::generateAllPossibleKingMoves(board, whiteTurn).empty(); //This is true if there are no escapeSquares
-    //std::cout << "bool hasKingNoEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
+    std::cout << "bool hasKingNoEscapeSquares in isCheckmate: " << hasKingNoEscapeSquares << "\n";
     bool friendlyPieceCanInterfere = King::canPieceInterfereCheck(board, whiteTurn);
-    //std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
+    std::cout << "bool friendlyPieceCanInterfere in isCheckmate: " << friendlyPieceCanInterfere << "\n";
     if(check && hasKingNoEscapeSquares && !friendlyPieceCanInterfere) {
         //std::cout << "CHECKMATE!!!!\n" << !whiteTurn << " wins!\n";
         IsCheckmate = true;

@@ -33,6 +33,7 @@ public:
     void removeXandPlus(std::string& moves);
     void removeMoveNumbersAndResult(std::string& moves);
     Chessboard board;
+    void storeGameMoves();
 };
 
 #endif
