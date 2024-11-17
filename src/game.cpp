@@ -125,6 +125,7 @@ void Game::startRandomEngine(bool userIsWhite) {
             int endSquare = randomMove.second;
 
             if (isMoveValid(startSquare, endSquare)) {
+                moveHistory.push_back({startSquare, endSquare});
                 makeMove(startSquare, endSquare); 
                 whiteTurn = !whiteTurn;  
             }
@@ -134,6 +135,7 @@ void Game::startRandomEngine(bool userIsWhite) {
             break;
         }
     }
+    storeGameMoves();
 } 
 
 void Game::start(const std::vector<std::string>& moves) {
@@ -184,6 +186,7 @@ void Game::start(const std::vector<std::string>& moves) {
             break;
         }
     }
+    storeGameMoves();
 }
 
 //Three conditions

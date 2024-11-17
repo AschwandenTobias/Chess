@@ -1,15 +1,21 @@
 import chess
 
-board = chess.Board()
+def apply_moves_from_file(filename):
+    board = chess.Board()
 
-coordinate_moves = ["e2e4", "e7e5", "g1f3"]
+    with open(filename, 'r') as file:
+        for line in file:
+            moves = line.strip().split()
 
-for coord in coordinate_moves:
-    move = chess.Move.from_uci(coord)  
-    if move in board.legal_moves:     
-        print(f"Applying move: {board.san(move)}")
-        board.push(move)            
-    else:
-        print(f"Illegal move: {coord}")
+            for move_str in moves:
+                move = chess.Move.from_uci(move_str) 
+                
+                if move in board.legal_moves:
+                    print(f"Applying move: {move_str} ({board.san(move)})")
+                    board.push(move) 
+                else:
+                    print(f"Illegal move: {move_str}")
+            
+            print(board)
 
-print(board)
+apply_moves_from_file('../games.txt')
