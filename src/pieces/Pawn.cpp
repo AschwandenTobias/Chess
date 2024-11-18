@@ -5,32 +5,32 @@
 
 
 //Function that checks if a pawn move is legal
-//Doesnt take promotions into account (check that on the game level). Doesnt check for now for en passant.
-bool Pawn::isPawnMoveLegal(Chessboard &board, int startSquare, int endSquare, bool white) {
+//Doesnt take promotions into account (check that on the game level). Doesnt check (for now) for en passant.
+bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     Bitboard emptySquares = ~(board.whitePieces | board.blackPieces);
-    Bitboard endBitboard = (1ULL << endSquare);
+    Bitboard endBitboard = (1ULL << move.endSquare);
     Bitboard enemySquares = white ? board.blackPieces : board.whitePieces;
     int direction = white ? 1 : -1;
-    int startRow = startSquare / 8;
-    int startCol = startSquare % 8;
-    int endCol = endSquare % 8;
-    if(endSquare == startSquare + (8 * direction) && (emptySquares & endBitboard)) {
-        if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+    int startRow = move.startSquare / 8;
+    int startCol = move.startSquare % 8;
+    int endCol = move.endSquare % 8;
+    if(move.endSquare == move.startSquare + (8 * direction) && (emptySquares & endBitboard)) {
+        if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
         return true;
     }
     if(white ? startRow == 1 : startRow == 6) {
-        if(endSquare == startSquare + (16 * direction)) {
-            int oneStepForward = startSquare + 8 * direction;
+        if(move.endSquare == move.startSquare + (16 * direction)) {
+            int oneStepForward = move.startSquare + 8 * direction;
             if((emptySquares & (1ULL << oneStepForward)) && (emptySquares & endBitboard)) {
-                if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+                if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
                 return true;
             }
         }
     }
-    if((endSquare == startSquare + (7 * direction) && std::abs(endCol - startCol) == 1)  || (endSquare == startSquare + (9 * direction) && std::abs(endCol - startCol) == 1)) {
+    if((move.endSquare == move.startSquare + (7 * direction) && std::abs(endCol - startCol) == 1)  || (move.endSquare == move.startSquare + (9 * direction) && std::abs(endCol - startCol) == 1)) {
         //can do another condition if the enemy piece is on the endSquare its a normal capture, if not it should be enPassant
         if(enemySquares & endBitboard) { //normal Capture
-            if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+            if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
             return true;
         }
     }

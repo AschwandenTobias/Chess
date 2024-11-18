@@ -1,3 +1,15 @@
+TODO:
+-Set up Moves (with flags for castling and enPassant etc.) instead of always startSquare and endSquare 
+
+-Implement enPassant for pawns
+
+-Start/modify existing tests for pawns
+
+
+    
+
+
+
 Game::game {
     Chessboard board;
     bool whiteTurn
@@ -62,12 +74,3 @@ RandomEngine::RandomEngine {
 }
 
 
-TODO:
--Set up Moves (with flags for castling and enPassant etc.) instead of always startSquare and endSquare 
-
--Implement enPassant for pawns
-
--Start/modify existing tests for pawns
-
-
-    

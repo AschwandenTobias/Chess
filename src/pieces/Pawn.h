@@ -3,6 +3,8 @@
 
 #include "../chessboard.h"
 #include <vector>
+#include "../move.h"
+
 
 typedef uint64_t Bitboard;
 
@@ -20,7 +22,7 @@ public:
     static std::vector<std::pair<int, int>> getAllPossiblePawnMoves(Chessboard &board, bool white);
 
 
-    static bool isPawnMoveLegal(Chessboard &board, int startSquare, int endSquare, bool white);
+    static bool isPawnMoveLegal(Chessboard &board, Move move, bool white);
 };
 
 #endif
