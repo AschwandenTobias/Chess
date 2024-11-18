@@ -18,6 +18,9 @@ public:
     static bool canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white);
     static bool canPawnAttackSquare(Chessboard &board, int endSquare, bool white);
     static std::vector<std::pair<int, int>> getAllPossiblePawnMoves(Chessboard &board, bool white);
+
+
+    static bool isPawnMoveLegal(Chessboard &board, int startSquare, int endSquare, bool white);
 };
 
 #endif

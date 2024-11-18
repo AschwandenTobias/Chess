@@ -21,6 +21,12 @@ public:
     Bitboard blackQueen;
     Bitboard blackKing;
 
+    Bitboard occupiedSquares;
+    Bitboard whitePieces;
+    Bitboard blackPieces;
+    Bitboard blackAttackingSquares;
+    Bitboard whiteAttackingSquares;
+
     int lastMoveStartSquare;  
     int lastMoveEndSquare;    
     bool lastMoveWasTwoSquarePawnMove;

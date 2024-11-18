@@ -1,0 +1,73 @@
+Game::game {
+    Chessboard board;
+    bool whiteTurn
+    int moveNumber
+
+    game.start()
+    game.isMoveLegal()
+    int translateMove()
+}
+
+Chessboard::board {
+    Bitboards:
+        whitePawns, whiteRooks, whiteKnights, whiteBishops, whiteQueens, whiteKing
+        blackPawns, blackRooks, blackKnights, blackBishops, blackQueens, blackKing
+    occupiedSquares
+    whiteSquares
+    blackSquares
+    blackAttackingSquares
+    whiteAttackingSquares
+    bool lastMoveWasTwoSquarePawnMove
+    bool whiteKingCastling
+    bool whiteQueenCastling
+    bool blackKingCastling
+    bool blackQueenCastling
+    ENMU Piece {
+        AllThePieces
+    }
+    
+    void makeMove(Move move)
+    bool isMoveLegal()
+    bool checkIfPieceIsOnSquare(Bitboard square);
+    bool checkIfWhitePieceIsOnSquare(Bitboard square);
+    bool checkIfBlackPieceIsOnSquare(Bitboard square);
+    bool checkIfBlackPawnIsOnSquare(Bitboard square);
+    bool checkIfWhitePawnIsOnSquare(Bitboard square);
+    bool checkIfWhiteRookIsOnSquare(Bitboard square);
+    bool checkIfBlackRookIsOnSquare(Bitboard square);
+    bool checkIfWhiteBishopIsOnSquare(Bitboard square);
+    bool checkIfBlackBishopIsOnSquare(Bitboard square);
+    bool checkIfWhiteQueenIsOnSquare(Bitboard square);
+    bool checkIfBlackQueenIsOnSquare(Bitboard square);
+    bool checkIfWhiteKnightIsOnSquare(Bitboard square);
+    bool checkIfBlackKnightIsOnSquare(Bitboard square);
+    bool checkIfWhiteKingIsOnSquare(Bitboard square);
+    bool checkIfBlackKingIsOnSquare(Bitboard square);
+    void reverseMove(int startSquare, int endSquare);
+    void setPiece(int square, Piece piece);
+}
+
+Move::move {
+    int startSquare
+    int endSquare
+    Piece piece
+    bool isCapture
+    bool isCastling
+    bool isEnPassant
+    bool isPromotion
+}
+
+RandomEngine::RandomEngine {   
+    generateRandomMove()
+}
+
+
+TODO:
+-Set up Moves (with flags for castling and enPassant etc.) instead of always startSquare and endSquare 
+
+-Implement enPassant for pawns
+
+-Start/modify existing tests for pawns
+
+
+    

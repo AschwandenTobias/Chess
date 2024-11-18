@@ -3,6 +3,40 @@
 #include "../game.h"
 #include "King.h"
 
+
+//Function that checks if a pawn move is legal
+//Doesnt take promotions into account (check that on the game level). Doesnt check for now for en passant.
+bool Pawn::isPawnMoveLegal(Chessboard &board, int startSquare, int endSquare, bool white) {
+    Bitboard emptySquares = ~(board.whitePieces | board.blackPieces);
+    Bitboard endBitboard = (1ULL << endSquare);
+    Bitboard enemySquares = white ? board.blackPieces : board.whitePieces;
+    int direction = white ? 1 : -1;
+    int startRow = startSquare / 8;
+    int startCol = startSquare % 8;
+    int endCol = endSquare % 8;
+    if(endSquare == startSquare + (8 * direction) && (emptySquares & endBitboard)) {
+        if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+        return true;
+    }
+    if(white ? startRow == 1 : startRow == 6) {
+        if(endSquare == startSquare + (16 * direction)) {
+            int oneStepForward = startSquare + 8 * direction;
+            if((emptySquares & (1ULL << oneStepForward)) && (emptySquares & endBitboard)) {
+                if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+                return true;
+            }
+        }
+    }
+    if((endSquare == startSquare + (7 * direction) && std::abs(endCol - startCol) == 1)  || (endSquare == startSquare + (9 * direction) && std::abs(endCol - startCol) == 1)) {
+        //can do another condition if the enemy piece is on the endSquare its a normal capture, if not it should be enPassant
+        if(enemySquares & endBitboard) { //normal Capture
+            if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, white)) return false;
+            return true;
+        }
+    }
+    return false;
+}
+
 std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     Bitboard pawns = white ? board.whitePawns : board.blackPawns;
