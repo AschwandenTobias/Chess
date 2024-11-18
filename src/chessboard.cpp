@@ -40,6 +40,10 @@ Chessboard::Chessboard() {
     blackKingMoved = false;
 }
 
+/*void Chessboard::makeMove(Move move) {
+
+}*/
+
 std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white) {
     std::vector<std::pair<int, int>> allMoves;
     if(white) {

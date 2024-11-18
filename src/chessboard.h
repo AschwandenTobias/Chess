@@ -3,15 +3,17 @@
 
 #include <cstdint>
 #include <vector>
+#include "move.h"
 
 typedef uint64_t Bitboard;
 
 
-
 class Chessboard {
 public:
+
+    
     enum Piece {
-    EMPTY,
+        EMPTY,
         WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
         BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK, BLACK_QUEEN, BLACK_KING
     };
@@ -50,6 +52,7 @@ public:
 
     Chessboard();
     void printBoard();
+    //void makeMove(Move move);
     bool checkIfPieceIsOnSquare(Bitboard square);
     bool checkIfPieceIsOnSquare(int Square);
     bool checkIfWhitePieceIsOnSquare(Bitboard square);
