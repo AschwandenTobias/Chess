@@ -6,8 +6,15 @@
 
 typedef uint64_t Bitboard;
 
+
+
 class Chessboard {
 public:
+    enum Piece {
+    EMPTY,
+        WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
+        BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK, BLACK_QUEEN, BLACK_KING
+    };
     Bitboard whitePawns;
     Bitboard whiteRooks;
     Bitboard whiteKnights;
@@ -39,11 +46,7 @@ public:
     bool blackKingRookMoved;
     bool whiteKingMoved;
     bool blackKingMoved;
-    enum Piece {
-        EMPTY,
-        WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
-        BLACK_PAWN, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK, BLACK_QUEEN, BLACK_KING
-    };
+
 
     Chessboard();
     void printBoard();
@@ -74,6 +77,8 @@ public:
     void setPiece(int square, Piece piece);
     void setAllPiecesToZero();
     std::vector<std::pair<int, int>> generateAllPossibleMoves(bool white);
+    void deleteWhitePiece(Bitboard square);
+    void deleteBlackPiece(Bitboard square);
 };
 
 #endif 

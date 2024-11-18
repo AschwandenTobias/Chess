@@ -179,6 +179,26 @@ void Chessboard::deletePiece(Bitboard square) {
     blackKing &= del;
 }
 
+void Chessboard::deleteWhitePiece(Bitboard square) {
+    Bitboard del = ~square;
+    whitePawns &= del;
+    whiteRooks &= del;
+    whiteBishops &= del;
+    whiteKnights &= del;
+    whiteQueen &= del;
+    whiteKing &= del;
+}
+
+void Chessboard::deleteBlackPiece(Bitboard square) {
+    Bitboard del = ~square;
+    blackPawns &= del;
+    blackRooks &= del;
+    blackBishops &= del;
+    blackKnights &= del;
+    blackQueen &= del;
+    blackKing &= del;
+}
+
 void Chessboard::deletePiece(int squareToDelete) {
     Bitboard del = ~(1ULL << squareToDelete);
     whitePawns &= del;
