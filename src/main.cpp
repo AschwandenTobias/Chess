@@ -15,11 +15,11 @@ int main() {
 
     for (const auto& move : allMoves) {
         std::cout << "Start: " << move.first << ", End: " << move.second << std::endl;
-    }*/
+    }
    std::vector<std::string> tmpMoves = {
         "e2e4", "c7c5", "f1c4", "e7e6", "d2d4", "h7h6", "d4d5", "d8f6", "d5e6", "f6g5", "e6f7", "e8e7", "c1g5", "h6g5", "b1c3" ,"b7b5", "d1g4", "h8h3","g4g5", "g8f6", "e4e5" ,"h3e3", "e5f6"
     };
-    game.start(tmpMoves);
+    game.start(tmpMoves);*/
     
     std::vector<std::string> moves;
     std::cout << "Welcome to the Chess Game!\n";
