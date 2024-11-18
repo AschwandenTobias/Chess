@@ -14,29 +14,41 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     int startRow = move.startSquare / 8;
     int startCol = move.startSquare % 8;
     int endCol = move.endSquare % 8;
+    if(move.startSquare < 0 || move.startSquare > 63 || move.endSquare < 0 || move.endSquare > 63) return false;
     if(move.endSquare == move.startSquare + (8 * direction) && (emptySquares & endBitboard)) {
         if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
         return true;
     }
     if(white ? startRow == 1 : startRow == 6) {
-        if(move.endSquare == move.startSquare + (16 * direction)) {
-            int oneStepForward = move.startSquare + 8 * direction;
-            if((emptySquares & (1ULL << oneStepForward)) && (emptySquares & endBitboard)) {
-                if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
+        if (move.endSquare == move.startSquare + (16 * direction)) {
+            Bitboard pushMask = (1ULL << (move.startSquare + 8)) | endBitboard;
+            if ((emptySquares & pushMask) == pushMask) { //Both squares must be empty for a double move
+                if (King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
                 return true;
             }
-        }
+        }   
     }
     if((move.endSquare == move.startSquare + (7 * direction) && std::abs(endCol - startCol) == 1)  || (move.endSquare == move.startSquare + (9 * direction) && std::abs(endCol - startCol) == 1)) {
-        //can do another condition if the enemy piece is on the endSquare its a normal capture, if not it should be enPassant
         if(enemySquares & endBitboard) { //normal Capture
             if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
             return true;
+        }
+        if (board.lastMoveWasTwoSquarePawnMove && (move.startSquare / 8 == (white ? 3 : 4)) &&
+            std::abs(endCol - startCol) == 1) {
+            int targetSquare = move.endSquare - (8 * direction); //Targeted pawn square
+            Bitboard targetPawn = 1ULL << targetSquare;
+            Bitboard enemyPawnBitboard = white ? board.blackPieces : board.whitePieces;
+
+            if (enemyPawnBitboard & targetPawn) { //Check if there's an opponent's pawn on the target square
+                if (King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
+                return true;
+            }
         }
     }
     return false;
 }
 
+//Refactor this
 std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     Bitboard pawns = white ? board.whitePawns : board.blackPawns;
@@ -63,13 +75,14 @@ std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board
 }
 
 
-//Doesnt check for move legality.
+//Refactor this
 std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;
     attackingSquares.emplace_back(startSquare);
     return attackingSquares;
 }
 
+//Refactor this
 bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
     if(white) {
         Bitboard whitePawns = board.whitePawns;
@@ -97,6 +110,7 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
     return false;
 }
 
+//Refactor this
 bool Pawn::canPawnAttackSquare(Chessboard &board, int endSquare, bool white) {
     if(white) {
         Bitboard whitePawns = board.whitePawns;
