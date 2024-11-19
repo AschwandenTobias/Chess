@@ -1,23 +1,25 @@
 #ifndef MOVE_H
 #define MOVE_H
-
-// Forward declare Chessboard class
-class Chessboard;
-
-// Now include chessboard.h to use the full definition of Chessboard
-#include "chessboard.h"
+#include "piece.h"
 
 struct Move {
-    int startSquare;       // Starting square (0-63)
-    int endSquare;         // Ending square (0-63)
-    //Chessboard::Piece piece;           // Piece being moved (e.g., WHITE_PAWN, BLACK_KNIGHT)
-    bool isCastling;       // Whether the move is a castling move
-    bool isPromoting;      // Whether the move involves a promotion
-    bool isEnPassant;      // Whether the move is an en passant
+    int startSquare;      
+    int endSquare;        
+    Piece movedPiece;   
+    Piece capturedPiece; 
+    Piece promotionPiece;
+    bool isCastling;    
+    bool isPromoting;    
+    bool isEnPassant;    
 
-    // Constructor for initializing the Move struct
-    Move(int from, int to, /*Chessboard::Piece piece = Chessboard::EMPTY,*/ bool isCastling = false, bool isPromoting = false, bool isEnPassant = false)
-        : startSquare(from), endSquare(to), /*piece(piece),*/ isCastling(isCastling), isPromoting(isPromoting), isEnPassant(isEnPassant) {}
+
+    Move(int from, int to, 
+         Piece moved, 
+         Piece captured = Piece::EMPTY, 
+         Piece promotion = Piece::EMPTY,
+         bool castling = false, 
+         bool promoting = false, 
+         bool enPassant = false);
 };
 
 #endif

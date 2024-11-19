@@ -217,7 +217,7 @@ bool Game::isCheckmate() {
 
 bool Game::isMoveValid(int startSquare, int endSquare) {
     if(endSquare < 0 || endSquare > 63) return false;
-    Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
+    Piece piece = board.getPieceAtSquare(startSquare);
     //std::cout << "Piece at startSquare was: " << piece << "\n";
     if(whiteTurn && board.checkIfWhitePieceIsOnSquare(startSquare)) {
 
@@ -244,22 +244,22 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
     }*/
     switch (piece)
     {
-    case Chessboard::WHITE_PAWN:
+    case Piece::WHITE_PAWN:
         return Pawn::isWhitePawnMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::WHITE_KNIGHT:
+    case Piece::WHITE_KNIGHT:
         return Knight::isWhiteKnightMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::WHITE_BISHOP:
+    case Piece::WHITE_BISHOP:
         return Bishop::isWhiteBishopMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::WHITE_ROOK:
+    case Piece::WHITE_ROOK:
         return Rook::isWhiteRookMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::WHITE_QUEEN:
+    case Piece::WHITE_QUEEN:
         return Queen::isWhiteQueenMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::WHITE_KING:
+    case Piece::WHITE_KING:
         if(startSquare == 3 && endSquare == 0) {
             return King::isWhiteKingCastlingLegal(board);
         } else if(startSquare == 3 && endSquare == 7) {
@@ -267,23 +267,23 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         }
         return King::isWhiteKingMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_PAWN:
+    case Piece::BLACK_PAWN:
         return Pawn::isBlackPawnMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_KNIGHT:
+    case Piece::BLACK_KNIGHT:
         return Knight::isBlackKnightMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_BISHOP:
+    case Piece::BLACK_BISHOP:
         return Bishop::isBlackBishopMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_ROOK:
+    case Piece::BLACK_ROOK:
         return Rook::isBlackRookMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_QUEEN:
+    case Piece::BLACK_QUEEN:
     //std::cout << "Black Queen move in Game::isMoveValid detected\n";
         return Queen::isBlackQueenMoveLegal(board, startSquare, endSquare);
         break;
-    case Chessboard::BLACK_KING:
+    case Piece::BLACK_KING:
         //std::cout << "Black King detected. In Game::isMoveValid\n";
         if(startSquare == 59 && endSquare == 0) {
             //std::cout << "Game::Black Kingside Castling detected\n";
@@ -359,31 +359,31 @@ void Game::promoteWhitePawn(int endSquare) {
 
 
 void Game::makeMove(int startSquare, int endSquare) {
-    Chessboard::Piece piece = board.getPieceAtSquare(startSquare);
-    if (piece == Chessboard::EMPTY) {
+    Piece piece = board.getPieceAtSquare(startSquare);
+    if (piece == Piece::EMPTY) {
         std::cout << "No piece at the starting square!\n";
         return; 
     }
     switch (piece) {
-        case Chessboard::WHITE_PAWN:
+        case Piece::WHITE_PAWN:
             Pawn::moveWhitePawn(board, startSquare, endSquare);
             if(checkIfWhitePawnPromotes(endSquare)) {
                 promoteWhitePawn(endSquare);
             }
             break;
-        case Chessboard::WHITE_KNIGHT:
+        case Piece::WHITE_KNIGHT:
             Knight::moveWhiteKnight(board, startSquare, endSquare);
             break;
-        case Chessboard::WHITE_BISHOP:
+        case Piece::WHITE_BISHOP:
             Bishop::moveWhiteBishop(board, startSquare, endSquare);
             break;
-        case Chessboard::WHITE_ROOK:
+        case Piece::WHITE_ROOK:
             Rook::moveWhiteRook(board, startSquare, endSquare);
             break;
-        case Chessboard::WHITE_QUEEN:
+        case Piece::WHITE_QUEEN:
             Queen::moveWhiteQueen(board, startSquare, endSquare);
             break;
-        case Chessboard::WHITE_KING:
+        case Piece::WHITE_KING:
             if(startSquare == 3 && endSquare == 0) {
                 King::castleWhiteKing(board, startSquare, endSquare);
             } else if(startSquare == 3 && endSquare == 7) {
@@ -391,25 +391,25 @@ void Game::makeMove(int startSquare, int endSquare) {
             }
             King::moveWhiteKing(board, startSquare, endSquare);
             break;
-        case Chessboard::BLACK_PAWN:
+        case Piece::BLACK_PAWN:
             Pawn::moveBlackPawn(board, startSquare, endSquare);
             if(checkIfBlackPawnPromotes(endSquare)) {
                 promoteBlackPawn(endSquare);
             }
             break;
-        case Chessboard::BLACK_KNIGHT:
+        case Piece::BLACK_KNIGHT:
             Knight::moveBlackKnight(board, startSquare, endSquare);
             break;
-        case Chessboard::BLACK_BISHOP:
+        case Piece::BLACK_BISHOP:
             Bishop::moveBlackBishop(board, startSquare, endSquare);
             break;
-        case Chessboard::BLACK_ROOK:
+        case Piece::BLACK_ROOK:
             Rook::moveBlackRook(board, startSquare, endSquare);
             break;
-        case Chessboard::BLACK_QUEEN:
+        case Piece::BLACK_QUEEN:
             Queen::moveBlackQueen(board, startSquare, endSquare);
             break;
-        case Chessboard::BLACK_KING:
+        case Piece::BLACK_KING:
             //std::cout << "Game::startSquare: " << startSquare << ", endSquare: " << endSquare << "\n";
             if(startSquare == 59 && endSquare == 0) {
                 King::castleBlackKing(board, startSquare, endSquare);

@@ -76,22 +76,22 @@ std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white
     return allMoves;
 }
 
-Chessboard::Piece Chessboard::getPieceAtSquare(int square) {
+Piece Chessboard::getPieceAtSquare(int square) {
     Bitboard squareMask = 1ULL << square;
 
-    if (whitePawns & squareMask) return WHITE_PAWN;
-    if (whiteRooks & squareMask) return WHITE_ROOK;
-    if (whiteKnights & squareMask) return WHITE_KNIGHT;
-    if (whiteBishops & squareMask) return WHITE_BISHOP;
-    if (whiteQueen & squareMask) return WHITE_QUEEN;
-    if (whiteKing & squareMask) return WHITE_KING;
-    if (blackPawns & squareMask) return BLACK_PAWN;
-    if (blackRooks & squareMask) return BLACK_ROOK;
-    if (blackKnights & squareMask) return BLACK_KNIGHT;
-    if (blackBishops & squareMask) return BLACK_BISHOP;
-    if (blackQueen & squareMask) return BLACK_QUEEN;
-    if (blackKing & squareMask) return BLACK_KING;
-    return EMPTY;
+    if (whitePawns & squareMask) return Piece::WHITE_PAWN;
+    if (whiteRooks & squareMask) return Piece::WHITE_ROOK;
+    if (whiteKnights & squareMask) return Piece::WHITE_KNIGHT;
+    if (whiteBishops & squareMask) return Piece::WHITE_BISHOP;
+    if (whiteQueen & squareMask) return Piece::WHITE_QUEEN;
+    if (whiteKing & squareMask) return Piece::WHITE_KING;
+    if (blackPawns & squareMask) return Piece::BLACK_PAWN;
+    if (blackRooks & squareMask) return Piece::BLACK_ROOK;
+    if (blackKnights & squareMask) return Piece::BLACK_KNIGHT;
+    if (blackBishops & squareMask) return Piece::BLACK_BISHOP;
+    if (blackQueen & squareMask) return Piece::BLACK_QUEEN;
+    if (blackKing & squareMask) return Piece::BLACK_KING;
+    return Piece::EMPTY;
 }
 
 void Chessboard::setAllPiecesToZero() {
@@ -126,40 +126,40 @@ void Chessboard::updateLastMove(int startSquare, int endSquare) {
 void Chessboard::setPiece(int square, Piece piece) {
     Bitboard mask = (1ULL << square);
     switch (piece) {
-        case WHITE_PAWN:
+        case Piece::WHITE_PAWN:
             whitePawns |= mask;
             break;
-        case WHITE_ROOK:
+        case Piece::WHITE_ROOK:
             whiteRooks |= mask;
             break;
-        case WHITE_KNIGHT:
+        case Piece::WHITE_KNIGHT:
             whiteKnights |= mask;
             break;
-        case WHITE_BISHOP:
+        case Piece::WHITE_BISHOP:
             whiteBishops |= mask;
             break;
-        case WHITE_QUEEN:
+        case Piece::WHITE_QUEEN:
             whiteQueen |= mask;
             break;
-        case WHITE_KING:
+        case Piece::WHITE_KING:
             whiteKing |= mask;
             break;
-        case BLACK_PAWN:
+        case Piece::BLACK_PAWN:
             blackPawns |= mask;
             break;
-        case BLACK_ROOK:
+        case Piece::BLACK_ROOK:
             blackRooks |= mask;
             break;
-        case BLACK_KNIGHT:
+        case Piece::BLACK_KNIGHT:
             blackKnights |= mask;
             break;
-        case BLACK_BISHOP:
+        case Piece::BLACK_BISHOP:
             blackBishops |= mask;
             break;
-        case BLACK_QUEEN:
+        case Piece::BLACK_QUEEN:
             blackQueen |= mask;
             break;
-        case BLACK_KING:
+        case Piece::BLACK_KING:
             blackKing |= mask;
             break;
         default:

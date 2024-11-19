@@ -48,7 +48,7 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     return false;
 }
 
-//Refactor this
+//Refactor this. Its probably fine actually
 std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     Bitboard pawns = white ? board.whitePawns : board.blackPawns;
@@ -75,14 +75,14 @@ std::vector<std::pair<int, int>> Pawn::getAllPossiblePawnMoves(Chessboard &board
 }
 
 
-//Refactor this
+//Refactor this. Might be fine too
 std::vector<int> Pawn::getAttackingSquares(Chessboard &board, int startSquare, int  endSquare) {
     std::vector<int> attackingSquares;
     attackingSquares.emplace_back(startSquare);
     return attackingSquares;
 }
 
-//Refactor this
+//Refactor this. Might be fine too
 bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
     if(white) {
         Bitboard whitePawns = board.whitePawns;
@@ -110,7 +110,7 @@ bool Pawn::canAPawnMoveToSquare(Chessboard &board, int endSquare, bool white) {
     return false;
 }
 
-//Refactor this
+//Refactor this. Might be fine too
 bool Pawn::canPawnAttackSquare(Chessboard &board, int endSquare, bool white) {
     if(white) {
         Bitboard whitePawns = board.whitePawns;

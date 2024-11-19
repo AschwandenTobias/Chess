@@ -29,8 +29,8 @@ std::vector<std::pair<int, int>> King::getAllPossibleKingMoves(Chessboard &board
 }
 
 bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSquare, bool white) {
-    Chessboard::Piece endPiece = board.getPieceAtSquare(endSquare);
-    Chessboard::Piece startPiece = board.getPieceAtSquare(startSquare);
+    Piece endPiece = board.getPieceAtSquare(endSquare);
+    Piece startPiece = board.getPieceAtSquare(startSquare);
     board.deletePiece(endSquare);
     board.setPiece(endSquare, startPiece);
     board.deletePiece(startSquare);
@@ -39,7 +39,7 @@ bool King::doesTmpMovePutMeInCheck(Chessboard &board, int startSquare, int endSq
 
     board.deletePiece(endSquare);
     board.setPiece(startSquare, startPiece);
-    if (endPiece != Chessboard::EMPTY) {
+    if (endPiece != Piece::EMPTY) {
         board.setPiece(endSquare, endPiece); 
     }
     //std::cout << "Bool isInCheck in doesTmpMovePutMeInCheck: " << isInCheck << "\n";
