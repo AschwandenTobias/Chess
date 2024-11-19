@@ -16,6 +16,7 @@ public:
     void start(const std::vector<std::string>& moves = {});
     void startRandomEngine(bool userIsWhite); 
     void startRandomEnginePlayingItself();
+    void startEnginePlayingItself();
     bool IsCheckmate;
     bool whiteTurn;
     bool isDraw;

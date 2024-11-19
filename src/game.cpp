@@ -9,6 +9,7 @@
 #include "pieces/Rook.h"
 #include "pieces/King.h"
 #include "engines/randomEngine.h"
+#include "engines/engine.h"
 
 Game::Game() {
     IsCheckmate = false;
@@ -18,6 +19,47 @@ Game::Game() {
     kingIsInCheck = false;
     int moveNumber = 1;
     std::vector<std::pair<int, int>> moveHistory;
+}
+
+void Game::startEnginePlayingItself() {
+    Engine engine;
+    moveNumber = 1;
+    while (!IsCheckmate && !isDraw) {
+        board.printBoard(); 
+
+        std::cout << (whiteTurn ? "White" : "Black") << "'s turn on move: " << moveNumber << "\n";
+
+        std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(whiteTurn);
+        
+        if (allMoves.empty()) {
+            break;
+        }
+
+        std::pair<int, int> randomMove = engine.selectMove(allMoves, whiteTurn);
+        std::cout << "Engine move: " << randomMove.first << " -> " << randomMove.second << "\n";
+
+        int startSquare = randomMove.first;
+        int endSquare = randomMove.second;
+
+        if (isMoveValid(startSquare, endSquare)) {
+            makeMove(startSquare, endSquare);
+            moveHistory.push_back({startSquare, endSquare});
+            whiteTurn = !whiteTurn; 
+        }
+
+        if (checkGameOver()) {
+            board.printBoard(); 
+            break;
+        }
+        if(whiteTurn) moveNumber++;
+    }
+
+    if (IsCheckmate) {
+        std::cout << (whiteTurn ? "Black" : "White") << " wins by checkmate!\n";
+    } else if (isDraw) {
+        std::cout << "The game is a draw.\n";
+    }
+    storeGameMoves();
 }
 
 std::string Game::squareToChessNotation(int square) {
