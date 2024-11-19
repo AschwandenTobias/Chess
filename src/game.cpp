@@ -22,45 +22,57 @@ Game::Game() {
 }
 
 void Game::startEnginePlayingItself() {
-    Engine engine;
+    Engine engine;  // The engine that will play the game
     moveNumber = 1;
+    
     while (!IsCheckmate && !isDraw) {
-        board.printBoard(); 
+        board.printBoard();  // Print the current board
 
         std::cout << (whiteTurn ? "White" : "Black") << "'s turn on move: " << moveNumber << "\n";
 
+        // Generate all possible legal moves for the current player
         std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(whiteTurn);
         
         if (allMoves.empty()) {
-            break;
+            break;  // No legal moves left, it's a draw
         }
 
-        std::pair<int, int> randomMove = engine.selectMove(allMoves, whiteTurn);
-        std::cout << "Engine move: " << randomMove.first << " -> " << randomMove.second << "\n";
+        // Select the best move using the Minimax algorithm
+        std::pair<int, int> bestMove = engine.selectMove(board, allMoves, whiteTurn); 
 
-        int startSquare = randomMove.first;
-        int endSquare = randomMove.second;
+        std::cout << "Engine move: " << bestMove.first << " -> " << bestMove.second << "\n";
 
+        int startSquare = bestMove.first;
+        int endSquare = bestMove.second;
+
+        // If the move is valid, apply it
         if (isMoveValid(startSquare, endSquare)) {
-            makeMove(startSquare, endSquare);
-            moveHistory.push_back({startSquare, endSquare});
-            whiteTurn = !whiteTurn; 
+            makeMove(startSquare, endSquare);  // Apply the move on the board
+            moveHistory.push_back({startSquare, endSquare});  // Add the move to history
+            whiteTurn = !whiteTurn;  // Switch turns
         }
 
+        // Check if the game is over (checkmate or draw)
         if (checkGameOver()) {
-            board.printBoard(); 
+            board.printBoard();  // Print the final board
             break;
         }
-        if(whiteTurn) moveNumber++;
+
+        // Increment move number after white's turn
+        if (whiteTurn) moveNumber++;
     }
 
+    // Output game result
     if (IsCheckmate) {
         std::cout << (whiteTurn ? "Black" : "White") << " wins by checkmate!\n";
     } else if (isDraw) {
         std::cout << "The game is a draw.\n";
     }
+    
+    // Store the game moves (for history or replay purposes)
     storeGameMoves();
 }
+
 
 std::string Game::squareToChessNotation(int square) {
     int file = square % 8;

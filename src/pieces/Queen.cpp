@@ -139,7 +139,7 @@ bool Queen::isBlackQueenMoveLegal(Chessboard &board, int startSquare, int endSqu
     if(King::doesTmpMovePutMeInCheck(board, startSquare, endSquare, false)) return false;
     //std::cout << "We detected a black Queen on the from square\n";
     if (board.checkIfBlackPieceIsOnSquare(to)) {
-        std::cout << "Detected black Piece on endSquare\n";
+        //std::cout << "Detected black Piece on endSquare\n";
         return false;
     }
     int distance = std::abs(endSquare - startSquare);
