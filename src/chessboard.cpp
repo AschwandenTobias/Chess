@@ -40,6 +40,22 @@ Chessboard::Chessboard() {
     blackKingMoved = false;
 }
 
+int Chessboard::returnNumberOfPieces(Piece piece) {
+    switch (piece) {
+        case(WHITE_PAWN): return __builtin_popcountll(whitePawns);
+        case(WHITE_ROOK): return __builtin_popcountll(whiteRooks);
+        case(WHITE_KNIGHT): return __builtin_popcountll(whiteKnights);
+        case(WHITE_BISHOP): return __builtin_popcountll(whiteBishops);
+        case(WHITE_QUEEN): return __builtin_popcountll(whiteQueen);
+        case(BLACK_PAWN): return __builtin_popcountll(blackPawns);
+        case(BLACK_ROOK): return __builtin_popcountll(blackRooks);
+        case(BLACK_BISHOP): return __builtin_popcountll(blackBishops);
+        case(BLACK_KNIGHT): return __builtin_popcountll(blackKnights);
+        case(BLACK_QUEEN): return __builtin_popcountll(blackQueen);
+    }
+    return -1;
+}
+
 std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white) {
     std::vector<std::pair<int, int>> allMoves;
     if(white) {

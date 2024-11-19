@@ -68,6 +68,7 @@ public:
     void setPiece(int square, Piece piece);
     void setAllPiecesToZero();
     std::vector<std::pair<int, int>> generateAllPossibleMoves(bool white);
+    int returnNumberOfPieces(Piece piece);
 };
 
 #endif 
