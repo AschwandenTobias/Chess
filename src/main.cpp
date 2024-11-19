@@ -39,10 +39,18 @@ int main() {
     } else if (choice == 2) {
         std::cout << "Starting a game against the engine...\n";
         bool userIsWhite;
-        std::cout << "Do you want to play as white? (1 for Yes, 0 for No): ";
-        std::cin >> userIsWhite;
-        
-        game.startRandomEngine(userIsWhite); 
+        std::cout << "Which engine do you wanna play? (1 for RandomEngine, 2 for the normal Engine)\n";
+        int engineChoice;
+        std::cin >> engineChoice;
+        if(engineChoice == 1) {
+            std::cout << "Do you want to play as white? (1 for Yes, 0 for No): ";
+            std::cin >> userIsWhite;
+            game.startRandomEngine(userIsWhite); 
+        } else if(engineChoice == 2) {
+            std::cout << "Do you want to play as white? (1 for Yes, 0 for No): ";
+            std::cin >> userIsWhite;
+            game.startEngine(userIsWhite); 
+        }
     } else if(choice == 3) {
         std::cout << "RandomEngine plays itself\n";
         game.startRandomEnginePlayingItself();

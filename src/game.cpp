@@ -21,6 +21,58 @@ Game::Game() {
     std::vector<std::pair<int, int>> moveHistory;
 }
 
+void Game::startEngine(bool userIsWhite) {
+    Engine engine;
+
+    while(!IsCheckmate && !isDraw) {
+        board.printBoard(); 
+
+        std::string move;
+        
+        if (whiteTurn == userIsWhite) {
+            std::cout << "It's your turn: Enter your move in the format \"e2e4\"\n";
+            std::cout << "Castling White KingSide == CWKS, Castling Black QueenSide == CBQS, etc.\n";
+            std::cin >> move;
+
+            if (move.length() != 4) {
+                std::cout << "Invalid input length. Try again.\n";
+                continue;
+            }
+
+            int startSquare = translateMove(move.substr(0, 2));
+            int endSquare = translateMove(move.substr(2, 3));
+
+            if (isMoveValid(startSquare, endSquare)) {
+                moveHistory.push_back({startSquare, endSquare});
+                makeMove(startSquare, endSquare);  
+                whiteTurn = !whiteTurn;
+            } else {
+                std::cout << "Invalid move input by player. Try again.\n";
+            }
+
+        } else {
+            std::cout << "Engine's turn...\n";
+
+            std::vector<std::pair<int, int>> allMoves = this->board.generateAllPossibleMoves(!userIsWhite);
+            std::pair<int, int> selectedMove = engine.selectMove(board, allMoves, !userIsWhite);
+            std::cout << "Random Engine move: " << selectedMove.first << ", " << selectedMove.second << "\n";
+            int startSquare = selectedMove.first;
+            int endSquare = selectedMove.second;
+
+            if (isMoveValid(startSquare, endSquare)) {
+                moveHistory.push_back({startSquare, endSquare});
+                makeMove(startSquare, endSquare); 
+                whiteTurn = !whiteTurn;  
+            }
+        }
+        if (checkGameOver()) {
+            board.printBoard(); 
+            break;
+        }
+    }
+    storeGameMoves();
+} 
+
 void Game::startEnginePlayingItself() {
     Engine engine;  // The engine that will play the game
     moveNumber = 1;

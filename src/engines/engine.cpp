@@ -42,7 +42,7 @@ std::pair<int, int> Engine::selectMove(Chessboard &board, std::vector<std::pair<
         newBoard.setPiece(move.second, movingPiece);
 
         // Evaluate the position using Minimax
-        int eval = minimax(newBoard, 3, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
+        int eval = minimax(newBoard, 4, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
         
         // Choose the move with the best evaluation
         if (eval > bestEval) {

@@ -14,6 +14,7 @@ class Game {
 public:
     Game();
     void start(const std::vector<std::string>& moves = {});
+    void startEngine(bool userIsWhite);
     void startRandomEngine(bool userIsWhite); 
     void startRandomEnginePlayingItself();
     void startEnginePlayingItself();
