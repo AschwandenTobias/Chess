@@ -83,7 +83,7 @@ void Game::startRandomEnginePlayingItself() {
     } else if (isDraw) {
         std::cout << "The game is a draw.\n";
     }
-    storeGameMoves();
+    //storeGameMoves();
 }
 
 void Game::startRandomEngine(bool userIsWhite) {
@@ -135,7 +135,7 @@ void Game::startRandomEngine(bool userIsWhite) {
             break;
         }
     }
-    storeGameMoves();
+    //storeGameMoves();
 } 
 
 void Game::start(const std::vector<std::string>& moves) {
@@ -186,7 +186,7 @@ void Game::start(const std::vector<std::string>& moves) {
             break;
         }
     }
-    storeGameMoves();
+    //storeGameMoves();
 }
 
 //Three conditions

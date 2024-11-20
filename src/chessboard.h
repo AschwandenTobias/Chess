@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <bitset>
 #include "move.h"
 
 typedef uint64_t Bitboard;
@@ -48,6 +49,7 @@ public:
 
     Chessboard();
     void printBoard();
+    void printBitboard(Bitboard board);
     //void makeMove(Move move);
     bool checkIfPieceIsOnSquare(Bitboard square);
     bool checkIfPieceIsOnSquare(int Square);

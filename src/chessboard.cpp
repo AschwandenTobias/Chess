@@ -26,6 +26,12 @@ Chessboard::Chessboard() {
     blackQueen = 0x1000000000000000;
     blackKing = 0x0800000000000000;
 
+    whitePieces = 0xFFFF;
+    blackPieces = 0xFFFF000000000000;
+    occupiedSquares = whitePieces | blackPieces;
+    blackAttackingSquares; //TODO: define this
+    whiteAttackingSquares; //TODO: define this
+
     int lastMoveStartSquare = 0;  
     int lastMoveEndSquare = 0;    
     bool lastMoveWasTwoSquarePawnMove = false;
@@ -394,4 +400,18 @@ void Chessboard::printBoard() {
     }
     std::cout << "  a b c d e f g h\n\n";
 } 
+
+void Chessboard::printBitboard(Bitboard board) {
+    for (int rank = 7; rank >= 0; --rank) { // Iterate ranks from 8 to 1
+        for (int file = 0; file < 8; ++file) { // Iterate files from A to H
+            int square = rank * 8 + file; // Calculate square index (0-63)
+            if (board & (1ULL << square)) // Check if the bit at this square is set
+                std::cout << "1 ";
+            else
+                std::cout << ". ";
+        }
+        std::cout << "\n"; // Newline for each rank
+    }
+    std::cout << std::endl;
+}
 

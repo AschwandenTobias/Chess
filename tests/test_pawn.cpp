@@ -2,6 +2,8 @@
 #include "chessboard.h"
 #include "pieces/pawn.h"
 #include "game.h"
+#include "move.h"
+#include "piece.h"
 
 TEST(PawnTest, InitialPawnPositions) {
     Chessboard chessboard;
@@ -201,4 +203,12 @@ TEST(PawnTest, getAllPossiblePawnMoves_startingPositions) {
     std::vector<std::pair<int, int>> shouldSquaresBlack = {{48, 40}, {48, 32}, {49, 41}, {49, 33}, {50, 42}, {50, 34}, {51, 43}, {51, 35}, {52, 44}, {52, 36}, {53, 45}, {53, 37}, {54, 46}, {54, 38}, {55, 47}, {55, 39}};
     ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
     ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
+}
+
+TEST(PawnTest, IsPawnMoveLegal) {
+    Game game;
+    Move moveNormal(8, 16, Piece::WHITE_PAWN); //normal move
+    Move moveDouble(9, 25, Piece::WHITE_PAWN); //double move
+    ASSERT_EQ(Pawn::isPawnMoveLegal(game.board, moveNormal, true), true);
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveDouble, true));
 }
