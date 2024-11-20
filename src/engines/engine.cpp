@@ -11,30 +11,33 @@ const int bishopValue = 300;
 const int queenValue = 900;
 
 int Engine::evaluationFunction(Chessboard &board, bool white) {
-    int score = 0;
-    if(white) {
-        score += board.returnNumberOfPieces(board.WHITE_PAWN);
-        score += board.returnNumberOfPieces(board.WHITE_ROOK);
-        score += board.returnNumberOfPieces(board.WHITE_BISHOP);
-        score += board.returnNumberOfPieces(board.WHITE_KNIGHT);
-        score += board.returnNumberOfPieces(board.WHITE_QUEEN);
-    } else {
-        score += board.returnNumberOfPieces(board.BLACK_PAWN);
-        score += board.returnNumberOfPieces(board.BLACK_ROOK);
-        score += board.returnNumberOfPieces(board.BLACK_BISHOP);
-        score += board.returnNumberOfPieces(board.BLACK_KNIGHT);
-        score += board.returnNumberOfPieces(board.BLACK_QUEEN);
-    }
-    return score;
+    int whiteScore = 0, blackScore = 0;
+
+    // Calculate white's total material score
+    whiteScore += board.returnNumberOfPieces(board.WHITE_PAWN) * pawnValue;
+    whiteScore += board.returnNumberOfPieces(board.WHITE_ROOK) * rookValue;
+    whiteScore += board.returnNumberOfPieces(board.WHITE_BISHOP) * bishopValue;
+    whiteScore += board.returnNumberOfPieces(board.WHITE_KNIGHT) * knightValue;
+    whiteScore += board.returnNumberOfPieces(board.WHITE_QUEEN) * queenValue;
+
+    // Calculate black's total material score
+    blackScore += board.returnNumberOfPieces(board.BLACK_PAWN) * pawnValue;
+    blackScore += board.returnNumberOfPieces(board.BLACK_ROOK) * rookValue;
+    blackScore += board.returnNumberOfPieces(board.BLACK_BISHOP) * bishopValue;
+    blackScore += board.returnNumberOfPieces(board.BLACK_KNIGHT) * knightValue;
+    blackScore += board.returnNumberOfPieces(board.BLACK_QUEEN) * queenValue;
+
+    // Return the difference based on which side's perspective we're evaluating
+    return white ? (whiteScore - blackScore) : (blackScore - whiteScore);
 }
+
 
 std::pair<int, int> Engine::selectMove(Chessboard &board, std::vector<std::pair<int, int>> possibleMoves, bool white) {
     std::pair<int, int> bestMove;
-    int bestEval = std::numeric_limits<int>::min();  // For white (maximizing player)
+    int bestEval = std::numeric_limits<int>::min();  
 
-    // Explore all possible moves
     for (const auto& move : possibleMoves) {
-        Chessboard newBoard = board;  // Use the passed Chessboard
+        Chessboard newBoard = board;  
         //newBoard.applyMove(move);  // Apply the move to the board
         Chessboard::Piece movingPiece = newBoard.getPieceAtSquare(move.first);
         newBoard.deletePiece(move.first);
@@ -42,9 +45,9 @@ std::pair<int, int> Engine::selectMove(Chessboard &board, std::vector<std::pair<
         newBoard.setPiece(move.second, movingPiece);
 
         // Evaluate the position using Minimax
-        int eval = minimax(newBoard, 4, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
+        int eval = minimax(newBoard, 2, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
         
-        // Choose the move with the best evaluation
+        
         if (eval > bestEval) {
             bestEval = eval;
             bestMove = move;
@@ -56,48 +59,49 @@ std::pair<int, int> Engine::selectMove(Chessboard &board, std::vector<std::pair<
 
 int Engine::minimax(Chessboard &board, int depth, int alpha, int beta, bool isMaximizingPlayer, bool white) {
     if (depth == 0) {
+        // Evaluate the board from the current player's perspective
         return evaluationFunction(board, white);
     }
 
     std::vector<std::pair<int, int>> legalMoves = board.generateAllPossibleMoves(white);
     if (legalMoves.empty()) {
-        return evaluationFunction(board, white);  // If no legal moves, return evaluation
+        // No legal moves; checkmate or stalemate
+        return evaluationFunction(board, white);
     }
 
-    if (isMaximizingPlayer) {  // Maximizing for white
+    if (isMaximizingPlayer) {  
         int maxEval = std::numeric_limits<int>::min();
         for (const auto& move : legalMoves) {
-            Chessboard newBoard = board;  // Make a copy of the board
-            //newBoard.applyMove(move);  // Apply the move
+            Chessboard newBoard = board; 
+            //newBoard.applyMove(move);  // Apply the move (implement properly)
             Chessboard::Piece movingPiece = newBoard.getPieceAtSquare(move.first);
             newBoard.deletePiece(move.first);
             newBoard.deletePiece(move.second);
             newBoard.setPiece(move.second, movingPiece);
-            int eval = minimax(newBoard, depth - 1, alpha, beta, false, white);
+            int eval = minimax(newBoard, depth - 1, alpha, beta, false, !white); // Flip to opponent's turn
             maxEval = std::max(maxEval, eval);
             alpha = std::max(alpha, eval);
             if (beta <= alpha) {
-                break;  // Beta cut-off
+                break;  
             }
         }
         return maxEval;
-    } else {  // Minimizing for black
+    } else {  
         int minEval = std::numeric_limits<int>::max();
         for (const auto& move : legalMoves) {
-            Chessboard newBoard = board;  // Make a copy of the board
-            //newBoard.applyMove(move);  // Apply the move
+            Chessboard newBoard = board;  
+            //newBoard.applyMove(move);  // Apply the move (implement properly)
             Chessboard::Piece movingPiece = newBoard.getPieceAtSquare(move.first);
             newBoard.deletePiece(move.first);
             newBoard.deletePiece(move.second);
             newBoard.setPiece(move.second, movingPiece);
-            int eval = minimax(newBoard, depth - 1, alpha, beta, true, white);
+            int eval = minimax(newBoard, depth - 1, alpha, beta, true, !white); // Flip to opponent's turn
             minEval = std::min(minEval, eval);
             beta = std::min(beta, eval);
             if (beta <= alpha) {
-                break;  // Alpha cut-off
+                break;  
             }
         }
         return minEval;
     }
 }
-
