@@ -403,7 +403,7 @@ void Chessboard::printBoard() {
 
 void Chessboard::printBitboard(Bitboard board) {
     for (int rank = 7; rank >= 0; --rank) { // Iterate ranks from 8 to 1
-        for (int file = 0; file < 8; ++file) { // Iterate files from A to H
+        for (int file = 7; file >= 0; --file) { // Iterate files from H to A
             int square = rank * 8 + file; // Calculate square index (0-63)
             if (board & (1ULL << square)) // Check if the bit at this square is set
                 std::cout << "1 ";
@@ -414,4 +414,3 @@ void Chessboard::printBitboard(Bitboard board) {
     }
     std::cout << std::endl;
 }
-

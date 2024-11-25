@@ -205,10 +205,14 @@ TEST(PawnTest, getAllPossiblePawnMoves_startingPositions) {
     ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
 }
 
-TEST(PawnTest, IsPawnMoveLegal) {
+TEST(FullPawnTest, startingPositions) {
     Game game;
     Move moveNormal(8, 16, Piece::WHITE_PAWN); //normal move
     Move moveDouble(9, 25, Piece::WHITE_PAWN); //double move
+    Move moveNormalBlack(48, 40, Piece::BLACK_PAWN);
+    Move moveDoubleBlack(49, 33, Piece::BLACK_PAWN);
     ASSERT_EQ(Pawn::isPawnMoveLegal(game.board, moveNormal, true), true);
     ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveDouble, true));
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveNormalBlack, false));
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveDoubleBlack, false));
 }

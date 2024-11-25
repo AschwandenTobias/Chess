@@ -11,23 +11,28 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     //board.printBitboard(emptySquares);
     //board.printBitboard(board.whitePieces);
     Bitboard endBitboard = (1ULL << move.endSquare);
+    board.printBitboard(endBitboard);
     Bitboard enemySquares = white ? board.blackPieces : board.whitePieces;
     int direction = white ? 1 : -1;
     int startRow = move.startSquare / 8;
     int startCol = move.startSquare % 8;
     int endCol = move.endSquare % 8;
-    //std::cout << "StartSquare: " << move.startSquare << " , endSquare: " << move.endSquare << "\n";
-    //std::cout << "Direction: " << direction << "\n";
+    std::cout << "StartSquare: " << move.startSquare << " , endSquare: " << move.endSquare << "\n";
+    std::cout << "Direction: " << direction << "\n";
     if(move.startSquare < 0 || move.startSquare > 63 || move.endSquare < 0 || move.endSquare > 63) return false;
     if(move.endSquare == move.startSquare + (8 * direction) && (emptySquares & endBitboard)) {
-            //std::cout << "Standart Pawn move detected\n";
+        //std::cout << "Standart Pawn move detected\n";
         if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
+        //std::cout << "Move doesnt put me in check\n";
         return true;
     }
     if(white ? startRow == 1 : startRow == 6) {
         if (move.endSquare == move.startSquare + (16 * direction)) {
-            Bitboard pushMask = (1ULL << (move.startSquare + 8)) | endBitboard;
+            //std::cout << "Double Pawn move detected\n";
+            Bitboard pushMask = (1ULL << (move.startSquare + 8 * direction)) | endBitboard;
+            //board.printBitboard(pushMask);
             if ((emptySquares & pushMask) == pushMask) { //Both squares must be empty for a double move
+                //std::cout << "Both squares in front are empty\n";
                 if (King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
                 return true;
             }

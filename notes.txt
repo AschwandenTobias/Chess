@@ -13,7 +13,7 @@ Next:
 -Dont forget to somewhere check if that move would put the king in check!!!!
 
 ./ChessEngineTests --gtest_filter=PawnTest.IsPawnMoveLegal
-./ChessEngineTests --gtest_filter=KingTest.*
+./ChessEngineTests --gtest_filter=FullPawnTest.*
 
 00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000
 
