@@ -216,3 +216,19 @@ TEST(FullPawnTest, startingPositions) {
     ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveNormalBlack, false));
     ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, moveDoubleBlack, false));
 }
+
+TEST(FullPawnTest, capturingWhitePawns) {
+    Game game;
+    game.board.whitePawns = 0x0000000000FF0000; 
+    game.board.blackPawns = 0x0000000021000000;
+    game.board.blackBishops = 0x0000000042000000;
+    game.board.blackKnights = 0x0000000084000000;
+    game.board.blackQueen = 0x0000000008000000,
+    game.board.blackRooks = 0x0000000010000000;
+    Move boardBoundaries(23, 32, Piece::WHITE_PAWN);
+    Move wouldPutMeInCheck(22, 29, Piece::WHITE_PAWN);
+    ASSERT_FALSE(Pawn::isPawnMoveLegal(game.board, boardBoundaries, true));
+    ASSERT_FALSE(Pawn::isPawnMoveLegal(game.board, wouldPutMeInCheck, true));
+    game.board.printBoard();
+    
+}
