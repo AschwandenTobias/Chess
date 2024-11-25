@@ -24,7 +24,7 @@ int Engine::evaluationFunction(Chessboard &board, bool white) {
     blackScore += board.returnNumberOfPieces(board.BLACK_BISHOP) * bishopValue;
     blackScore += board.returnNumberOfPieces(board.BLACK_KNIGHT) * knightValue;
     blackScore += board.returnNumberOfPieces(board.BLACK_QUEEN) * queenValue;
-
+    //std::cout << "WhiteScore: " << whiteScore << ", blackScore : " << blackScore << "\n";
     return white ? (whiteScore - blackScore) : (blackScore - whiteScore);
 }
 
@@ -40,8 +40,7 @@ std::pair<int, int> Engine::selectMove(Chessboard &board, std::vector<std::pair<
         newBoard.deletePiece(move.first);
         newBoard.deletePiece(move.second);
         newBoard.setPiece(move.second, movingPiece);
-
-        int eval = minimax(newBoard, 4, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
+        int eval = minimax(newBoard, 2, std::numeric_limits<int>::min(), std::numeric_limits<int>::max(), false, white);
         
         
         if (eval > bestEval) {
@@ -68,10 +67,14 @@ int Engine::minimax(Chessboard &board, int depth, int alpha, int beta, bool isMa
         for (const auto& move : legalMoves) {
             Chessboard newBoard = board; 
             //newBoard.applyMove(move);  // Apply the move (implement properly)
+            //std::cout << "Board before the move\n";
+            //newBoard.printBoard();
             Chessboard::Piece movingPiece = newBoard.getPieceAtSquare(move.first);
             newBoard.deletePiece(move.first);
             newBoard.deletePiece(move.second);
             newBoard.setPiece(move.second, movingPiece);
+            //std::cout << "Board after the move\n";
+            //newBoard.printBoard();
             int eval = minimax(newBoard, depth - 1, alpha, beta, false, !white);
             maxEval = std::max(maxEval, eval);
             alpha = std::max(alpha, eval);
@@ -85,10 +88,14 @@ int Engine::minimax(Chessboard &board, int depth, int alpha, int beta, bool isMa
         for (const auto& move : legalMoves) {
             Chessboard newBoard = board;  
             //newBoard.applyMove(move);  // Apply the move (implement properly)
+            //std::cout << "Board before the move\n";
+            //newBoard.printBoard();
             Chessboard::Piece movingPiece = newBoard.getPieceAtSquare(move.first);
             newBoard.deletePiece(move.first);
             newBoard.deletePiece(move.second);
             newBoard.setPiece(move.second, movingPiece);
+            //std::cout << "Board after the move\n";
+            //newBoard.printBoard();
             int eval = minimax(newBoard, depth - 1, alpha, beta, true, !white); 
             minEval = std::min(minEval, eval);
             beta = std::min(beta, eval);
