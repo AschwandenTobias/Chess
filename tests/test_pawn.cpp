@@ -225,10 +225,28 @@ TEST(FullPawnTest, capturingWhitePawns) {
     game.board.blackKnights = 0x0000000084000000;
     game.board.blackQueen = 0x0000000008000000,
     game.board.blackRooks = 0x0000000010000000;
+    game.board.blackPieces = 0x8000000FF000000;
     Move boardBoundaries(23, 32, Piece::WHITE_PAWN);
-    Move wouldPutMeInCheck(22, 29, Piece::WHITE_PAWN);
+    Move wouldPutMeInCheck(21, 28, Piece::WHITE_PAWN);
+    Move legalCapture1(23, 30, Piece::WHITE_PAWN);
     ASSERT_FALSE(Pawn::isPawnMoveLegal(game.board, boardBoundaries, true));
     ASSERT_FALSE(Pawn::isPawnMoveLegal(game.board, wouldPutMeInCheck, true));
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, legalCapture1, true));
     game.board.printBoard();
-    
+}
+
+TEST(FullPawnTest, movingPawns) {
+    Game game;
+    Move move1(8, 24, Piece::WHITE_PAWN);
+    Move move2(24, 32, Piece::WHITE_PAWN);
+    Move move3(49, 33, Piece::BLACK_PAWN);
+    Move move4(32, 41, Piece::WHITE_PAWN);
+    //Move move5(8, 24, Piece::WHITE_PAWN);
+    //Move move6(8, 24, Piece::WHITE_PAWN);
+    game.board.makeMove(move1);
+    game.board.printBoard();
+    game.board.printBitboard(game.board.occupiedSquares);
+    game.board.printBitboard(game.board.whitePieces);
+    game.board.printBitboard(game.board.blackPieces);
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, move4, true));
 }

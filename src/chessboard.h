@@ -50,7 +50,7 @@ public:
     Chessboard();
     void printBoard();
     void printBitboard(Bitboard board);
-    //void makeMove(Move move);
+    void makeMove(Move move);
     bool checkIfPieceIsOnSquare(Bitboard square);
     bool checkIfPieceIsOnSquare(int Square);
     bool checkIfWhitePieceIsOnSquare(Bitboard square);
