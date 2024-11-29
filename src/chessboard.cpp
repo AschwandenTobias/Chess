@@ -46,7 +46,7 @@ Chessboard::Chessboard() {
     blackKingMoved = false;
 }
 //Function that just makes a move. Doesnt check for move legality
-//TODO: finish this and make it efficient
+//TODO: finish this so it works for every move
 void Chessboard::makeMove(Move move) {
     bool white = move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::WHITE_ROOK || move.movedPiece == Piece::WHITE_BISHOP || move.movedPiece == Piece::WHITE_KNIGHT || move.movedPiece == Piece::WHITE_QUEEN || move.movedPiece == Piece::WHITE_KING;
     Bitboard startMask  = (1ULL << move.startSquare);
@@ -61,6 +61,16 @@ void Chessboard::makeMove(Move move) {
         blackPieces |= endMask;
     }
     occupiedSquares = whitePieces | blackPieces;
+
+    if(move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::BLACK_PAWN) {
+        if(std::abs(move.endSquare - move.startSquare) == 16) {
+            lastMoveWasTwoSquarePawnMove = true;
+        } else {
+            lastMoveWasTwoSquarePawnMove = false;
+        }
+    } else {
+        lastMoveWasTwoSquarePawnMove = false;
+    }
 }
 
 std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white) {

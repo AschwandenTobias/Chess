@@ -244,6 +244,9 @@ TEST(FullPawnTest, movingPawns) {
     //Move move5(8, 24, Piece::WHITE_PAWN);
     //Move move6(8, 24, Piece::WHITE_PAWN);
     game.board.makeMove(move1);
+    game.board.makeMove(move2);
+    game.board.makeMove(move3);
+
     game.board.printBoard();
     game.board.printBitboard(game.board.occupiedSquares);
     game.board.printBitboard(game.board.whitePieces);

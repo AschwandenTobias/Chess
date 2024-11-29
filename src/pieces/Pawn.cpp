@@ -41,12 +41,13 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
         }   
     }
     if((move.endSquare == move.startSquare + (7 * direction) && std::abs(endCol - startCol) == 1)  || (move.endSquare == move.startSquare + (9 * direction) && std::abs(endCol - startCol) == 1)) {
+        std::cout << "Move is either a normal capture or en passant \n";
         if(enemySquares & endBitboard) { //normal Capture
             std::cout << "Capture detected\n";
             if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;
             return true;
         }
-        if (board.lastMoveWasTwoSquarePawnMove && (move.startSquare / 8 == (white ? 3 : 4)) &&
+        if (board.lastMoveWasTwoSquarePawnMove && (move.startSquare / 8 == (white ? 4 : 5)) &&
             std::abs(endCol - startCol) == 1) { //I think it should be white ? 4 : 5
             std::cout << "enPassant detected\n";
             int targetSquare = move.endSquare - (8 * direction); //Targeted pawn square
