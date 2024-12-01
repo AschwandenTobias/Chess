@@ -46,7 +46,7 @@ Chessboard::Chessboard() {
     blackKingMoved = false;
 }
 //Function that just makes a move. Doesnt check for move legality
-//TODO: finish this so it works for every move
+//TODO: finish this so it works for every move. Also is not very efficient since piece deleting checks every bitboard instead of just the correct one
 void Chessboard::makeMove(Move move) {
     bool white = move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::WHITE_ROOK || move.movedPiece == Piece::WHITE_BISHOP || move.movedPiece == Piece::WHITE_KNIGHT || move.movedPiece == Piece::WHITE_QUEEN || move.movedPiece == Piece::WHITE_KING;
     Bitboard startMask  = (1ULL << move.startSquare);
@@ -61,10 +61,6 @@ void Chessboard::makeMove(Move move) {
         blackPieces |= endMask;
     }
     occupiedSquares = whitePieces | blackPieces;
-    //Now remove the enemy piece correctly for en passant. TODO: improve for efficiency
-    if(std::abs(move.endSquare - move.startSquare) == 9 && move.movedPiece == Piece::WHITE_PAWN) {
-        
-    }
     if(move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::BLACK_PAWN) {
         if(std::abs(move.endSquare - move.startSquare) == 16) {
             lastMoveWasTwoSquarePawnMove = true;
@@ -73,6 +69,16 @@ void Chessboard::makeMove(Move move) {
         }
     } else {
         lastMoveWasTwoSquarePawnMove = false;
+    }
+    //Now remove the enemy piece correctly for en passant. TODO: improve for efficiency
+    if((std::abs(move.endSquare - move.startSquare) == 9 || std::abs(move.endSquare - move.startSquare) == 7) && move.movedPiece == Piece::WHITE_PAWN && lastMoveWasTwoSquarePawnMove) {
+        deletePiece(move.endSquare - 8);
+        Bitboard blackPawnSquare = (1ULL << (move.endSquare - 8));
+        blackPieces &= ~blackPawnSquare;
+    } else if((std::abs(move.endSquare - move.startSquare) == 9 || std::abs(move.endSquare - move.startSquare) == 7) && move.movedPiece == Piece::BLACK_PAWN && lastMoveWasTwoSquarePawnMove) {
+        deletePiece(move.endSquare + 8);
+        Bitboard whitePawnSquare = (1ULL << (move.endSquare + 8));
+        whitePieces &= ~whitePawnSquare;
     }
 }
 
