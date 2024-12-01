@@ -241,15 +241,17 @@ TEST(FullPawnTest, movingPawns) {
     Move move2(24, 32, Piece::WHITE_PAWN);
     Move move3(49, 33, Piece::BLACK_PAWN);
     Move move4(32, 41, Piece::WHITE_PAWN);
-    //Move move5(8, 24, Piece::WHITE_PAWN);
+    Move move5(41, 48, Piece::WHITE_PAWN);
     //Move move6(8, 24, Piece::WHITE_PAWN);
     game.board.makeMove(move1);
     game.board.makeMove(move2);
     game.board.makeMove(move3);
-
-    game.board.printBoard();
-    game.board.printBitboard(game.board.occupiedSquares);
-    game.board.printBitboard(game.board.whitePieces);
-    game.board.printBitboard(game.board.blackPieces);
+    //game.board.printBoard();
+    //game.board.printBitboard(game.board.occupiedSquares);
+    //game.board.printBitboard(game.board.whitePieces);
+    //game.board.printBitboard(game.board.blackPieces);
     ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, move4, true));
+    game.board.makeMove(move4);
+    ASSERT_TRUE(Pawn::isPawnMoveLegal(game.board, move5, true));
+    game.board.printBoard();
 }

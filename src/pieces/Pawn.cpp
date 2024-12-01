@@ -19,8 +19,8 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     std::cout << "StartSquare: " << move.startSquare << " , endSquare: " << move.endSquare << "\n";
     std::cout << "Direction: " << direction << "\n";
     std::cout << "StartCol: " << startCol << ", endCol: " << endCol << "\n";
-    board.printBitboard(endBitboard);
-    board.printBitboard(enemySquares);
+    //board.printBitboard(endBitboard);
+    //board.printBitboard(enemySquares);
     if(move.startSquare < 0 || move.startSquare > 63 || move.endSquare < 0 || move.endSquare > 63) return false;
     if(move.endSquare == move.startSquare + (8 * direction) && (emptySquares & endBitboard)) {
         std::cout << "Standart Pawn move detected\n";
@@ -48,7 +48,7 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
             return true;
         }
         if (board.lastMoveWasTwoSquarePawnMove && (move.startSquare / 8 == (white ? 4 : 5)) &&
-            std::abs(endCol - startCol) == 1) { //I think it should be white ? 4 : 5
+            std::abs(endCol - startCol) == 1) { 
             std::cout << "enPassant detected\n";
             int targetSquare = move.endSquare - (8 * direction); //Targeted pawn square
             Bitboard targetPawn = 1ULL << targetSquare;

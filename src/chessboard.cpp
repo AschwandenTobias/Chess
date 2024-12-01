@@ -61,7 +61,10 @@ void Chessboard::makeMove(Move move) {
         blackPieces |= endMask;
     }
     occupiedSquares = whitePieces | blackPieces;
-
+    //Now remove the enemy piece correctly for en passant. TODO: improve for efficiency
+    if(std::abs(move.endSquare - move.startSquare) == 9 && move.movedPiece == Piece::WHITE_PAWN) {
+        
+    }
     if(move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::BLACK_PAWN) {
         if(std::abs(move.endSquare - move.startSquare) == 16) {
             lastMoveWasTwoSquarePawnMove = true;
