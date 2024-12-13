@@ -2,6 +2,40 @@
 #include <iostream>
 #include "King.h"
 
+bool Knight::isKnightMoveLegal(Chessboard &board, Move move, bool white) {
+    Bitboard from = (1ULL << move.startSquare);
+    Bitboard to = (1ULL << move.endSquare);
+    if(move.endSquare < 0 || move.endSquare > 63) return false;
+    if(white) {
+        if(!board.checkIfWhiteKnightIsOnSquare(from)) return false;
+    } else {
+        if(!board.checkIfBlackKnightIsOnSquare(from)) return false;
+    }
+    int startRow = move.startSquare / 8;
+    int endRow = move.endSquare / 8;
+    int startCol = move.startSquare % 8;
+    int endCol =  move.endSquare % 8;
+    if(((std::abs(endRow - startRow) == 2) && (std::abs(endCol - startCol) == 1)) || ((std::abs(endRow - startRow) == 1) && (std::abs(endCol - startCol) == 2))) {
+        if(white) {
+            if(board.checkIfWhitePieceIsOnSquare(to)) {
+                return false;
+            } else {
+                if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, true)) return false;
+                return true;
+            }
+        } else {
+            if(board.checkIfBlackPieceIsOnSquare(to)) {
+                return false;
+            } else {
+                if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, false)) return false;
+                return true;
+            }
+        }
+    } else {    
+        return false;
+    }
+}
+
 std::vector<std::pair<int, int>> Knight::getAllPossibleKnightMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     int possibleKnightMoves[8] = {10, 17, 15, 6, -6, -15, -17, -10};

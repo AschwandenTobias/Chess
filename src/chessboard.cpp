@@ -84,6 +84,8 @@ void Chessboard::makeMove(Move move) {
     } else {
         lastMoveWasTwoSquarePawnMove = false;
     }
+
+    //TODO: write function that updates own pinned pieces here.
 }
 
 std::vector<std::pair<int, int>> Chessboard::generateAllPossibleMoves(bool white) {

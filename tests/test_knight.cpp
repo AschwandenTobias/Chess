@@ -2,6 +2,8 @@
 #include "chessboard.h"
 #include "pieces/knight.h"
 #include "game.h"
+#include "move.h"
+#include "piece.h"
 
 TEST(KnightTest, InitialKinghtPositionsAndMoves) {
     Chessboard board;
@@ -76,4 +78,12 @@ TEST(KnightTest, getAllPossibleKnightMoves_startingSquares) {
     std::vector<std::pair<int, int>> shouldSquaresBlack = {{57, 42}, {57, 40}, {62, 47}, {62, 45}};
     ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
     ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
+}
+
+TEST(FullKnightTest, movingKnights) {
+    Game game;
+    Move move1(1, 18, Piece::WHITE_KNIGHT);
+    ASSERT_TRUE(Knight::isKnightMoveLegal(game.board, move1, true));
+    game.board.makeMove(move1);
+    game.board.printBoard();
 }
