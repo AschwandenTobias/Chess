@@ -51,26 +51,20 @@ void Chessboard::makeMove(Move move) {
     bool white = move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::WHITE_ROOK || move.movedPiece == Piece::WHITE_BISHOP || move.movedPiece == Piece::WHITE_KNIGHT || move.movedPiece == Piece::WHITE_QUEEN || move.movedPiece == Piece::WHITE_KING;
     Bitboard startMask  = (1ULL << move.startSquare);
     Bitboard endMask = (1ULL << move.endSquare);
-    deletePiece(move.startSquare);
-    setPiece(move.endSquare, move.movedPiece);
+    deletePiece(move.startSquare); //Efficiency?
+    deletePiece(move.endSquare); //Efficiency?
+    setPiece(move.endSquare, move.movedPiece); //Efficiency?
     if(white) {
         whitePieces &= ~startMask;
         whitePieces |= endMask;
     } else {
         blackPieces &= ~startMask;
         blackPieces |= endMask;
-    }
+    }  
     occupiedSquares = whitePieces | blackPieces;
-    if(move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::BLACK_PAWN) {
-        if(std::abs(move.endSquare - move.startSquare) == 16) {
-            lastMoveWasTwoSquarePawnMove = true;
-        } else {
-            lastMoveWasTwoSquarePawnMove = false;
-        }
-    } else {
-        lastMoveWasTwoSquarePawnMove = false;
-    }
-    //Now remove the enemy piece correctly for en passant. TODO: improve for efficiency
+
+    //Efficiency?
+    std::cout << "Distance: " << std::abs(move.endSquare - move.startSquare) << ", lastMoveWasTwoSquarePawnMove: " << lastMoveWasTwoSquarePawnMove << "\n";
     if((std::abs(move.endSquare - move.startSquare) == 9 || std::abs(move.endSquare - move.startSquare) == 7) && move.movedPiece == Piece::WHITE_PAWN && lastMoveWasTwoSquarePawnMove) {
         deletePiece(move.endSquare - 8);
         Bitboard blackPawnSquare = (1ULL << (move.endSquare - 8));
@@ -79,6 +73,16 @@ void Chessboard::makeMove(Move move) {
         deletePiece(move.endSquare + 8);
         Bitboard whitePawnSquare = (1ULL << (move.endSquare + 8));
         whitePieces &= ~whitePawnSquare;
+    }
+
+    if(move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::BLACK_PAWN) {
+        if(std::abs(move.endSquare - move.startSquare) == 16) {
+            lastMoveWasTwoSquarePawnMove = true;
+        } else {
+            lastMoveWasTwoSquarePawnMove = false;
+        }
+    } else {
+        lastMoveWasTwoSquarePawnMove = false;
     }
 }
 
