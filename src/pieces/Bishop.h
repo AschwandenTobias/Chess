@@ -8,6 +8,7 @@ typedef uint64_t Bitboard;
 
 class Bishop {
 public:    
+    static bool isBishopMoveLegal(Chessboard &board, Move move, bool white);
     static void moveWhiteBishop(Chessboard &board, int startSquare, int endSquare);
     static bool isWhiteBishopMoveLegal(Chessboard &board, int startSquare, int endSquare);    
     static void moveBlackBishop(Chessboard &board, int startSquare, int endSquare);

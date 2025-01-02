@@ -10,6 +10,11 @@
 #include "../chessboard.h"
 #include <algorithm>
 
+
+bool King::isKingMoveLegal(Chessboard &board, Move move, bool white) {
+    return true;
+}
+
 std::vector<std::pair<int, int>> King::getAllPossibleKingMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves = generateAllPossibleKingMoves(board, white);
     if(white) {

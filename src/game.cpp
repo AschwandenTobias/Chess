@@ -9,6 +9,8 @@
 #include "pieces/Rook.h"
 #include "pieces/King.h"
 #include "engines/randomEngine.h"
+#include "move.h"
+#include "piece.h"
 
 Game::Game() {
     IsCheckmate = false;
@@ -64,9 +66,10 @@ void Game::startRandomEnginePlayingItself() {
 
         int startSquare = randomMove.first;
         int endSquare = randomMove.second;
-
+        Piece piece = board.getPieceAtSquare(startSquare);
+        Move move(startSquare, endSquare, piece);
         if (isMoveValid(startSquare, endSquare)) {
-            makeMove(startSquare, endSquare);
+            makeMove(move);
             moveHistory.push_back({startSquare, endSquare});
             whiteTurn = !whiteTurn; 
         }
@@ -106,10 +109,11 @@ void Game::startRandomEngine(bool userIsWhite) {
 
             int startSquare = translateMove(move.substr(0, 2));
             int endSquare = translateMove(move.substr(2, 3));
-
+            Piece piece = board.getPieceAtSquare(startSquare);
+            Move move(startSquare, endSquare, piece);
             if (isMoveValid(startSquare, endSquare)) {
                 moveHistory.push_back({startSquare, endSquare});
-                makeMove(startSquare, endSquare);  
+                makeMove(move);  
                 whiteTurn = !whiteTurn;
             } else {
                 std::cout << "Invalid move input by player. Try again.\n";
@@ -123,10 +127,11 @@ void Game::startRandomEngine(bool userIsWhite) {
             std::cout << "Random Engine move: " << randomMove.first << ", " << randomMove.second << "\n";
             int startSquare = randomMove.first;
             int endSquare = randomMove.second;
-
+            Piece piece = board.getPieceAtSquare(startSquare);
+            Move move(startSquare, endSquare, piece);
             if (isMoveValid(startSquare, endSquare)) {
                 moveHistory.push_back({startSquare, endSquare});
-                makeMove(startSquare, endSquare); 
+                makeMove(move); 
                 whiteTurn = !whiteTurn;  
             }
         }
@@ -166,11 +171,13 @@ void Game::start(const std::vector<std::string>& moves) {
 
         int startSquare = translateMove(move.substr(0, 2));
         int endSquare = translateMove(move.substr(2, 3));
+        Piece piece = board.getPieceAtSquare(startSquare);
+        Move move2(startSquare, endSquare, piece);
         std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
             //std::cout << "Game::Move was valid \n";
-            makeMove(startSquare, endSquare);
+            makeMove(move2);
             moveHistory.push_back({startSquare, endSquare});
             whiteTurn = !whiteTurn;
             if(checkGameOver()) {
@@ -227,25 +234,11 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         std::cout << "Not your own piece!\n";
         return false;
     }
-    /*Chessboard::Piece capturedPiece = board.getPieceAtSquare(endSquare);
-    board.deletePiece(endSquare);
-    board.setPiece(endSquare, piece);  
-    board.deletePiece(startSquare);  
-
-    bool kingStillSafe = whiteTurn ? !King::isWhiteKingInCheck(board) : !King::isBlackKingInCheck(board);
-
-    board.setPiece(startSquare, piece); 
-    board.deletePiece(endSquare);
-    if (capturedPiece != Chessboard::EMPTY) board.setPiece(endSquare, capturedPiece); 
-
-    if (!kingStillSafe) {
-        std::cout << "Move would put king in check. Invalid.\n";
-        return false;
-    }*/
+   Move move(startSquare, endSquare, piece);
     switch (piece)
     {
     case Piece::WHITE_PAWN:
-        return Pawn::isWhitePawnMoveLegal(board, startSquare, endSquare);
+        return Pawn::isPawnMoveLegal(board, move, whiteTurn);
         break;
     case Piece::WHITE_KNIGHT:
         return Knight::isWhiteKnightMoveLegal(board, startSquare, endSquare);
@@ -268,7 +261,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return King::isWhiteKingMoveLegal(board, startSquare, endSquare);
         break;
     case Piece::BLACK_PAWN:
-        return Pawn::isBlackPawnMoveLegal(board, startSquare, endSquare);
+        return Pawn::isPawnMoveLegal(board, move, whiteTurn);
         break;
     case Piece::BLACK_KNIGHT:
         return Knight::isBlackKnightMoveLegal(board, startSquare, endSquare);
@@ -358,70 +351,14 @@ void Game::promoteWhitePawn(int endSquare) {
 }
 
 
-void Game::makeMove(int startSquare, int endSquare) {
-    Piece piece = board.getPieceAtSquare(startSquare);
+void Game::makeMove(Move move) {
+    Piece piece = board.getPieceAtSquare(move.startSquare);
     if (piece == Piece::EMPTY) {
         std::cout << "No piece at the starting square!\n";
         return; 
     }
-    switch (piece) {
-        case Piece::WHITE_PAWN:
-            Pawn::moveWhitePawn(board, startSquare, endSquare);
-            if(checkIfWhitePawnPromotes(endSquare)) {
-                promoteWhitePawn(endSquare);
-            }
-            break;
-        case Piece::WHITE_KNIGHT:
-            Knight::moveWhiteKnight(board, startSquare, endSquare);
-            break;
-        case Piece::WHITE_BISHOP:
-            Bishop::moveWhiteBishop(board, startSquare, endSquare);
-            break;
-        case Piece::WHITE_ROOK:
-            Rook::moveWhiteRook(board, startSquare, endSquare);
-            break;
-        case Piece::WHITE_QUEEN:
-            Queen::moveWhiteQueen(board, startSquare, endSquare);
-            break;
-        case Piece::WHITE_KING:
-            if(startSquare == 3 && endSquare == 0) {
-                King::castleWhiteKing(board, startSquare, endSquare);
-            } else if(startSquare == 3 && endSquare == 7) {
-                King::castleWhiteKing(board, startSquare, endSquare);
-            }
-            King::moveWhiteKing(board, startSquare, endSquare);
-            break;
-        case Piece::BLACK_PAWN:
-            Pawn::moveBlackPawn(board, startSquare, endSquare);
-            if(checkIfBlackPawnPromotes(endSquare)) {
-                promoteBlackPawn(endSquare);
-            }
-            break;
-        case Piece::BLACK_KNIGHT:
-            Knight::moveBlackKnight(board, startSquare, endSquare);
-            break;
-        case Piece::BLACK_BISHOP:
-            Bishop::moveBlackBishop(board, startSquare, endSquare);
-            break;
-        case Piece::BLACK_ROOK:
-            Rook::moveBlackRook(board, startSquare, endSquare);
-            break;
-        case Piece::BLACK_QUEEN:
-            Queen::moveBlackQueen(board, startSquare, endSquare);
-            break;
-        case Piece::BLACK_KING:
-            //std::cout << "Game::startSquare: " << startSquare << ", endSquare: " << endSquare << "\n";
-            if(startSquare == 59 && endSquare == 0) {
-                King::castleBlackKing(board, startSquare, endSquare);
-            } else if (startSquare == 59 && endSquare == 7) {
-                King::castleBlackKing(board, startSquare, endSquare);
-            }
-            King::moveBlackKing(board, startSquare, endSquare);
-            break;
-        default:
-            std::cout << "Unknown piece type!" << std::endl;
-            return;
-    }
+    move.movedPiece = piece;
+    this->makeMove(move);
 }
 
 //Now only checks for checkmate, not stalemate/draw etc

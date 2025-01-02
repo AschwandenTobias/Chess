@@ -8,6 +8,7 @@ typedef uint64_t Bitboard;
 
 class Rook {
 public:    
+    static bool isRookMoveLegal(Chessboard &board, Move move, bool white);
     static void moveWhiteRook(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackRook(Chessboard &board, int startSquare, int endSquare);
     static bool isWhiteRookMoveLegal(Chessboard &board, int startSquare, int endSquare);

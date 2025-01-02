@@ -7,7 +7,8 @@
 typedef uint64_t Bitboard;
 
 class Queen {
-public:    
+public:   
+    static bool isQueenMoveLegal(Chessboard &board, Move move, bool white);
     static void moveWhiteQueen(Chessboard &board, int startSquare, int endSquare);
     static bool isWhiteQueenMoveLegal(Chessboard &board, int startSquare, int endSquare);
     static void moveBlackQueen(Chessboard &board, int startSquare, int endSquare);

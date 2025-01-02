@@ -4,6 +4,10 @@
 #include <iostream>
 #include "King.h"
 
+bool Queen::isQueenMoveLegal(Chessboard &board, Move move, bool white) {
+    return true;
+}
+
 std::vector<std::pair<int, int>> Queen::getAllPossibleQueenMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     int queenDirections[8] = {8, -8, 1, -1, 7, -7, 9, -9};

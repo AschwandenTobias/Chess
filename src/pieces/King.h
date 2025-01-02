@@ -6,6 +6,7 @@
 typedef uint64_t Bitboard;
 class King {
 public:
+    static bool isKingMoveLegal(Chessboard &board, Move move, bool white);
     static std::vector<std::pair<int, int>> generateAllPossibleKingMoves(Chessboard &board, bool white);
     static void moveWhiteKing(Chessboard &board, int startSquare, int endSquare);
     static bool isWhiteKingMoveLegal(Chessboard &board, int startSquare, int endSquare);

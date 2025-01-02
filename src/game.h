@@ -25,7 +25,7 @@ public:
 
     bool isCheckmate();
     bool isMoveValid(int startSquare, int endSquare);
-    void makeMove(int startSquare, int endSquare);
+    void makeMove(Move move);
     bool checkGameOver();
     int translateMove(std::string);
     bool checkIfWhitePawnPromotes(int endSquare);

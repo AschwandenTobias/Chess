@@ -3,6 +3,10 @@
 #include <vector>
 #include "King.h"
 
+bool Bishop::isBishopMoveLegal(Chessboard &board, Move move, bool white) {
+    return true;
+}
+
 std::vector<std::pair<int, int>> Bishop::getAllPossibleBishopMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     Bitboard bishops = white ? board.whiteBishops : board.blackBishops;

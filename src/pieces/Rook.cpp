@@ -2,6 +2,10 @@
 #include <iostream>
 #include "King.h"
 
+bool Rook::isRookMoveLegal(Chessboard &board, Move move, bool white) {
+    return true;
+}
+
 std::vector<std::pair<int, int>> Rook::getAllPossibleRookMoves(Chessboard &board, bool white) {
     std::vector<std::pair<int, int>> possibleMoves;
     Bitboard rooks = white ? board.whiteRooks : board.blackRooks;
