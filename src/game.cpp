@@ -173,11 +173,13 @@ void Game::start(const std::vector<std::string>& moves) {
         int endSquare = translateMove(move.substr(2, 3));
         Piece piece = board.getPieceAtSquare(startSquare);
         Move move2(startSquare, endSquare, piece);
-        std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
+        std::cout << "Did generate the move. StartSquare" << move2.startSquare << "\n";
+        //std::cout << "StartSquare: " << startSquare << ", EndSquare: " << endSquare << "\n";
 
         if (isMoveValid(startSquare, endSquare)) {
-            //std::cout << "Game::Move was valid \n";
+            std::cout << "Game::Move was valid. Before makeMove \n";
             makeMove(move2);
+            std::cout << "After makeMove \n";
             moveHistory.push_back({startSquare, endSquare});
             whiteTurn = !whiteTurn;
             if(checkGameOver()) {
@@ -238,6 +240,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
     switch (piece)
     {
     case Piece::WHITE_PAWN:
+    std::cout << "White pawn detected \n";
         return Pawn::isPawnMoveLegal(board, move, whiteTurn);
         break;
     case Piece::WHITE_KNIGHT:
@@ -261,6 +264,7 @@ bool Game::isMoveValid(int startSquare, int endSquare) {
         return King::isWhiteKingMoveLegal(board, startSquare, endSquare);
         break;
     case Piece::BLACK_PAWN:
+    std::cout << "Black pawn detected \n";
         return Pawn::isPawnMoveLegal(board, move, whiteTurn);
         break;
     case Piece::BLACK_KNIGHT:
@@ -358,7 +362,7 @@ void Game::makeMove(Move move) {
         return; 
     }
     move.movedPiece = piece;
-    this->makeMove(move);
+    board.makeMove(move);
 }
 
 //Now only checks for checkmate, not stalemate/draw etc

@@ -8,6 +8,7 @@
 
 //Function that checks if a pawn move is legal
 //Doesnt take promotions into account (check that on the game level). Doesnt check (for now) for en passant.
+//Has issues with black Pawn moves?
 bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     Bitboard emptySquares = ~(board.whitePieces | board.blackPieces);
     //board.printBitboard(emptySquares);

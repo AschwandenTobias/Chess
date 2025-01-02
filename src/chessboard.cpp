@@ -49,6 +49,7 @@ Chessboard::Chessboard() {
 //TODO: finish this so it works for every move. Also is not very efficient since piece deleting checks every bitboard instead of just the correct one
 void Chessboard::makeMove(Move move) {
     bool white = move.movedPiece == Piece::WHITE_PAWN || move.movedPiece == Piece::WHITE_ROOK || move.movedPiece == Piece::WHITE_BISHOP || move.movedPiece == Piece::WHITE_KNIGHT || move.movedPiece == Piece::WHITE_QUEEN || move.movedPiece == Piece::WHITE_KING;
+    std::cout << "Is it a white turn: " << white << "\n";
     Bitboard startMask  = (1ULL << move.startSquare);
     Bitboard endMask = (1ULL << move.endSquare);
     deletePiece(move.startSquare); //Efficiency?
