@@ -26,7 +26,12 @@ bool Pawn::isPawnMoveLegal(Chessboard &board, Move move, bool white) {
     //board.printBitboard(endBitboard);
     //board.printBitboard(enemySquares);
     if(move.startSquare < 0 || move.startSquare > 63 || move.endSquare < 0 || move.endSquare > 63) return false;
-    if(!board.checkIfWhitePawnIsOnSquare(startSquare)) return false;
+    if(white) {
+        if(!board.checkIfWhitePawnIsOnSquare(startSquare)) return false;
+    } else {
+        if(!board.checkIfBlackPawnIsOnSquare(startSquare)) return false;
+    }
+    //std::cout << "Before we check if its a standart Pawn move\n";
     if(move.endSquare == move.startSquare + (8 * direction) && (emptySquares & endBitboard)) {
         //std::cout << "Standart Pawn move detected\n";
         if(King::doesTmpMovePutMeInCheck(board, move.startSquare, move.endSquare, white)) return false;

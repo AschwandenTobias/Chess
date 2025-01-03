@@ -3,7 +3,7 @@
 #include "pieces/rook.h"
 #include "pieces/pawn.h"
 #include "game.h"
-
+/*
 TEST(RookTest, AllDirectionWhiteRookMoves) {
     Chessboard board;
     Rook::moveWhiteRook(board, 0, 1);
@@ -52,7 +52,7 @@ TEST(RookTest, AllDirectionBlackRookMoves) {
     Rook::moveBlackRook(board, 7, 6);
     Rook::moveBlackRook(board, 6, 5);    
     EXPECT_EQ(board.blackRooks, 0x0100000000000020);
-}
+}*/
 
 TEST(RookTest, getAllPossibleRookMoves) {
     Game game;

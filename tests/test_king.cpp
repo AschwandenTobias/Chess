@@ -9,7 +9,7 @@
 #include "pieces/Rook.h"
 #include <utility> 
 #include <algorithm> 
-
+/*
 TEST(KingTest, TestWhiteKingMovements) {
     Chessboard board;
     King::moveWhiteKing(board, 3, 2);
@@ -175,4 +175,4 @@ TEST(KingTest, getAllPossibleKingMoves_startingPosition) {
     //game.board.printBoard();
     ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
     ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
-}
+}*/

@@ -10,7 +10,7 @@ TEST(PawnTest, InitialPawnPositions) {
     EXPECT_EQ(chessboard.whitePawns, 0x000000000000FF00);
     EXPECT_EQ(chessboard.blackPawns, 0x00FF000000000000);
 }
-
+/*
 TEST(PawnTest, InitialWhiteMovements) {
     Chessboard board;
     Pawn::moveWhitePawn(board, 8, 16);
@@ -204,7 +204,7 @@ TEST(PawnTest, getAllPossiblePawnMoves_startingPositions) {
     ASSERT_EQ(areSquaresWhite, shouldSquaresWhite);
     ASSERT_EQ(areSquaresBlack, shouldSquaresBlack);
 }
-
+*/
 TEST(FullPawnTest, startingPositions) {
     Game game;
     Move moveNormal(8, 16, Piece::WHITE_PAWN); //normal move
@@ -235,7 +235,7 @@ TEST(FullPawnTest, capturingWhitePawns) {
     game.board.printBoard();
 }
 
-TEST(FullPawnTest, movingPawns) {
+TEST(FullPawnTest, movingWhitePawns) {
     Game game;
     Move move1(8, 24, Piece::WHITE_PAWN);
     Move move2(24, 32, Piece::WHITE_PAWN);

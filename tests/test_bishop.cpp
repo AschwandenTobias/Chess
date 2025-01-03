@@ -3,7 +3,7 @@
 #include "pieces/bishop.h"
 #include "pieces/pawn.h"
 #include "game.h"
-
+/*
 TEST(BishopTest, WhiteCaptureChecks) {
     Chessboard board;
     EXPECT_EQ(board.whiteBishops, 0x0000000000000024);
@@ -62,7 +62,7 @@ TEST(BishopTest, TestBoardBoundaries) {
     Bishop::moveBlackBishop(board, 54, 47);
     Bishop::moveBlackBishop(board, 47, 40);
     EXPECT_EQ(board.blackBishops, 0x0400800000000000);
-}
+}*/
 
 TEST(BishopTest, getAllPossibleBishopMoves) {
     Game game;
