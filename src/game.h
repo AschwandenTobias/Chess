@@ -4,6 +4,8 @@
 class Game {
 public:
     Game(int difficultyLevel = 1);
+    bool isCheckmate;
+    
 };
 
 #endif
