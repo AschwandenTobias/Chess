@@ -3,5 +3,6 @@
 
 Game::Game(int difficultyLevel) {
     isCheckmate = false;
-    std::cout << difficultyLevel;
+    //std::cout << difficultyLevel;
+
 }
