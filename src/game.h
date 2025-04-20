@@ -8,6 +8,8 @@ public:
     Game(int difficultyLevel = 1);
     bool isCheckmate;
     Chessboard board;
+
+    void startGame();
     
 };
 

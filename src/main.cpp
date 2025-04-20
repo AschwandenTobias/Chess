@@ -9,6 +9,7 @@ int main() {
     if(x == 1) {
         std::cout << "A new game will now be started\n";
         Game game;
+        game.startGame();
     } else {
         std::cout << "Unrecognized user input :(\n";
     }

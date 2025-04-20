@@ -8,6 +8,6 @@ public:
     Chessboard();
     Position position;
     
-    std::string toString() const;
+    void drawBoard() const;
 };
 #endif
