@@ -31,8 +31,8 @@ public:
     uint64_t betweenSquares;
 
     //Maybe for more engine efficiency
-    //uint64_t passedPawns;
-    //uint64_t isolatedPawns;
+    uint64_t passedPawns;
+    uint64_t isolatedPawns;
 
     bool whiteTurn;
 };

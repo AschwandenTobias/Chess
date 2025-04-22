@@ -11,7 +11,7 @@ void Chessboard::drawBoard() const {
     std::cout << "  a b c d e f g h\n"; 
     for (int row = 7; row >= 0; row--) {
         std::cout << std::to_string(row + 1) << " "; 
-        for (int col = 7; col >= 0; col--) {
+        for (int col = 0; col < 8; col++) {
             int currentSquare = 8 * row + col;
             char piece = '.';
             uint64_t mask = 1ULL << currentSquare;
@@ -19,10 +19,9 @@ void Chessboard::drawBoard() const {
             //std::cout << pos.whitePawns;
             //std::cout <<mask;
             bool tmp = pos.whitePawns & mask;
-            std::cout << "Current Square: " << currentSquare << ", bool for whitePawns: " << tmp << "\n";
-            std::cout << "Mask: " << mask << ", pos whitePawns: " << pos.whitePawns << "\n";
-            //if (pos.whitePawns & mask) piece = 'P';
-            /*
+            //std::cout << "Current Square: " << currentSquare << ", bool for whitePawns: " << tmp << "\n";
+            //std::cout << "Mask: " << mask << ", pos whitePawns: " << pos.whitePawns << "\n";
+            if (pos.whitePawns & mask) piece = 'P';
             else if (pos.whiteKnights & mask) piece = 'N';
             else if (pos.whiteRooks & mask) piece = 'R';
             else if (pos.whiteBishops & mask) piece = 'B';
@@ -33,7 +32,7 @@ void Chessboard::drawBoard() const {
             else if (pos.blackBishops & mask) piece = 'b';
             else if (pos.blackRooks & mask) piece = 'r';
             else if (pos.blackQueens & mask) piece = 'q';
-            else if (pos.blackKing & mask) piece = 'k';*/
+            else if (pos.blackKing & mask) piece = 'k';
 
             std::cout << piece << " "; 
         }
