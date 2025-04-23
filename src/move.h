@@ -4,8 +4,12 @@
 struct Move {
     int from;
     int to;
-    char promotion;
-    bool castling;
+    bool isPromotion;
+    char promotionPiece;
+    bool isCastling;
+
+    Move(int from, int to, bool isPromotion = false, char promotionPiece = '\0', bool isCastling = false)
+        : from(from), to(to), promotionPiece(promotionPiece), isPromotion(isPromotion), isCastling(isCastling) {}
 };
 
 #endif

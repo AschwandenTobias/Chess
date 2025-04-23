@@ -26,16 +26,26 @@ void Game::startGame() {
             std::cout << "Move lenght is wrong :(\n\n";
             continue;
         }
+        Move currentMove = parseMove(move);
+
         moveNumber++;
         whiteTurn = !whiteTurn;
         std::cout << "\n";
     }
 }
-
-void Game::parseMove(std::string move) {
-
+//TODO: Finish this
+Move Game::parseMove(std::string move) {
+    int startFile = move[0] - 'a';
+    int startRank = move[1] - '1';
+    int endFile = move[2] - 'a';
+    int endRank = move[3] - '1';
+    int startSquare = 8 * startRank + startFile;
+    int endSquare = 1;
+    Move currentMove(startSquare, endSquare,0 ,  'p', 0);
+    return currentMove;
 }
 
-bool Game::isMoveValid(Move move) {
 
+bool Game::isMoveValid(Move move) {
+    return 0;
 }

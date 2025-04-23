@@ -13,7 +13,7 @@ public:
     Chessboard board;
 
     void startGame();
-    void parseMove(std::string move);
+    Move parseMove(std::string move);
     bool isMoveValid(Move move);
     
 };
