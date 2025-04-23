@@ -1,15 +1,27 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+enum MoveType {
+    NORMAL,
+    CAPTURE,
+    PROMOTION,
+    PROMOTION_CAPTURE,
+    CASTLE_KINGSIDE,
+    CASTLE_QUEENSIDE,
+    EN_PASSANT
+};
+
 struct Move {
     int from;
     int to;
-    bool isPromotion;
+    char movingPiece;
+    char capturedPiece;
     char promotionPiece;
-    bool isCastling;
+    bool whiteTurn;
+    MoveType type;
 
-    Move(int from, int to, bool isPromotion = false, char promotionPiece = '\0', bool isCastling = false)
-        : from(from), to(to), promotionPiece(promotionPiece), isPromotion(isPromotion), isCastling(isCastling) {}
+    Move(int from, int to, char movingPiece, bool whiteTurn, char capturedPiece = '\0', char promotionPiece = '\0', MoveType type = NORMAL)
+        : from(from), to(to), movingPiece(movingPiece), capturedPiece(capturedPiece), promotionPiece(promotionPiece), whiteTurn(whiteTurn), type(type) {}
 };
 
 #endif

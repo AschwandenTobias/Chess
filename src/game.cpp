@@ -10,7 +10,6 @@ Game::Game(int difficultyLevel) {
     //std::cout << difficultyLevel;
 
 }
-
 void Game::startGame() {
     std::cout << "Starting game!\n";
     while(!isCheckmate && !isDraw) {
@@ -27,7 +26,12 @@ void Game::startGame() {
             continue;
         }
         Move currentMove = parseMove(move);
-
+        //TODO: Finish prints
+        std::cout << "StartSquare of the current move: " << currentMove.from << "\n";
+        std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
+        std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
+        std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
+        std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
         moveNumber++;
         whiteTurn = !whiteTurn;
         std::cout << "\n";
@@ -40,8 +44,8 @@ Move Game::parseMove(std::string move) {
     int endFile = move[2] - 'a';
     int endRank = move[3] - '1';
     int startSquare = 8 * startRank + startFile;
-    int endSquare = 1;
-    Move currentMove(startSquare, endSquare,0 ,  'p', 0);
+    int endSquare = 8 * endRank + endFile;
+    Move currentMove(startSquare, endSquare, 0, 0 , 'p', 0);
     return currentMove;
 }
 
