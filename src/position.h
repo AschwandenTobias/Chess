@@ -2,6 +2,8 @@
 #define POSITION_H
 #include <cstdint>
 
+#include "piece.h"
+
 class Position {
 public:
     Position();
@@ -36,7 +38,7 @@ public:
 
     bool whiteTurn;
     bool isOccupied(int square) const;
-    bool isWhitePawn(int square) const;
+    bool isPieceAt(int square, PieceType piece) const;
     bool isOccupiedByWhitePiece(int square) const;
     bool isOccupiedByBlackPiece(int square) const;
 };

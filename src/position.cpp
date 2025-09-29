@@ -38,9 +38,35 @@ bool Position::isOccupied(int square) const {
     return (occupiedSquares & mask) != 0;
 }
 
-bool Position::isWhitePawn(int square) const {
+bool Position::isPieceAt(int square, PieceType piece) const {
     uint64_t mask = 1ULL << square;
-    return (whitePawns & mask) != 0;
+    switch(piece) {
+        case PieceType::WhitePawn:
+            return (whitePawns & mask) != 0;
+        case PieceType::WhiteKnight:
+            return (whiteKnights & mask) != 0;
+        case PieceType::WhiteBishop:
+            return (whiteBishops & mask) != 0;
+        case PieceType::WhiteRook:
+            return (whiteRooks & mask) != 0;
+        case PieceType::WhiteQueen:
+            return (whiteQueens & mask) != 0;
+        case PieceType::WhiteKing:
+            return (whiteKing & mask) != 0;
+        case PieceType::BlackPawn:
+            return (blackPawns & mask) != 0;
+        case PieceType::BlackKnight:
+            return (blackKnights & mask) != 0;
+        case PieceType::BlackBishop:
+            return (blackBishops & mask) != 0;
+        case PieceType::BlackRook:
+            return (blackRooks & mask) != 0;
+        case PieceType::BlackQueen:
+            return (blackQueens & mask) != 0;
+        case PieceType::BlackKing:
+            return (blackKing & mask) != 0;
+    }
+    return false;
 }
 
 bool Position::isOccupiedByWhitePiece(int square) const {
