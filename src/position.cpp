@@ -33,7 +33,22 @@ Position::Position() {
     whiteTurn = true;
 }
 
-bool Position::isOccupied(int square) {
+bool Position::isOccupied(int square) const {
     uint64_t mask = 1ULL << square;
-    return occupiedSquares & mask != 0;
+    return (occupiedSquares & mask) != 0;
+}
+
+bool Position::isWhitePawn(int square) const {
+    uint64_t mask = 1ULL << square;
+    return (whitePawns & mask) != 0;
+}
+
+bool Position::isOccupiedByWhitePiece(int square) const {
+    uint64_t mask = 1ULL << square;
+    return (whiteOccupied & mask) != 0;
+}
+
+bool Position::isOccupiedByBlackPiece(int square) const {
+    uint64_t mask = 1ULL << square;
+    return (blackOccupied & mask) != 0;
 }

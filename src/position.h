@@ -35,7 +35,10 @@ public:
     uint64_t isolatedPawns;
 
     bool whiteTurn;
-    bool isOccupied(int square);
+    bool isOccupied(int square) const;
+    bool isWhitePawn(int square) const;
+    bool isOccupiedByWhitePiece(int square) const;
+    bool isOccupiedByBlackPiece(int square) const;
 };
 
 #endif
