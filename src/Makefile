@@ -4,16 +4,15 @@ CXXFLAGS = -Wall -g
 
 TARGET = chess
 
-SRCS = main.cpp game.cpp chessboard.cpp position.cpp
-
+SRCS = main.cpp game.cpp chessboard.cpp position.cpp pieces/pawn.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-
+# Pattern rule for objects in any folder
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 
 clean:

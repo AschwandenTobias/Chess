@@ -35,6 +35,7 @@ public:
     uint64_t isolatedPawns;
 
     bool whiteTurn;
+    bool isOccupied(int square);
 };
 
 #endif

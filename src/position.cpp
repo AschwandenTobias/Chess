@@ -32,3 +32,8 @@ Position::Position() {
 
     whiteTurn = true;
 }
+
+bool Position::isOccupied(int square) {
+    uint64_t mask = 1ULL << square;
+    return occupiedSquares & mask != 0;
+}

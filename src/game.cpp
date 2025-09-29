@@ -55,6 +55,7 @@ Move Game::parseMove(std::string move) {
     return currentMove;
 }
 
+//TODO: Finish this
 bool Game::isMoveValid(Move move) {
     return 0;
 }
