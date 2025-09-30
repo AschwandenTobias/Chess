@@ -7,7 +7,7 @@
 
 class Pawn {
 public:
-    static bool isMoveValid(Move move, const Position& position, bool white);
+    static bool isMoveValid(const Move& move, const Position& position, bool white);
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include "pawn.h"
 
 //TODO: Finish this
-bool isMoveValid(const Move& move, const Position& position, bool white) {
+bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     //Check for en passant
     //Check for promotion
     int from = move.from;

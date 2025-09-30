@@ -64,19 +64,24 @@ Move Game::parseMove(std::string move) {
                     PieceType::None,   
                     PieceType::None,  
                     MoveType::NORMAL);
+    return currentMove;
 }
 
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
+//TODO: Complete here everything new piece movement has been added.
 bool Game::isMoveValid(Move move) {
     int from = move.from;
     int to = move.to;
     if(to < 0 || to > 63) return false;
     //TODO: Implement here that the move is correct
-    //if (!Position::isPieceAt(from, move.movingPiece)) return false;
-    //switch(move.movingPiece) {
-      //  case(PieceType::WhitePawn):
-//
-  //  }
+    if (!board.position.isPieceAt(from, move.movingPiece)) return false;
+    switch(move.movingPiece) {
+        case(PieceType::WhitePawn):
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
+        case(PieceType::BlackPawn):
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
+    }
+    return false; 
 }
 
 //TODOL: Implement this, dont forget to update all important bitboards

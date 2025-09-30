@@ -2,6 +2,7 @@
 #define GAME_H
 #include "chessboard.h"
 #include "move.h"
+#include "pieces/pawn.h"
 
 class Game {
 public:
