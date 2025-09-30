@@ -58,25 +58,34 @@ Move Game::parseMove(std::string move) {
     int endRank = move[3] - '1';
     int startSquare = 8 * startRank + startFile;
     int endSquare = 8 * endRank + endFile;
-    //Now setting up the correct piece Type
+    //Now setting up the correct piece Types
+    PieceType movingPiece = board.position.getPieceAt(startSquare);
+    PieceType capturedPiece = board.position.getPieceAt(endSquare);
+
+    //Checking for promotion
+    bool isPromotion = false;
+    MoveType moveType = MoveType::NORMAL;
+    if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare <= 56) isPromotion = true;
+    if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
+    if(isPromotion) moveType = MoveType::PROMOTION;
     
-    //This just sets it to random Move for now
     Move currentMove(startSquare, endSquare,
-                    PieceType::None,  
+                    movingPiece,  
                     whiteTurn,         
                     PieceType::None,   
                     PieceType::None,  
-                    MoveType::NORMAL);
+                    moveType);
     return currentMove;
 }
 
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
-//TODO: Complete here everything new piece movement has been added.
+//TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
 bool Game::isMoveValid(Move move) {
     //std::cout << "Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
     if(to < 0 || to > 63) return false;
+    if(from < 0 || from > 63) return false;
     //std::cout << "Move is inside board boundaries \n";
     //TODO: Implement here that the move is correct
     if (!board.position.isPieceAt(from, move.movingPiece)) return false;
@@ -87,11 +96,12 @@ bool Game::isMoveValid(Move move) {
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
         case(PieceType::BlackPawn):
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
+            //TODO: Add here more pieces once implemented
     }
     return false; 
 }
 
-//TODOL: Implement this, dont forget to update all important bitboards.
+//TODO: Implement this, dont forget to update all important bitboards.
 //Always add more cases when new pieces are added. For now only has pawns
 void Game::makeMove(Move move) {
     uint64_t fromMask = 1ULL << move.from;
