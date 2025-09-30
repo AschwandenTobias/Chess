@@ -1,6 +1,8 @@
 #ifndef MOVE_H
 #define MOVE_H
 
+#include "piece.h"
+
 enum MoveType {
     NORMAL,
     CAPTURE,
@@ -14,14 +16,22 @@ enum MoveType {
 struct Move {
     int from;
     int to;
-    char movingPiece;
-    char capturedPiece;
-    char promotionPiece;
+    PieceType movingPiece;
+    PieceType capturedPiece;
+    PieceType promotionPiece;
     bool whiteTurn;
     MoveType type;
 
-    Move(int from, int to, char movingPiece, bool whiteTurn, char capturedPiece = '\0', char promotionPiece = '\0', MoveType type = NORMAL)
-        : from(from), to(to), movingPiece(movingPiece), capturedPiece(capturedPiece), promotionPiece(promotionPiece), whiteTurn(whiteTurn), type(type) {}
-};
+    Move(int from, int to, PieceType movingPiece, bool whiteTurn,
+         PieceType capturedPiece = PieceType::None,
+         PieceType promotionPiece = PieceType::None,
+         MoveType type = MoveType::NORMAL)
+        : from(from),
+          to(to),
+          movingPiece(movingPiece),
+          capturedPiece(capturedPiece),
+          promotionPiece(promotionPiece),
+          whiteTurn(whiteTurn),
+          type(type) {}};
 
 #endif

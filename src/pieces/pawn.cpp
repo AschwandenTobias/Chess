@@ -7,11 +7,6 @@ bool isMoveValid(const Move& move, const Position& position, bool white) {
     //Check for promotion
     int from = move.from;
     int to = move.to;
-    if(white) {
-        if(!position.isPieceAt(from, PieceType::WhitePawn)) return false;
-    } else {
-        if(!position.isPieceAt(from, PieceType::BlackPawn)) return false;
-    }
     int distance = to - from;
     if(white) {
         if(distance == 8 && !position.isOccupied(to)) return true;

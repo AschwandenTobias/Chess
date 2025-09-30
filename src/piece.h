@@ -2,6 +2,7 @@
 #define PIECE_H
 
 enum class PieceType {
+    None,
     WhitePawn, WhiteKnight, WhiteBishop, WhiteRook, WhiteQueen, WhiteKing,
     BlackPawn, BlackKnight, BlackBishop, BlackRook, BlackQueen, BlackKing
 };

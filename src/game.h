@@ -15,6 +15,7 @@ public:
     void startGame();
     Move parseMove(std::string move);
     bool isMoveValid(Move move);
+    void makeMove(Move move);
     void makeTurn();
 };
 
