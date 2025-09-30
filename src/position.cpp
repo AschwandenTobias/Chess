@@ -1,7 +1,7 @@
 #include "position.h"
 
 Position::Position() {
-   //The basic pieces
+    //The pieces themselves
    whitePawns = 0x000000000000FF00ULL;
    whiteKnights = 0x0000000000000042ULL;
    whiteBishops = 0x0000000000000024ULL;
@@ -15,7 +15,7 @@ Position::Position() {
    blackQueens = 0x0800000000000000ULL;
    blackKing = 0x1000000000000000ULL;
 
-   //More advanced Bitboards. TODO: Finish setting them up
+   //Additional Bitboards. TODO: Finish setting them up
    whiteOccupied = whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens  | whiteKing;
    blackOccupied = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens  | blackKing;
    occupiedSquares = whiteOccupied | blackOccupied;
@@ -26,7 +26,7 @@ Position::Position() {
    rayAttacks = 0x0000000000000000;
    betweenSquares = 0x0000000000000000;
 
-   //Maybe for more engine efficiency
+   //Maybe for more engine efficiency, just some thoughts
    passedPawns = 0x0000000000000000;
    isolatedPawns = 0x0000000000000000;
 
@@ -36,6 +36,16 @@ Position::Position() {
 bool Position::isOccupied(int square) const {
     uint64_t mask = 1ULL << square;
     return (occupiedSquares & mask) != 0;
+}
+
+bool Position::isOccupiedByWhitePiece(int square) const {
+    uint64_t mask = 1ULL << square;
+    return (whiteOccupied & mask) != 0;
+}
+
+bool Position::isOccupiedByBlackPiece(int square) const {
+    uint64_t mask = 1ULL << square;
+    return (blackOccupied & mask) != 0;
 }
 
 bool Position::isPieceAt(int square, PieceType piece) const {
@@ -67,14 +77,4 @@ bool Position::isPieceAt(int square, PieceType piece) const {
             return (blackKing & mask) != 0;
     }
     return false;
-}
-
-bool Position::isOccupiedByWhitePiece(int square) const {
-    uint64_t mask = 1ULL << square;
-    return (whiteOccupied & mask) != 0;
-}
-
-bool Position::isOccupiedByBlackPiece(int square) const {
-    uint64_t mask = 1ULL << square;
-    return (blackOccupied & mask) != 0;
 }

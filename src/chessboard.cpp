@@ -18,7 +18,7 @@ void Chessboard::drawBoard() const {
             //std::cout << "Current square: " << currentSquare << "\n";
             //std::cout << pos.whitePawns;
             //std::cout <<mask;
-            bool tmp = pos.whitePawns & mask;
+            //bool tmp = pos.whitePawns & mask;
             //std::cout << "Current Square: " << currentSquare << ", bool for whitePawns: " << tmp << "\n";
             //std::cout << "Mask: " << mask << ", pos whitePawns: " << pos.whitePawns << "\n";
             if (pos.whitePawns & mask) piece = 'P';
