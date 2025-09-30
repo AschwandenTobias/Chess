@@ -1,3 +1,4 @@
+#include <iostream>
 #include "position.h"
 
 Position::Position() {
@@ -49,9 +50,12 @@ bool Position::isOccupiedByBlackPiece(int square) const {
 }
 
 bool Position::isPieceAt(int square, PieceType piece) const {
+    //std::cout << "Inside Position isPieceAt\n";
     uint64_t mask = 1ULL << square;
+    //std::cout << "Moving mask: " << mask << ", square: " << square << ", PieceType: " << static_cast<int>(piece) << "\n";
     switch(piece) {
         case PieceType::WhitePawn:
+            //std::cout << "White Pawn detected at square\n";
             return (whitePawns & mask) != 0;
         case PieceType::WhiteKnight:
             return (whiteKnights & mask) != 0;

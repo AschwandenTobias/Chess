@@ -70,13 +70,17 @@ Move Game::parseMove(std::string move) {
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
 //TODO: Complete here everything new piece movement has been added.
 bool Game::isMoveValid(Move move) {
+    //std::cout << "Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
     if(to < 0 || to > 63) return false;
+    //std::cout << "Move is inside board boundaries \n";
     //TODO: Implement here that the move is correct
     if (!board.position.isPieceAt(from, move.movingPiece)) return false;
+    //std::cout << "Moving piece is at from square \n";
     switch(move.movingPiece) {
         case(PieceType::WhitePawn):
+            //std::cout << "Wanting to move white pawn \n";
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
         case(PieceType::BlackPawn):
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
@@ -84,7 +88,33 @@ bool Game::isMoveValid(Move move) {
     return false; 
 }
 
-//TODOL: Implement this, dont forget to update all important bitboards
+//TODOL: Implement this, dont forget to update all important bitboards.
+//Always add more cases when new pieces are added. For now only has pawns
 void Game::makeMove(Move move) {
-
+    uint64_t fromMask = 1ULL << move.from;
+    uint64_t toMask   = 1ULL << move.to;
+    //Move piece first
+    switch(move.movingPiece) {
+        case PieceType::WhitePawn:
+            board.position.whitePawns = (board.position.whitePawns & ~fromMask) | toMask;
+            board.position.whiteOccupied = (board.position.whiteOccupied & ~fromMask) | toMask;
+            break;
+        case PieceType::BlackPawn:
+            board.position.blackPawns = (board.position.blackPawns & ~fromMask) | toMask;
+            board.position.blackOccupied = (board.position.blackOccupied & ~fromMask) | toMask;
+            break;
+        //add more pieces once implemented
+    }
+    //Captures next if the move is one
+    if (move.capturedPiece != PieceType::None) {
+        uint64_t capMask = 1ULL << move.to;
+        switch(move.capturedPiece) {
+            case PieceType::WhitePawn:   board.position.whitePawns &= ~capMask; break;
+            case PieceType::BlackPawn:   board.position.blackPawns &= ~capMask; break;
+            //add more pieces once implemented
+        }
+    }
+    //Update other bitboards
+    board.position.occupiedSquares = board.position.whiteOccupied | board.position.blackOccupied;
+    board.position.emptySquares = ~board.position.occupiedSquares;
 }

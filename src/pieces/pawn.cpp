@@ -5,6 +5,7 @@
 bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     //Check for en passant
     //Check for promotion
+    std::cout << "Checking is pawn move is valid \n";
     int from = move.from;
     int to = move.to;
     int distance = to - from;
