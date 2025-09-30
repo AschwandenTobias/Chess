@@ -39,6 +39,7 @@ public:
     bool whiteTurn;
     bool isOccupied(int square) const;
     bool isPieceAt(int square, PieceType piece) const;
+    PieceType getPieceAt(int square);
     bool isOccupiedByWhitePiece(int square) const;
     bool isOccupiedByBlackPiece(int square) const;
 };

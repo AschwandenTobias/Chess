@@ -51,12 +51,15 @@ void Game::makeTurn() {
 }
 //TODO: Finish this. Set all the flags of the move
 Move Game::parseMove(std::string move) {
+    //Sets up first the start and endSquares
     int startFile = move[0] - 'a';
     int startRank = move[1] - '1';
     int endFile = move[2] - 'a';
     int endRank = move[3] - '1';
     int startSquare = 8 * startRank + startFile;
     int endSquare = 8 * endRank + endFile;
+    //Now setting up the correct piece Type
+    
     //This just sets it to random Move for now
     Move currentMove(startSquare, endSquare,
                     PieceType::None,  

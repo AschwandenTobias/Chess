@@ -49,6 +49,24 @@ bool Position::isOccupiedByBlackPiece(int square) const {
     return (blackOccupied & mask) != 0;
 }
 
+PieceType Position::getPieceAt(int square) {
+    uint64_t mask = 1ULL << square;
+    //std::cout << "Moving mask: " << mask << ", square: " << square << ", PieceType: " << static_cast<int>(piece) << "\n";
+    if((mask & whitePawns) != 0) return PieceType::WhitePawn;
+    if((mask & whiteKnights) != 0) return PieceType::WhiteKnight;
+    if((mask & whiteBishops) != 0) return PieceType::WhiteBishop;
+    if((mask & whiteRooks) != 0) return PieceType::WhiteRook;
+    if((mask & whiteQueens) != 0) return PieceType::WhiteQueen;
+    if((mask & whiteKing) != 0) return PieceType::WhiteKing;
+    if((mask & blackPawns) != 0) return PieceType::BlackPawn;
+    if((mask & blackKnights) != 0) return PieceType::BlackKnight;
+    if((mask & blackBishops) != 0) return PieceType::BlackBishop;
+    if((mask & blackRooks) != 0) return PieceType::BlackRook;
+    if((mask & blackQueens) != 0) return PieceType::BlackQueen;
+    if((mask & blackKing) != 0) return PieceType::BlackKing;
+    return PieceType::None;
+}
+
 bool Position::isPieceAt(int square, PieceType piece) const {
     //std::cout << "Inside Position isPieceAt\n";
     uint64_t mask = 1ULL << square;
