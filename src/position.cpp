@@ -100,3 +100,81 @@ bool Position::isPieceAt(int square, PieceType piece) const {
     }
     return false;
 }
+
+void Position::deletePieceAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    switch(getPieceAt(square)) {
+        case(PieceType::WhitePawn): whitePawns &= ~squareToDelete;
+        case(PieceType::BlackPawn): blackPawns &= ~squareToDelete;
+        case(PieceType::WhiteKnight): whiteKnights &= ~squareToDelete;
+        case(PieceType::BlackKnight): blackKnights &= ~squareToDelete;
+        case(PieceType::WhiteBishop): whiteBishops &= ~squareToDelete;
+        case(PieceType::BlackBishop): blackBishops &= ~squareToDelete;
+        case(PieceType::WhiteRook): whiteRooks &= ~squareToDelete;
+        case(PieceType::BlackRook): blackRooks &= ~squareToDelete;
+        case(PieceType::WhiteQueen): whiteQueens &= ~squareToDelete;
+        case(PieceType::BlackQueen): blackQueens &= ~squareToDelete;
+        case(PieceType::WhiteKing): whiteKing &= ~squareToDelete;
+        case(PieceType::BlackKing): blackKing &= ~squareToDelete;
+    }
+}
+
+void Position::deleteWhitePawnAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whitePawns &= ~squareToDelete;
+}
+
+void Position::deleteWhiteBishopAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whiteBishops &= ~squareToDelete;
+}
+
+void Position::deleteWhiteKnightAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whiteKnights &= ~squareToDelete;
+}
+
+void Position::deleteWhiteRookAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whiteRooks &= ~squareToDelete;
+}
+
+void Position::deleteWhiteQueenAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whiteQueens &= ~squareToDelete;
+}
+
+void Position::deleteWhiteKingAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    whiteKing &= ~squareToDelete;
+}
+
+void Position::deleteBlackPawnAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackPawns &= ~squareToDelete;
+}
+
+void Position::deleteBlackBishopAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackBishops &= ~squareToDelete;
+}
+
+void Position::deleteBlackKnightAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackKnights &= ~squareToDelete;
+}
+
+void Position::deleteBlackRookAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackRooks &= ~squareToDelete;
+}
+
+void Position::deleteBlackQueenAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackQueens &= ~squareToDelete;
+}
+
+void Position::deleteBlackKingAt(int square) {
+    uint64_t squareToDelete = 1ULL << square;
+    blackKing &= ~squareToDelete;
+}

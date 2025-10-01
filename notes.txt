@@ -1,2 +1,16 @@
 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 00000000 11111111 00000000 00000000 00000000 00000000 00000000 00000000
+
+TODO next session:
+- Implement helper function in position to delete all enemy pieces, or just the piece at a position.
+- Correctly update the make move functon in game.cpp
+- Fix bug in pawn moves. Pretty sure they can capture diagonally without regard for the board boundaries.
+- Work on perft, for now only pawns to check i have somewhat all pieces.
+- Already implement a first engine that only focuses on pawns.
+- Only then work on more piece implementations.
+
+Issues:
+- Make move doesnt delete pieces properly
+
+Possible improvements:
+- Implement an array with all the pieces inside. Potentionally speeds up piece deletion slightly.

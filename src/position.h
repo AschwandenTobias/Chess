@@ -42,6 +42,20 @@ public:
     PieceType getPieceAt(int square);
     bool isOccupiedByWhitePiece(int square) const;
     bool isOccupiedByBlackPiece(int square) const;
+
+    void deletePieceAt(int square);
+    void deleteWhitePawnAt(int square);
+    void deleteWhiteBishopAt(int square);
+    void deleteWhiteKnightAt(int square);
+    void deleteWhiteRookAt(int square);
+    void deleteWhiteQueenAt(int square);
+    void deleteWhiteKingAt(int square);
+    void deleteBlackPawnAt(int square);
+    void deleteBlackBishopAt(int square);
+    void deleteBlackKnightAt(int square);
+    void deleteBlackRookAt(int square);
+    void deleteBlackQueenAt(int square);
+    void deleteBlackKingAt(int square);
 };
 
 #endif

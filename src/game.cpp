@@ -66,13 +66,13 @@ Move Game::parseMove(std::string move) {
     bool isPromotion = false;
     MoveType moveType = MoveType::NORMAL;
     if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
-
-    if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
+    if(!whiteTurn && movingPiece == PieceType::BlackPawn && endSquare <= 7) isPromotion = true;
     if(isPromotion) moveType = MoveType::PROMOTION;
+    if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
 
     Move currentMove(startSquare, endSquare,
                     movingPiece,  
-                    whiteTurn,         
+                    whiteTurn,
                     capturedPiece,   
                     PieceType::None,  
                     moveType);
@@ -107,7 +107,16 @@ bool Game::isMoveValid(Move move) {
 void Game::makeMove(Move move) {
     uint64_t fromMask = 1ULL << move.from;
     uint64_t toMask   = 1ULL << move.to;
-    //Move piece first
+    //Delete pieces first
+    if (move.capturedPiece != PieceType::None) {
+        uint64_t capMask = 1ULL << move.to;
+        switch(move.capturedPiece) {
+            case PieceType::WhitePawn:   board.position.whitePawns &= ~capMask; break;
+            case PieceType::BlackPawn:   board.position.blackPawns &= ~capMask; break;
+            //add more pieces once implemented
+        }
+    }
+    //Add moving piece at right square
     switch(move.movingPiece) {
         case PieceType::WhitePawn:
             board.position.whitePawns = (board.position.whitePawns & ~fromMask) | toMask;
@@ -119,15 +128,7 @@ void Game::makeMove(Move move) {
             break;
         //add more pieces once implemented
     }
-    //Captures next if the move is one
-    if (move.capturedPiece != PieceType::None) {
-        uint64_t capMask = 1ULL << move.to;
-        switch(move.capturedPiece) {
-            case PieceType::WhitePawn:   board.position.whitePawns &= ~capMask; break;
-            case PieceType::BlackPawn:   board.position.blackPawns &= ~capMask; break;
-            //add more pieces once implemented
-        }
-    }
+    
     //Update other bitboards
     board.position.occupiedSquares = board.position.whiteOccupied | board.position.blackOccupied;
     board.position.emptySquares = ~board.position.occupiedSquares;
