@@ -33,5 +33,6 @@ struct Move {
           promotionPiece(promotionPiece),
           whiteTurn(whiteTurn),
           type(type) {}};
+std::ostream& operator<<(std::ostream& os, MoveType type);
 
 #endif

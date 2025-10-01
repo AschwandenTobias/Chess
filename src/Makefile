@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -g
 
 TARGET = chess
 
-SRCS = main.cpp game.cpp chessboard.cpp position.cpp pieces/pawn.cpp
+SRCS = main.cpp game.cpp chessboard.cpp position.cpp pieces/pawn.cpp piece.cpp move.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 $(TARGET): $(OBJS)

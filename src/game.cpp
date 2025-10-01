@@ -41,9 +41,9 @@ void Game::makeTurn() {
     //TODO: Finish prints
     std::cout << "StartSquare of the current move: " << currentMove.from << "\n";
     std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
-    //std::cout << "Piece that moves: " << currentMove.movingPiece << "\n";
-    //std::cout << "What Piece gets captured: " <<currentMove.capturedPiece << "\n";
-    //std::cout << "What piece I wanna promote to: " <<currentMove.promotionPiece << "\n";
+    std::cout << "Piece that moves: " << currentMove.movingPiece << "\n";
+    std::cout << "What Piece gets captured: " << currentMove.capturedPiece << "\n";
+    std::cout << "What piece I wanna promote to: " << currentMove.promotionPiece << "\n";
     std::cout << "Whos turn is is: " << currentMove.whiteTurn << "\n";
     std::cout << "Movetype:" <<currentMove.type << "\n";
     
@@ -65,14 +65,15 @@ Move Game::parseMove(std::string move) {
     //Checking for promotion
     bool isPromotion = false;
     MoveType moveType = MoveType::NORMAL;
-    if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare <= 56) isPromotion = true;
+    if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
+
     if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
     if(isPromotion) moveType = MoveType::PROMOTION;
-    
+
     Move currentMove(startSquare, endSquare,
                     movingPiece,  
                     whiteTurn,         
-                    PieceType::None,   
+                    capturedPiece,   
                     PieceType::None,  
                     moveType);
     return currentMove;
