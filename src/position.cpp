@@ -3,33 +3,51 @@
 
 Position::Position() {
     //The pieces themselves
-   whitePawns = 0x000000000000FF00ULL;
-   whiteKnights = 0x0000000000000042ULL;
-   whiteBishops = 0x0000000000000024ULL;
-   whiteRooks = 0x0000000000000081ULL;
-   whiteQueens = 0x0000000000000008ULL;
-   whiteKing = 0x0000000000000010ULL;
-   blackPawns = 0x00FF000000000000ULL;
-   blackKnights = 0x4200000000000000ULL;
-   blackBishops = 0x2400000000000000ULL;
-   blackRooks = 0x8100000000000000ULL;
-   blackQueens = 0x0800000000000000ULL;
-   blackKing = 0x1000000000000000ULL;
+    whitePawns = 0x000000000000FF00ULL;
+    whiteKnights = 0x0000000000000042ULL;
+    whiteBishops = 0x0000000000000024ULL;
+    whiteRooks = 0x0000000000000081ULL;
+    whiteQueens = 0x0000000000000008ULL;
+    whiteKing = 0x0000000000000010ULL;
+    blackPawns = 0x00FF000000000000ULL;
+    blackKnights = 0x4200000000000000ULL;
+    blackBishops = 0x2400000000000000ULL;
+    blackRooks = 0x8100000000000000ULL;
+    blackQueens = 0x0800000000000000ULL;
+    blackKing = 0x1000000000000000ULL;
 
-   //Additional Bitboards. TODO: Finish setting them up
-   whiteOccupied = whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens  | whiteKing;
-   blackOccupied = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens  | blackKing;
-   occupiedSquares = whiteOccupied | blackOccupied;
-   emptySquares = 0x0000000000000000;
-   pinnedPieces = 0x0000000000000000;
-   attackMaps = 0x0000000000000000;
-   checkMask = 0x0000000000000000;
-   rayAttacks = 0x0000000000000000;
-   betweenSquares = 0x0000000000000000;
+    //Additional Bitboards. TODO: Finish setting them up
+    whiteOccupied = whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens  | whiteKing;
+    blackOccupied = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens  | blackKing;
+    occupiedSquares = whiteOccupied | blackOccupied;
+    emptySquares = 0x0000000000000000;
+    pinnedPieces = 0x0000000000000000;
+    attackMaps = 0x0000000000000000;
+    checkMask = 0x0000000000000000;
+    rayAttacks = 0x0000000000000000;
+    betweenSquares = 0x0000000000000000;
 
-   //Maybe for more engine efficiency, just some thoughts
-   passedPawns = 0x0000000000000000;
-   isolatedPawns = 0x0000000000000000;
+    //Maybe for more engine efficiency, just some thoughts
+    passedPawns = 0x0000000000000000;
+    isolatedPawns = 0x0000000000000000;
+
+    for (int sq = 0; sq < 64; sq++) {
+        uint64_t mask = 1ULL << sq;
+
+        if (whitePawns & mask) pieceLocation[sq] = PieceType::WhitePawn;
+        else if (whiteKnights & mask) pieceLocation[sq] = PieceType::WhiteKnight;
+        else if (whiteBishops & mask) pieceLocation[sq] = PieceType::WhiteBishop;
+        else if (whiteRooks & mask) pieceLocation[sq] = PieceType::WhiteRook;
+        else if (whiteQueens & mask) pieceLocation[sq] = PieceType::WhiteQueen;
+        else if (whiteKing & mask) pieceLocation[sq] = PieceType::WhiteKing;
+        else if (blackPawns & mask) pieceLocation[sq] = PieceType::BlackPawn;
+        else if (blackKnights & mask) pieceLocation[sq] = PieceType::BlackKnight;
+        else if (blackBishops & mask) pieceLocation[sq] = PieceType::BlackBishop;
+        else if (blackRooks & mask) pieceLocation[sq] = PieceType::BlackRook;
+        else if (blackQueens & mask) pieceLocation[sq] = PieceType::BlackQueen;
+        else if (blackKing & mask) pieceLocation[sq] = PieceType::BlackKing;
+        else pieceLocation[sq] = PieceType::None;
+    }
 
     whiteTurn = true;
 }

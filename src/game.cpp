@@ -46,6 +46,8 @@ void Game::makeTurn() {
     std::cout << "What piece I wanna promote to: " << currentMove.promotionPiece << "\n";
     std::cout << "Whos turn is is: " << currentMove.whiteTurn << "\n";
     std::cout << "Movetype:" <<currentMove.type << "\n";
+    //There seems to be no array printing in c++
+    //std::cout << "PiecePositionArray: " << board.position.pieceLocation << "\n";
     
     std::cout << "\n";    
 }

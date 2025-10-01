@@ -36,6 +36,9 @@ public:
     uint64_t passedPawns;
     uint64_t isolatedPawns;
 
+    //Array to quickly lookup piece positions
+    PieceType pieceLocation[64];
+
     bool whiteTurn;
     bool isOccupied(int square) const;
     bool isPieceAt(int square, PieceType piece) const;
