@@ -11,5 +11,7 @@ TODO next session:
 
 Issues:
 - Make move doesnt delete pieces properly
+- Black Pawns cannot move twice on row a and h.
+- Diagonal captures dont really work
 
 Possible improvements:
