@@ -67,7 +67,11 @@ bool Position::isOccupiedByBlackPiece(int square) const {
     return (blackOccupied & mask) != 0;
 }
 
+//Made more efficient (i think) with the array lookup
 PieceType Position::getPieceAt(int square) {
+    //std::cout << "returning Piece: " << pieceLocation[square] << "\n";
+    return pieceLocation[square];
+    /*
     uint64_t mask = 1ULL << square;
     //std::cout << "Moving mask: " << mask << ", square: " << square << ", PieceType: " << static_cast<int>(piece) << "\n";
     if((mask & whitePawns) != 0) return PieceType::WhitePawn;
@@ -83,9 +87,15 @@ PieceType Position::getPieceAt(int square) {
     if((mask & blackQueens) != 0) return PieceType::BlackQueen;
     if((mask & blackKing) != 0) return PieceType::BlackKing;
     return PieceType::None;
+    */
 }
 
+//Made more efficient (i think) with the array lookup
 bool Position::isPieceAt(int square, PieceType piece) const {
+    //std::cout << "Checking if piece: " << piece << ", is at: " << square << "\n";
+    if(pieceLocation[square] == piece) return true;
+    return false;
+    /*
     //std::cout << "Inside Position isPieceAt\n";
     uint64_t mask = 1ULL << square;
     //std::cout << "Moving mask: " << mask << ", square: " << square << ", PieceType: " << static_cast<int>(piece) << "\n";
@@ -117,8 +127,10 @@ bool Position::isPieceAt(int square, PieceType piece) const {
             return (blackKing & mask) != 0;
     }
     return false;
+    */
 }
 
+//Should i also delete the piece from the array here?
 void Position::deletePieceAt(int square) {
     uint64_t squareToDelete = 1ULL << square;
     switch(getPieceAt(square)) {
@@ -137,6 +149,7 @@ void Position::deletePieceAt(int square) {
     }
 }
 
+//Do i even need these functions?
 void Position::deleteWhitePawnAt(int square) {
     uint64_t squareToDelete = 1ULL << square;
     whitePawns &= ~squareToDelete;

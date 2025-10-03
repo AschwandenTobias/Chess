@@ -18,6 +18,8 @@ public:
     bool isMoveValid(Move move);
     void makeMove(Move move);
     void makeTurn();
+    PieceType promotePiece();
+
 };
 
 #endif

@@ -38,7 +38,6 @@ void Game::makeTurn() {
         std::cout << "This move it not legal, try again" << "\n";
         return;
     }
-    //TODO: Finish prints
     std::cout << "StartSquare of the current move: " << currentMove.from << "\n";
     std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
     std::cout << "Piece that moves: " << currentMove.movingPiece << "\n";
@@ -51,7 +50,9 @@ void Game::makeTurn() {
     
     std::cout << "\n";    
 }
-//TODO: Finish this. Set all the flags of the move
+
+//This functions sets up the move to be played, including all the flags expect promotion piece.
+//TODO: Should this also already ask the user for which piece he wants to promote to?
 Move Game::parseMove(std::string move) {
     //Sets up first the start and endSquares
     int startFile = move[0] - 'a';
@@ -83,6 +84,7 @@ Move Game::parseMove(std::string move) {
 
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
 //TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
+//TODO: Add another function that sets up the promotion piece. 
 bool Game::isMoveValid(Move move) {
     //std::cout << "Checking now if move is valid \n";
     int from = move.from;
@@ -134,4 +136,9 @@ void Game::makeMove(Move move) {
     //Update other bitboards
     board.position.occupiedSquares = board.position.whiteOccupied | board.position.blackOccupied;
     board.position.emptySquares = ~board.position.occupiedSquares;
+}
+
+PieceType Game::promotePiece() {
+    std::cout << "You can promote your pawn! Select a piece to promote into with:\n";
+    return PieceType::None;
 }
