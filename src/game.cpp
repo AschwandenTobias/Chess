@@ -106,7 +106,7 @@ bool Game::isMoveValid(Move move) {
     return false; 
 }
 
-//TODO: Implement this, dont forget to update all important bitboards.
+//TODO: Implement this, dont forget to update all important bitboards. Also doesnt update the piece location one
 //Always add more cases when new pieces are added. For now only has pawns
 void Game::makeMove(Move move) {
     uint64_t fromMask = 1ULL << move.from;
