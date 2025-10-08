@@ -140,6 +140,6 @@ void Game::makeMove(Move move) {
 
 PieceType Game::promotePiece() {
     std::cout << "You can promote your pawn! Select a piece to promote into with:\n";
-    std::cout << "Write Q for queen and K for knight\n"
+    std::cout << "Write Q for queen and K for knight\n";
     return PieceType::None;
 }

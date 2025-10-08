@@ -1,6 +1,3 @@
-00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-00000000 11111111 00000000 00000000 00000000 00000000 00000000 00000000
-
 TODO next session:
 - Add piece lookup array
 - Correctly update the make move functon in game.cpp. Dont forget the piece array

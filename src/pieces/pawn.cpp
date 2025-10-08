@@ -5,7 +5,7 @@
 bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     //Check for en passant
     //Check for promotion
-    std::cout << "Checking is pawn move is valid \n";
+    std::cout << "pawn.cpp: Checking if pawn move is valid \n";
     int from = move.from;
     int to = move.to;
     int distance = to - from;
@@ -18,5 +18,6 @@ bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
         if(distance == -16 && from <= 56 && from >= 49 && !position.isOccupied(to) && !position.isOccupied(from - 8)) return true;
         if((distance == -7 || distance == -9) && position.isOccupiedByWhitePiece(to)) return true;
     }
+    std::cout << "pawn.cpp: Move wasn't legal, returning false \n";
     return false;
 }
