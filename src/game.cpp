@@ -31,6 +31,7 @@ void Game::makeTurn() {
     }
     Move currentMove = parseMove(move);
     if(isMoveValid(currentMove)) {
+        //std::cout << "game.cpp: Move was legal. Making now the move\n";
         makeMove(currentMove);
         moveNumber++;
         whiteTurn = !whiteTurn;
@@ -45,9 +46,6 @@ void Game::makeTurn() {
     std::cout << "What piece I wanna promote to: " << currentMove.promotionPiece << "\n";
     std::cout << "Whos turn is is: " << currentMove.whiteTurn << "\n";
     std::cout << "Movetype:" <<currentMove.type << "\n";
-    //There seems to be no array printing in c++
-    //std::cout << "PiecePositionArray: " << board.position.pieceLocation << "\n";
-    
     std::cout << "\n";    
 }
 
@@ -86,7 +84,7 @@ Move Game::parseMove(std::string move) {
 //TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
 //TODO: Add another function that sets up the promotion piece. 
 bool Game::isMoveValid(Move move) {
-    //std::cout << "Checking now if move is valid \n";
+    //std::cout << "game.cpp: Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
     if(to < 0 || to > 63) return false;
@@ -97,10 +95,10 @@ bool Game::isMoveValid(Move move) {
     //std::cout << "Moving piece is at from square \n";
     switch(move.movingPiece) {
         case(PieceType::WhitePawn):
-            //std::cout << "Wanting to move white pawn \n";
-            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
+            //std::cout << "game.cpp: Wanting to move white pawn \n";
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
         case(PieceType::BlackPawn):
-            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true;
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
             //TODO: Add here more pieces once implemented
     }
     return false; 
@@ -111,26 +109,13 @@ bool Game::isMoveValid(Move move) {
 void Game::makeMove(Move move) {
     int from = move.from;
     int to = move.to;
-    uint64_t fromMask = 1ULL << move.from;
-    uint64_t toMask   = 1ULL << move.to;
     //Delete pieces first
     if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(move.capturedPiece, to);
     //Add moving piece at right square
     board.position.pieceLocation[from] = PieceType::None;
-    board.position.pieceLocation[to] = move.movingPiece;
-    switch(move.movingPiece) {
-        case PieceType::WhitePawn:
-            board.position.whitePawns = (board.position.whitePawns & ~fromMask) | toMask;
-            board.position.whiteOccupied = (board.position.whiteOccupied & ~fromMask) | toMask;
-            break;
-        case PieceType::BlackPawn:
-            board.position.blackPawns = (board.position.blackPawns & ~fromMask) | toMask;
-            board.position.blackOccupied = (board.position.blackOccupied & ~fromMask) | toMask;
-            break;
-        //add more pieces once implemented
-    }
+    board.position.deletePieceAt(move.movingPiece, from);
+    board.position.movePieceTo(move.movingPiece, to);
     //We already update the other bitboards in the moveTo function, so no need to do it here.
-    
 }
 
 PieceType Game::promotePiece() {

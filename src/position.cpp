@@ -53,7 +53,7 @@ Position::Position() {
 }
 
 bool Position::isOccupied(int square) const {
-    return pieceLocation[square] == PieceType::None;
+    return pieceLocation[square] != PieceType::None;
 }
 
 bool Position::isOccupiedByWhitePiece(int square) const {
@@ -98,7 +98,7 @@ void Position::deletePieceAt(PieceType piece, int square) {
 }
 
 //This function moves a piece to a new location. This also updates the other bitboards
-void Position::movePieceAt(PieceType piece, int square) {
+void Position::movePieceTo(PieceType piece, int square) {
     uint64_t squareToMoveTo = 1ULL << square;
     switch(piece) {
         case(PieceType::WhitePawn): whitePawns |= squareToMoveTo; break;
@@ -116,6 +116,8 @@ void Position::movePieceAt(PieceType piece, int square) {
     }
     pieceLocation[square] = piece;
     //TODO: This could be made more efficient with only computing this when needing it.
+    whiteOccupied = whitePawns | whiteKnights | whiteBishops | whiteRooks | whiteQueens | whiteKing;
+    blackOccupied = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens | blackKing;
     occupiedSquares = whiteOccupied | blackOccupied;
     emptySquares = ~occupiedSquares;
 }
