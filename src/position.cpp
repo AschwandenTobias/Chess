@@ -77,24 +77,47 @@ bool Position::isPieceAt(int square, PieceType piece) const {
 }
 
 //This deletes a piece from the bitboards, also deletes it from the pieceLocationArray.
-//TODO: Make this more efficient with giving it the piece parameter
 void Position::deletePieceAt(PieceType piece, int square) {
     uint64_t squareToDelete = 1ULL << square;
     switch(piece) {
-        case(PieceType::WhitePawn): whitePawns &= ~squareToDelete;
-        case(PieceType::BlackPawn): blackPawns &= ~squareToDelete;
-        case(PieceType::WhiteKnight): whiteKnights &= ~squareToDelete;
-        case(PieceType::BlackKnight): blackKnights &= ~squareToDelete;
-        case(PieceType::WhiteBishop): whiteBishops &= ~squareToDelete;
-        case(PieceType::BlackBishop): blackBishops &= ~squareToDelete;
-        case(PieceType::WhiteRook): whiteRooks &= ~squareToDelete;
-        case(PieceType::BlackRook): blackRooks &= ~squareToDelete;
-        case(PieceType::WhiteQueen): whiteQueens &= ~squareToDelete;
-        case(PieceType::BlackQueen): blackQueens &= ~squareToDelete;
-        case(PieceType::WhiteKing): whiteKing &= ~squareToDelete;
-        case(PieceType::BlackKing): blackKing &= ~squareToDelete;
+        case(PieceType::WhitePawn): whitePawns &= ~squareToDelete; break;
+        case(PieceType::BlackPawn): blackPawns &= ~squareToDelete; break;
+        case(PieceType::WhiteKnight): whiteKnights &= ~squareToDelete; break;
+        case(PieceType::BlackKnight): blackKnights &= ~squareToDelete; break;
+        case(PieceType::WhiteBishop): whiteBishops &= ~squareToDelete; break;
+        case(PieceType::BlackBishop): blackBishops &= ~squareToDelete; break;
+        case(PieceType::WhiteRook): whiteRooks &= ~squareToDelete; break;
+        case(PieceType::BlackRook): blackRooks &= ~squareToDelete; break;
+        case(PieceType::WhiteQueen): whiteQueens &= ~squareToDelete; break;
+        case(PieceType::BlackQueen): blackQueens &= ~squareToDelete; break;
+        case(PieceType::WhiteKing): whiteKing &= ~squareToDelete; break;
+        case(PieceType::BlackKing): blackKing &= ~squareToDelete; break;
+        default: break;
     }
     pieceLocation[square] = PieceType::None;
+}
+
+//This function moves a piece to a new location. This also updates the other bitboards
+void Position::movePieceAt(PieceType piece, int square) {
+    uint64_t squareToMoveTo = 1ULL << square;
+    switch(piece) {
+        case(PieceType::WhitePawn): whitePawns |= squareToMoveTo; break;
+        case(PieceType::BlackPawn): blackPawns |= squareToMoveTo; break;
+        case(PieceType::WhiteKnight): whiteKnights |= squareToMoveTo; break;
+        case(PieceType::BlackKnight): blackKnights |= squareToMoveTo; break;
+        case(PieceType::WhiteBishop): whiteBishops |= squareToMoveTo; break;
+        case(PieceType::BlackBishop): blackBishops |= squareToMoveTo; break;
+        case(PieceType::WhiteRook): whiteRooks |= squareToMoveTo; break;
+        case(PieceType::BlackRook): blackRooks |= squareToMoveTo; break;
+        case(PieceType::WhiteQueen): whiteQueens |= squareToMoveTo; break;
+        case(PieceType::BlackQueen): blackQueens |= squareToMoveTo; break;
+        case(PieceType::WhiteKing): whiteKing |= squareToMoveTo; break;
+        case(PieceType::BlackKing): blackKing |= squareToMoveTo; break;
+    }
+    pieceLocation[square] = piece;
+    //TODO: This could be made more efficient with only computing this when needing it.
+    occupiedSquares = whiteOccupied | blackOccupied;
+    emptySquares = ~occupiedSquares;
 }
 
 //Do i even need these functions?

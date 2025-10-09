@@ -129,9 +129,8 @@ void Game::makeMove(Move move) {
             break;
         //add more pieces once implemented
     }
-    //Update other bitboards
-    board.position.occupiedSquares = board.position.whiteOccupied | board.position.blackOccupied;
-    board.position.emptySquares = ~board.position.occupiedSquares;
+    //We already update the other bitboards in the moveTo function, so no need to do it here.
+    
 }
 
 PieceType Game::promotePiece() {
