@@ -114,7 +114,7 @@ void Game::makeMove(Move move) {
     uint64_t fromMask = 1ULL << move.from;
     uint64_t toMask   = 1ULL << move.to;
     //Delete pieces first
-    if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(to);
+    if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(move.capturedPiece, to);
     //Add moving piece at right square
     board.position.pieceLocation[from] = PieceType::None;
     board.position.pieceLocation[to] = move.movingPiece;

@@ -46,7 +46,7 @@ public:
     bool isOccupiedByWhitePiece(int square) const;
     bool isOccupiedByBlackPiece(int square) const;
 
-    void deletePieceAt(int square);
+    void deletePieceAt(PieceType piece, int square);
     void deleteWhitePawnAt(int square);
     void deleteWhiteBishopAt(int square);
     void deleteWhiteKnightAt(int square);

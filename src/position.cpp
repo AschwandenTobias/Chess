@@ -53,8 +53,7 @@ Position::Position() {
 }
 
 bool Position::isOccupied(int square) const {
-    uint64_t mask = 1ULL << square;
-    return (occupiedSquares & mask) != 0;
+    return pieceLocation[square] == PieceType::None;
 }
 
 bool Position::isOccupiedByWhitePiece(int square) const {
@@ -79,9 +78,9 @@ bool Position::isPieceAt(int square, PieceType piece) const {
 
 //This deletes a piece from the bitboards, also deletes it from the pieceLocationArray.
 //TODO: Make this more efficient with giving it the piece parameter
-void Position::deletePieceAt(int square) {
+void Position::deletePieceAt(PieceType piece, int square) {
     uint64_t squareToDelete = 1ULL << square;
-    switch(getPieceAt(square)) {
+    switch(piece) {
         case(PieceType::WhitePawn): whitePawns &= ~squareToDelete;
         case(PieceType::BlackPawn): blackPawns &= ~squareToDelete;
         case(PieceType::WhiteKnight): whiteKnights &= ~squareToDelete;
