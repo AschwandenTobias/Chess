@@ -78,6 +78,7 @@ bool Position::isPieceAt(int square, PieceType piece) const {
 }
 
 //This deletes a piece from the bitboards, also deletes it from the pieceLocationArray.
+//TODO: Make this more efficient with giving it the piece parameter
 void Position::deletePieceAt(int square) {
     uint64_t squareToDelete = 1ULL << square;
     switch(getPieceAt(square)) {

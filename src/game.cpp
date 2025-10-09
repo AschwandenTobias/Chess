@@ -109,18 +109,15 @@ bool Game::isMoveValid(Move move) {
 //TODO: Implement this, dont forget to update all important bitboards. Also doesnt update the piece location one
 //Always add more cases when new pieces are added. For now only has pawns
 void Game::makeMove(Move move) {
+    int from = move.from;
+    int to = move.to;
     uint64_t fromMask = 1ULL << move.from;
     uint64_t toMask   = 1ULL << move.to;
     //Delete pieces first
-    if (move.capturedPiece != PieceType::None) {
-        uint64_t capMask = 1ULL << move.to;
-        switch(move.capturedPiece) {
-            case PieceType::WhitePawn:   board.position.whitePawns &= ~capMask; break;
-            case PieceType::BlackPawn:   board.position.blackPawns &= ~capMask; break;
-            //add more pieces once implemented
-        }
-    }
+    if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(to);
     //Add moving piece at right square
+    board.position.pieceLocation[from] = PieceType::None;
+    board.position.pieceLocation[to] = move.movingPiece;
     switch(move.movingPiece) {
         case PieceType::WhitePawn:
             board.position.whitePawns = (board.position.whitePawns & ~fromMask) | toMask;
@@ -132,7 +129,6 @@ void Game::makeMove(Move move) {
             break;
         //add more pieces once implemented
     }
-    
     //Update other bitboards
     board.position.occupiedSquares = board.position.whiteOccupied | board.position.blackOccupied;
     board.position.emptySquares = ~board.position.occupiedSquares;

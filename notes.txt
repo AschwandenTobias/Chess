@@ -1,6 +1,6 @@
 TODO next session:
-- Add piece lookup array
-- Correctly update the make move functon in game.cpp. Dont forget the piece array
+- Make deletePieceAt more efficient by giving it the pieceType as a parameter.
+- Implement a movePieceTo(Piecetype, square) function in position, then remove the switch case in game.makemove
 - Fix bug in pawn moves. Pretty sure they can capture diagonally without regard for the board boundaries.
 - Work on perft, for now only pawns to check i have somewhat all pieces.
 - Already implement a first engine that only focuses on pawns.
