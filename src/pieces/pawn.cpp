@@ -3,7 +3,8 @@
 
 //TODO: Implement en passant
 bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
-    //Check for en passant
+    //Check for en passant. Check if the move flag is set and then, is the move it legal.
+
     //Check for promotion
     std::cout << "pawn.cpp: Checking if pawn move is valid \n";
     int from = move.from;

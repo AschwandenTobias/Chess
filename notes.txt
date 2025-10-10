@@ -1,5 +1,5 @@
 TODO next session:
-- Implement en Passant. Parse the ENPASSANT first correctly.
+- Implement en Passant. Parse the ENPASSANT first correctly. First set flag in parseMove, then check for move Legality in pawn, then change makeMove
 - Implement promotion
 - Work on perft, for now only pawns to check i have somewhat all pieces.
 - Already implement a first engine that only focuses on pawns.

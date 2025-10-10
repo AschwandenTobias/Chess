@@ -51,7 +51,7 @@ void Game::makeTurn() {
 
 //This functions sets up the move to be played, including all the flags expect promotion piece.
 //TODO: Should this also already ask the user for which piece he wants to promote to?
-//Implement the EN_PASSANT moveType here.
+//This does also not check, if the piece to be captured is the piece from the opponent.
 Move Game::parseMove(std::string move) {
     //Sets up first the start and endSquares
     int startFile = move[0] - 'a';
@@ -64,15 +64,16 @@ Move Game::parseMove(std::string move) {
     PieceType movingPiece = board.position.getPieceAt(startSquare);
     PieceType capturedPiece = board.position.getPieceAt(endSquare);
 
-    //Checking for promotion
+    //Setup moveType
     bool isPromotion = false;
     MoveType moveType = MoveType::NORMAL;
-    board.position.doublePawnMove = (movingPiece == PieceType::WhitePawn || movingPiece == PieceType::BlackPawn) && (std::abs(endSquare - startSquare) == 16) ? startFile : -1;
     if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
     if(!whiteTurn && movingPiece == PieceType::BlackPawn && endSquare <= 7) isPromotion = true;
     if(isPromotion) moveType = MoveType::PROMOTION;
     if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
 
+    //TODO: Setup en Passant: Here just set the flag if its a possible en passant.
+    //if(whiteTurn && movingPiece == PieceType::WhitePawn && board.position.isOccupiedBy)
     Move currentMove(startSquare, endSquare,
                     movingPiece,  
                     whiteTurn,
@@ -91,6 +92,8 @@ bool Game::isMoveValid(Move move) {
     if(to < 0 || to > 63) return false;
     if(from < 0 || from > 63) return false;
     //std::cout << "Move is inside board boundaries \n";
+    if(whiteTurn && !board.position.isOccupiedByBlackPiece(to)) return false;
+    if(!whiteTurn && !board.position.isOccupiedByWhitePiece(to)) return false;
     //TODO: Implement here that the move is correct
     if (!board.position.isPieceAt(from, move.movingPiece)) return false;
     //std::cout << "Moving piece is at from square \n";
@@ -105,12 +108,14 @@ bool Game::isMoveValid(Move move) {
     return false; 
 }
 
-//TODO: Implement this, dont forget to update all important bitboards. Also doesnt update the piece location one
 //Always add more cases when new pieces are added. For now only has pawns
 //TODO: Add another function that sets up the promotion piece. 
-void Game::makeMove(Move move) {
+void Game::makeMove(const Move& move) {
     int from = move.from;
     int to = move.to;
+    int startFile = from / 8;
+
+    board.position.doublePawnMove = (move.movingPiece == PieceType::WhitePawn || move.movingPiece == PieceType::BlackPawn) && (std::abs(to - from) == 16) ? startFile : -1;
     //Delete pieces first
     if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(move.capturedPiece, to);
     //Add moving piece at right square

@@ -16,7 +16,7 @@ public:
     void startGame();
     Move parseMove(std::string move);
     bool isMoveValid(Move move);
-    void makeMove(Move move);
+    void makeMove(const Move& move);
     void makeTurn();
     PieceType promotePiece();
 
