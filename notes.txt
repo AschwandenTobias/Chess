@@ -1,13 +1,11 @@
 TODO next session:
-- Implement en Passant. Parse the ENPASSANT first correctly. First set flag in parseMove, then check for move Legality in pawn, then change makeMove
 - Implement promotion
 - Work on perft, for now only pawns to check i have somewhat all pieces.
 - Already implement a first engine that only focuses on pawns.
 - Only then work on more piece implementations.
 
 Issues:
-- Make move doesnt delete pieces properly
-- Black Pawns cannot move twice on row a and h.
-- Diagonal captures dont really work
+- Captures dont get recognized as such
+- En Passant doesnt work at all
 
 Possible improvements:

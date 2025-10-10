@@ -46,6 +46,7 @@ void Game::makeTurn() {
     std::cout << "What piece I wanna promote to: " << currentMove.promotionPiece << "\n";
     std::cout << "Whos turn is is: " << currentMove.whiteTurn << "\n";
     std::cout << "Movetype:" <<currentMove.type << "\n";
+    std::cout << "DoublePawnMove: " << board.position.doublePawnMove << "\n";
     std::cout << "\n";    
 }
 
@@ -118,9 +119,11 @@ bool Game::isMoveValid(const Move& move) {
 void Game::makeMove(const Move& move) {
     int from = move.from;
     int to = move.to;
-    board.position.doublePawnMove = (move.movingPiece == PieceType::WhitePawn || move.movingPiece == PieceType::BlackPawn) && (std::abs(to - from) == 16) ? from / 8 : -1;
+    board.position.doublePawnMove = (move.movingPiece == PieceType::WhitePawn || move.movingPiece == PieceType::BlackPawn) && (std::abs(to - from) == 16) ? from % 8 : -1;
     //Delete pieces first
-    if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(move.capturedPiece, to);
+    if(move.type == MoveType::CAPTURE | move.type == MoveType::PROMOTION_CAPTURE) board.position.deletePieceAt(move.capturedPiece, to);
+    if(whiteTurn && move.type == MoveType::EN_PASSANT) board.position.deletePieceAt(move.capturedPiece, to - 8);
+    if(!whiteTurn && move.type == MoveType::EN_PASSANT) board.position.deletePieceAt(move.capturedPiece, to + 8);
     //Add moving piece at right square
     board.position.pieceLocation[from] = PieceType::None;
     board.position.deletePieceAt(move.movingPiece, from);
