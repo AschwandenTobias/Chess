@@ -72,8 +72,12 @@ Move Game::parseMove(std::string move) {
     if(isPromotion) moveType = MoveType::PROMOTION;
     if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
 
-    //TODO: Setup en Passant: Here just set the flag if its a possible en passant.
-    //if(whiteTurn && movingPiece == PieceType::WhitePawn && board.position.isOccupiedBy)
+    //Setup en Passant: Here just set the flag if its a possible en passant.
+    if(whiteTurn && movingPiece == PieceType::WhitePawn && (endSquare - startSquare == 7 || endSquare - startSquare == 9) && !board.position.isOccupied(endSquare)) {
+        moveType = MoveType::EN_PASSANT;
+    } else if(!whiteTurn && movingPiece == PieceType::BlackPawn && (endSquare - startSquare == -7 || endSquare - startSquare == -9) && !board.position.isOccupied(endSquare)) {
+        moveType = MoveType::EN_PASSANT;
+    }
     Move currentMove(startSquare, endSquare,
                     movingPiece,  
                     whiteTurn,
@@ -110,12 +114,11 @@ bool Game::isMoveValid(const Move& move) {
 
 //Always add more cases when new pieces are added. For now only has pawns
 //TODO: Add another function that sets up the promotion piece. 
+//TODO: Filter this based on moveType?
 void Game::makeMove(const Move& move) {
     int from = move.from;
     int to = move.to;
-    int startFile = from / 8;
-
-    board.position.doublePawnMove = (move.movingPiece == PieceType::WhitePawn || move.movingPiece == PieceType::BlackPawn) && (std::abs(to - from) == 16) ? startFile : -1;
+    board.position.doublePawnMove = (move.movingPiece == PieceType::WhitePawn || move.movingPiece == PieceType::BlackPawn) && (std::abs(to - from) == 16) ? from / 8 : -1;
     //Delete pieces first
     if (move.capturedPiece != PieceType::None) board.position.deletePieceAt(move.capturedPiece, to);
     //Add moving piece at right square

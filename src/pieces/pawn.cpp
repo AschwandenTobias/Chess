@@ -3,14 +3,29 @@
 
 //TODO: Implement en passant
 bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
-    //Check for en passant. Check if the move flag is set and then, is the move it legal.
-
     //Check for promotion
     std::cout << "pawn.cpp: Checking if pawn move is valid \n";
     int from = move.from;
     int to = move.to;
     int distance = to - from;
     int fromFile = from % 8;
+
+    //Check for en passant. Check if the move flag is set and then, is the move it legal.
+    if (move.type == MoveType::EN_PASSANT) {
+        int dir = white ? 1 : -1;
+        int capturedSquare = to - 8 * dir; 
+
+        if (std::abs(distance) == 7 || std::abs(distance) == 9) {
+            if (!position.isOccupied(to)) {
+                PieceType enemyPawn = white ? PieceType::BlackPawn : PieceType::WhitePawn;
+                if (position.isPieceAt(capturedSquare, enemyPawn) &&
+                    (capturedSquare % 8 == position.doublePawnMove)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     //std::cout << "pawn.cpp: Pawn movement distance: " << distance << "\n";
     if(white) {
         //std::cout << "pawn.cpp: White pawn wants to move\n";
