@@ -30,15 +30,7 @@ void Game::makeTurn() {
         return;
     }
     Move currentMove = parseMove(move);
-    if(isMoveValid(currentMove)) {
-        //std::cout << "game.cpp: Move was legal. Making now the move\n";
-        makeMove(currentMove);
-        moveNumber++;
-        whiteTurn = !whiteTurn;
-    } else {
-        std::cout << "This move it not legal, try again" << "\n";
-        return;
-    }
+    std::cout << "\nThis is printed immediately after parsing the move \n";
     std::cout << "StartSquare of the current move: " << currentMove.from << "\n";
     std::cout << "EndSquare of the current move: " <<currentMove.to << "\n";
     std::cout << "Piece that moves: " << currentMove.movingPiece << "\n";
@@ -46,8 +38,19 @@ void Game::makeTurn() {
     std::cout << "What piece I wanna promote to: " << currentMove.promotionPiece << "\n";
     std::cout << "Whos turn is is: " << currentMove.whiteTurn << "\n";
     std::cout << "Movetype:" <<currentMove.type << "\n";
-    std::cout << "DoublePawnMove: " << board.position.doublePawnMove << "\n";
     std::cout << "\n";    
+    if(isMoveValid(currentMove)) {
+        std::cout << "game.cpp: Move was legal. Making now the move\n";
+        makeMove(currentMove);
+        moveNumber++;
+        whiteTurn = !whiteTurn;
+    } else {
+        std::cout << "This move it not legal, try again" << "\n";
+        return;
+    }
+    std::cout << "\nThis is printed at the end of the turn\n";
+    std::cout << "DoublePawnMove: " << board.position.doublePawnMove << "\n\n\n";
+
 }
 
 //This functions sets up the move to be played, including all the flags expect promotion piece.
@@ -77,8 +80,10 @@ Move Game::parseMove(std::string move) {
     //Setup en Passant: Here just set the flag if its a possible en passant.
     if(whiteTurn && movingPiece == PieceType::WhitePawn && (endSquare - startSquare == 7 || endSquare - startSquare == 9) && !board.position.isOccupied(endSquare)) {
         moveType = MoveType::EN_PASSANT;
+        capturedPiece = board.position.getPieceAt(endSquare - 8);
     } else if(!whiteTurn && movingPiece == PieceType::BlackPawn && (endSquare - startSquare == -7 || endSquare - startSquare == -9) && !board.position.isOccupied(endSquare)) {
         moveType = MoveType::EN_PASSANT;
+        capturedPiece = board.position.getPieceAt(endSquare + 8);
     }
     Move currentMove(startSquare, endSquare,
                     movingPiece,  
@@ -92,20 +97,18 @@ Move Game::parseMove(std::string move) {
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
 //TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
 bool Game::isMoveValid(const Move& move) {
-    //std::cout << "game.cpp: Checking now if move is valid \n";
+    //std::cout << "game.cpp::isMoveValid: Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
-    if(to < 0 || to > 63) return false;
-    if(from < 0 || from > 63) return false;
-    //std::cout << "Move is inside board boundaries \n";
-    if(whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByBlackPiece(to)) return false;
-    if(!whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByWhitePiece(to)) return false;
-    //TODO: Implement here that the move is correct
+    //std::cout << "game.cpp::isMoveValid: Checking if move is inside board boundaries\n";
+    if((to < 0 || to > 63) || (from < 0 || from > 63)) return false;
+    if(whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByBlackPiece(to) && move.type != MoveType::EN_PASSANT) return false;
+    if(!whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByWhitePiece(to) && move.type != MoveType::EN_PASSANT) return false;
+    //TODO: Im pretty sure i dont need this next check? I already read the piece in the parser.
     if (!board.position.isPieceAt(from, move.movingPiece)) return false;
-    //std::cout << "Moving piece is at from square \n";
     switch(move.movingPiece) {
         case(PieceType::WhitePawn):
-            //std::cout << "game.cpp: Wanting to move white pawn \n";
+            //std::cout << "game.cpp::isMoveValid: Wanting to move white pawn. Checking next Pawn::isMoveValid \n";
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
         case(PieceType::BlackPawn):
             if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
@@ -124,6 +127,7 @@ void Game::makeMove(const Move& move) {
     //Delete pieces first
     if(move.type == MoveType::CAPTURE | move.type == MoveType::PROMOTION_CAPTURE) board.position.deletePieceAt(move.capturedPiece, to);
     if(whiteTurn && move.type == MoveType::EN_PASSANT) board.position.deletePieceAt(move.capturedPiece, to - 8);
+    //std::cout << "game.cpp::makeMove: Deleting piece after enPassant: " << move.capturedPiece << ", on Square: " << to -8 << "\n";
     if(!whiteTurn && move.type == MoveType::EN_PASSANT) board.position.deletePieceAt(move.capturedPiece, to + 8);
     //Add moving piece at right square
     board.position.pieceLocation[from] = PieceType::None;

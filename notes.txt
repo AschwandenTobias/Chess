@@ -5,7 +5,7 @@ TODO next session:
 - Only then work on more piece implementations.
 
 Issues:
-- Captures dont get recognized as such
 - En Passant doesnt work at all
 
 Possible improvements:
+- I never use the MoveType::doublePawnMove, but i think its fine
