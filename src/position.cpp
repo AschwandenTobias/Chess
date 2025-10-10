@@ -21,7 +21,11 @@ Position::Position() {
     blackOccupied = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens  | blackKing;
     occupiedSquares = whiteOccupied | blackOccupied;
     emptySquares = 0x0000000000000000;
-    pinnedPieces = 0x0000000000000000;
+    pinnedPiecesWhite = 0x0000000000000000;
+    pinnedPiecesBlack = 0x0000000000000000;
+    whiteAttacks = 0x0000000000FF0000;
+    blackAttacks = 0x0000FF0000000000;
+
     attackMaps = 0x0000000000000000;
     checkMask = 0x0000000000000000;
 
@@ -50,6 +54,12 @@ Position::Position() {
     doublePawnMove = -1;
 }
 
+//TODO: Check this
+bool Position::isSquareAttacked(int square, bool white) {
+    uint64_t mask = 1ULL << square;
+    return white ? (mask & blackAttacks) != 0 : (mask & whiteAttacks) != 0;
+}
+
 bool Position::isOccupied(int square) const {
     return pieceLocation[square] != PieceType::None;
 }
@@ -75,6 +85,7 @@ bool Position::isPieceAt(int square, PieceType piece) const {
 }
 
 //This deletes a piece from the bitboards, also deletes it from the pieceLocationArray.
+//TODO: Possible bug, not sure if this will need to also update the other bitboards or if i really call movePieceTo everywhere i delete a piece
 void Position::deletePieceAt(PieceType piece, int square) {
     uint64_t squareToDelete = 1ULL << square;
     switch(piece) {
@@ -95,7 +106,7 @@ void Position::deletePieceAt(PieceType piece, int square) {
     pieceLocation[square] = PieceType::None;
 }
 
-//This function moves a piece to a new location. This also updates the other bitboards
+//This function moves a piece to a new location. This also updates the other bitboards.
 void Position::movePieceTo(PieceType piece, int square) {
     uint64_t squareToMoveTo = 1ULL << square;
     switch(piece) {

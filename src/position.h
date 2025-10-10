@@ -26,7 +26,11 @@ public:
     uint64_t emptySquares;
     uint64_t whiteOccupied;
     uint64_t blackOccupied;
-    uint64_t pinnedPieces;
+    uint64_t pinnedPiecesWhite;
+    uint64_t pinnedPiecesBlack;
+    uint64_t whiteAttacks;
+    uint64_t blackAttacks;
+
     uint64_t attackMaps;
     uint64_t checkMask;
 
@@ -49,6 +53,10 @@ public:
 
     void movePieceTo(PieceType piece, int square);
     void deletePieceAt(PieceType piece, int square);
+
+    bool isSquareAttacked(int square, bool white);
+
+
     void deleteWhitePawnAt(int square);
     void deleteWhiteBishopAt(int square);
     void deleteWhiteKnightAt(int square);

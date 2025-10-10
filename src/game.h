@@ -3,6 +3,7 @@
 #include "chessboard.h"
 #include "move.h"
 #include "pieces/pawn.h"
+#include "pieces/king.h"
 
 class Game {
 public:

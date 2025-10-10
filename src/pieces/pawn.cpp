@@ -1,7 +1,6 @@
 #include <iostream>
 #include "pawn.h"
 
-//TODO: Implement en passant
 bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     //Check for promotion
     //std::cout << "pawn.cpp: Checking if pawn move is valid \n";
@@ -9,7 +8,6 @@ bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     int to = move.to;
     int distance = to - from;
     int fromFile = from % 8;
-
     //Check for en passant. Check if the move flag is set and then, is the move it legal.
     if (move.type == MoveType::EN_PASSANT) {
         int dir = white ? 1 : -1;

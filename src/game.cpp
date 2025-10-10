@@ -110,6 +110,12 @@ bool Game::isMoveValid(const Move& move) {
     //std::cout << "game.cpp::isMoveValid: Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
+    uint64_t fromMask = 1ULL << from;
+    //Check if piece is pinned
+    //TODO: Allow pieces to move alongside the pin towards the pinner
+    if (whiteTurn && (board.position.pinnedPiecesWhite & fromMask) != 0) return false;
+    if (!whiteTurn && (board.position.pinnedPiecesBlack & fromMask) != 0) return false;
+
     //std::cout << "game.cpp::isMoveValid: Checking if move is inside board boundaries\n";
     if((to < 0 || to > 63) || (from < 0 || from > 63)) return false;
     if(whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByBlackPiece(to) && move.type != MoveType::EN_PASSANT) return false;
@@ -119,10 +125,14 @@ bool Game::isMoveValid(const Move& move) {
     switch(move.movingPiece) {
         case(PieceType::WhitePawn):
             //std::cout << "game.cpp::isMoveValid: Wanting to move white pawn. Checking next Pawn::isMoveValid \n";
-            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; 
         case(PieceType::BlackPawn):
-            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; break;
+            if(Pawn::isMoveValid(move, board.position, whiteTurn)) return true; 
             //TODO: Add here more pieces once implemented
+        case(PieceType::WhiteKing):
+            if(King::isMoveValid(move, board.position, whiteTurn)) return true; 
+        case(PieceType::BlackKing):
+            if(King::isMoveValid(move, board.position, whiteTurn)) return true; 
     }
     return false; 
 }
@@ -130,6 +140,7 @@ bool Game::isMoveValid(const Move& move) {
 //Always add more cases when new pieces are added. For now only has pawns
 //TODO: Add another function that sets up the promotion piece. 
 //TODO: Filter this based on moveType?
+//TODO: Update attackBitboards after movement.
 void Game::makeMove(const Move& move) {
     int from = move.from;
     int to = move.to;

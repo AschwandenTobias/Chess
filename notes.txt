@@ -1,10 +1,10 @@
 TODO next session:
-- Implement promotion
 - Work on perft, for now only pawns to check i have somewhat all pieces.
 - Already implement a first engine that only focuses on pawns.
 - Only then work on more piece implementations.
 
 Issues:
+- Allow pinned pieces to move towards the pinner.
 
 Possible improvements:
 - I never use the MoveType::doublePawnMove, but i think its fine
