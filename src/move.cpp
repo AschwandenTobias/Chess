@@ -11,6 +11,7 @@ std::ostream& operator<<(std::ostream& os, MoveType type) {
         case MoveType::CASTLE_KINGSIDE:   return os << "CASTLE_KINGSIDE";
         case MoveType::CASTLE_QUEENSIDE:  return os << "CASTLE_QUEENSIDE";
         case MoveType::EN_PASSANT:        return os << "EN_PASSANT";
+        case MoveType::DOUBLE_PAWN_MOVE:   return os << "DOUBLE_PAWN_MOVE";
     }
     return os << "UNKNOWN";
 }

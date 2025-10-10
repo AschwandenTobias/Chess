@@ -10,7 +10,8 @@ enum MoveType {
     PROMOTION_CAPTURE,
     CASTLE_KINGSIDE,
     CASTLE_QUEENSIDE,
-    EN_PASSANT
+    EN_PASSANT,
+    DOUBLE_PAWN_MOVE
 };
 
 struct Move {

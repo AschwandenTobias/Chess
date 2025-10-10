@@ -1,5 +1,6 @@
 TODO next session:
-- Fix bug in pawn moves. Pretty sure they can capture diagonally without regard for the board boundaries.
+- Implement en Passant. Parse the ENPASSANT first correctly.
+- Implement promotion
 - Work on perft, for now only pawns to check i have somewhat all pieces.
 - Already implement a first engine that only focuses on pawns.
 - Only then work on more piece implementations.

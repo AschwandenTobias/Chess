@@ -40,6 +40,9 @@ public:
     PieceType pieceLocation[64];
 
     bool whiteTurn;
+    //TODO: How can i make this the most efficient?
+    int doublePawnMove;
+
     bool isOccupied(int square) const;
     bool isPieceAt(int square, PieceType piece) const;
     PieceType getPieceAt(int square);

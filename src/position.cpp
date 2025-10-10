@@ -48,8 +48,8 @@ Position::Position() {
         else if (blackKing & mask) pieceLocation[sq] = PieceType::BlackKing;
         else pieceLocation[sq] = PieceType::None;
     }
-
     whiteTurn = true;
+    doublePawnMove = -1;
 }
 
 bool Position::isOccupied(int square) const {

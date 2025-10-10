@@ -51,6 +51,7 @@ void Game::makeTurn() {
 
 //This functions sets up the move to be played, including all the flags expect promotion piece.
 //TODO: Should this also already ask the user for which piece he wants to promote to?
+//Implement the EN_PASSANT moveType here.
 Move Game::parseMove(std::string move) {
     //Sets up first the start and endSquares
     int startFile = move[0] - 'a';
@@ -66,6 +67,7 @@ Move Game::parseMove(std::string move) {
     //Checking for promotion
     bool isPromotion = false;
     MoveType moveType = MoveType::NORMAL;
+    board.position.doublePawnMove = (movingPiece == PieceType::WhitePawn || movingPiece == PieceType::BlackPawn) && (std::abs(endSquare - startSquare) == 16) ? startFile : -1;
     if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
     if(!whiteTurn && movingPiece == PieceType::BlackPawn && endSquare <= 7) isPromotion = true;
     if(isPromotion) moveType = MoveType::PROMOTION;
@@ -82,7 +84,6 @@ Move Game::parseMove(std::string move) {
 
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
 //TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
-//TODO: Add another function that sets up the promotion piece. 
 bool Game::isMoveValid(Move move) {
     //std::cout << "game.cpp: Checking now if move is valid \n";
     int from = move.from;
@@ -106,6 +107,7 @@ bool Game::isMoveValid(Move move) {
 
 //TODO: Implement this, dont forget to update all important bitboards. Also doesnt update the piece location one
 //Always add more cases when new pieces are added. For now only has pawns
+//TODO: Add another function that sets up the promotion piece. 
 void Game::makeMove(Move move) {
     int from = move.from;
     int to = move.to;
