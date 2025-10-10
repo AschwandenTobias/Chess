@@ -29,8 +29,6 @@ public:
     uint64_t pinnedPieces;
     uint64_t attackMaps;
     uint64_t checkMask;
-    uint64_t rayAttacks;
-    uint64_t betweenSquares;
 
     //Maybe for more engine efficiency
     uint64_t passedPawns;

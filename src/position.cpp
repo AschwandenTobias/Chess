@@ -24,8 +24,6 @@ Position::Position() {
     pinnedPieces = 0x0000000000000000;
     attackMaps = 0x0000000000000000;
     checkMask = 0x0000000000000000;
-    rayAttacks = 0x0000000000000000;
-    betweenSquares = 0x0000000000000000;
 
     //Maybe for more engine efficiency, just some thoughts
     passedPawns = 0x0000000000000000;

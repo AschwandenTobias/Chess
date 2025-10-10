@@ -85,15 +85,15 @@ Move Game::parseMove(std::string move) {
 
 //This already checks if the move is outside of the board boundaries or if there is a piece i wanna move on the startSquare
 //TODO: Complete here everything new piece movement has been added. This does not check the endSquare.
-bool Game::isMoveValid(Move move) {
+bool Game::isMoveValid(const Move& move) {
     //std::cout << "game.cpp: Checking now if move is valid \n";
     int from = move.from;
     int to = move.to;
     if(to < 0 || to > 63) return false;
     if(from < 0 || from > 63) return false;
     //std::cout << "Move is inside board boundaries \n";
-    if(whiteTurn && !board.position.isOccupiedByBlackPiece(to)) return false;
-    if(!whiteTurn && !board.position.isOccupiedByWhitePiece(to)) return false;
+    if(whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByBlackPiece(to)) return false;
+    if(!whiteTurn && move.capturedPiece != PieceType::None && !board.position.isOccupiedByWhitePiece(to)) return false;
     //TODO: Implement here that the move is correct
     if (!board.position.isPieceAt(from, move.movingPiece)) return false;
     //std::cout << "Moving piece is at from square \n";
@@ -123,6 +123,7 @@ void Game::makeMove(const Move& move) {
     board.position.deletePieceAt(move.movingPiece, from);
     board.position.movePieceTo(move.movingPiece, to);
     //We already update the other bitboards in the moveTo function, so no need to do it here.
+    
 }
 
 PieceType Game::promotePiece() {

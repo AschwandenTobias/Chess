@@ -15,11 +15,10 @@ public:
 
     void startGame();
     Move parseMove(std::string move);
-    bool isMoveValid(Move move);
+    bool isMoveValid(const Move& move);
     void makeMove(const Move& move);
     void makeTurn();
     PieceType promotePiece();
-
 };
 
 #endif
