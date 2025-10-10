@@ -70,6 +70,7 @@ Move Game::parseMove(std::string move) {
     MoveType moveType = MoveType::NORMAL;
     if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
     if(!whiteTurn && movingPiece == PieceType::BlackPawn && endSquare <= 7) isPromotion = true;
+    if(capturedPiece != PieceType::None) moveType = MoveType::CAPTURE;
     if(isPromotion) moveType = MoveType::PROMOTION;
     if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
 
