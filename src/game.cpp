@@ -69,12 +69,22 @@ Move Game::parseMove(std::string move) {
     PieceType capturedPiece = board.position.getPieceAt(endSquare);
 
     //Setup moveType
-    bool isPromotion = false;
     MoveType moveType = MoveType::NORMAL;
+    bool isPromotion = false;
     if(whiteTurn && movingPiece == PieceType::WhitePawn && endSquare >= 56) isPromotion = true;
     if(!whiteTurn && movingPiece == PieceType::BlackPawn && endSquare <= 7) isPromotion = true;
+    PieceType promotionPiece;
+    if(isPromotion) {
+        char choice;
+        std::cout << "What piece do you wanna promote to (only Q, N available since im lazy)";
+        std::cin >> choice;
+        if(choice == 'N') {
+            promotionPiece = whiteTurn ? PieceType::WhiteKnight : PieceType::BlackKnight;
+        } else {
+            promotionPiece = whiteTurn ? PieceType::WhiteQueen : PieceType::BlackQueen;
+        }
+    }
     if(capturedPiece != PieceType::None) moveType = MoveType::CAPTURE;
-    if(isPromotion) moveType = MoveType::PROMOTION;
     if(isPromotion && capturedPiece != PieceType::None) moveType = MoveType::PROMOTION_CAPTURE;
 
     //Setup en Passant: Here just set the flag if its a possible en passant.
@@ -89,7 +99,7 @@ Move Game::parseMove(std::string move) {
                     movingPiece,  
                     whiteTurn,
                     capturedPiece,   
-                    PieceType::None,  
+                    promotionPiece,  
                     moveType);
     return currentMove;
 }
@@ -132,9 +142,12 @@ void Game::makeMove(const Move& move) {
     //Add moving piece at right square
     board.position.pieceLocation[from] = PieceType::None;
     board.position.deletePieceAt(move.movingPiece, from);
-    board.position.movePieceTo(move.movingPiece, to);
+    if(move.type != MoveType::PROMOTION && move.type != MoveType::PROMOTION_CAPTURE) {
+        board.position.movePieceTo(move.movingPiece, to);
+    } else {
+        board.position.movePieceTo(move.promotionPiece, to);
+    }
     //We already update the other bitboards in the moveTo function, so no need to do it here.
-    
 }
 
 PieceType Game::promotePiece() {

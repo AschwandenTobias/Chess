@@ -14,7 +14,6 @@ bool Pawn::isMoveValid(const Move& move, const Position& position, bool white) {
     if (move.type == MoveType::EN_PASSANT) {
         int dir = white ? 1 : -1;
         int capturedSquare = to - 8 * dir; 
-
         if (std::abs(distance) == 7 || std::abs(distance) == 9) {
             if (!position.isOccupied(to)) {
                 PieceType enemyPawn = white ? PieceType::BlackPawn : PieceType::WhitePawn;
